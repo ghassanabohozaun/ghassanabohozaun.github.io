@@ -15,6 +15,14 @@ function portfolioApp() {
         activeCategory: 'all',
         selectedProject: null,
         activeTerminalTab: 'artisan',
+        activeExpIndex: 0,
+        emailCopied: false,
+
+        copyEmail() {
+            navigator.clipboard.writeText('ghassanabohozaun@gmail.com');
+            this.emailCopied = true;
+            setTimeout(() => { this.emailCopied = false; }, 2500);
+        },
 
         // Typewriter Animation State
         typewriterWords: {
@@ -222,6 +230,62 @@ function portfolioApp() {
         // Real Projects Data with Local Images & Live Links
         projects: [
             {
+                id: 9,
+                featured: true,
+                category: 'erp',
+                categoryLabel: { ar: 'نظام SaaS ونقاط بيع POS', en: 'SaaS & POS Platform' },
+                title: {
+                    ar: 'منصة دكانة السحابية لإدارة المتاجر ونقاط البيع - Dokkanah',
+                    en: 'Dokkanah Cloud Platform - SaaS Enterprise & POS System'
+                },
+                description: {
+                    ar: 'منظومة سحابية متكاملة متعددة الفروع لإدارة المبيعات، الحسابات، الموردين، والمخزون، مع واجهة كاشير ودفتر ديون رقمي فوري، تتبع سقف الائتمان وسرعة فائقة في معالجة العمليات المالية.',
+                    en: 'Multi-tenant cloud SaaS system for retail sales, inventory, accounts, suppliers, and a real-time cashier notebook with customer debt limits and instant settlement.'
+                },
+                challenge: {
+                    ar: 'بناء نظام سحابي متعدد المتاجر (Multi-Tenant) يتحمل عمليات كاشير متزامنة وسريعة دون تأخير، مع إدارة دقيقة لحسابات الديون والمدفوعات الفورية والتحصيلات.',
+                    en: 'Engineering a high-speed multi-tenant architecture handling rapid concurrent POS transactions, instant debt ledger calculations, and tenant data isolation.'
+                },
+                solution: {
+                    ar: 'هندسة معمارية سحابية مع تحسين استعلامات MySQL، فصل بيانات المتاجر بصلاحيات دقيقة، واجهات تفاعلية سريعة، ونظام إحصائيات مالية لحظي للمبيعات والتحصيلات.',
+                    en: 'Engineered isolated tenant scoping, optimized relational queries for instantaneous balance updates, responsive Alpine/Livewire cashier interface, and real-time financial tracking.'
+                },
+                stack: ['Laravel 11', 'PHP 8.2', 'MySQL', 'Multi-Tenant SaaS', 'POS Engine', 'RESTful APIs', 'Livewire'],
+                image: 'assets/images/projects/dokkanah-pos.png',
+                adminLogin: 'https://dokkanah.store/ar/dashboard/login',
+                portalLogin: 'https://dokkanah.store/ar/casher/notebook',
+                mostaql: '',
+                liveUrl: 'https://dokkanah.store/ar/dashboard/login'
+            },
+            {
+                id: 8,
+                featured: true,
+                category: 'erp',
+                categoryLabel: { ar: 'نظام إدارة عقارات & ERP', en: 'Real Estate & Property ERP' },
+                title: {
+                    ar: 'منصة أملاك لإدارة العقارات والأملاك الذكية - MJK Althani',
+                    en: 'Amlak Smart Real Estate & Property ERP - MJK Althani'
+                },
+                description: {
+                    ar: 'منظومة سحابية متقدمة لأتمتة دورة حياة العقود العقارية، التتبع المالي الدقيق للشيكات والمقبوضات، وإدارة المستأجرين والوحدات مع نظام تنبيهات استباقي متكامل.',
+                    en: 'Advanced cloud ERP platform for automating real estate contract lifecycles, precise financial tracking of cheques and payments, and unit management with proactive alerts.'
+                },
+                challenge: {
+                    ar: 'أتمتة عقود الإيجار المعقدة ومتعددة الفترات، متابعة حالات الشيكات (تحصيل، إرجاع، تأجيل)، وتوليد التقارير المالية والإشعارات التلقائية قبل مواعيد الاستحقاق.',
+                    en: 'Automating multi-period lease contracts, tracking cheque lifecycles (cleared, bounced, deferred), and triggering automated financial notifications before due dates.'
+                },
+                solution: {
+                    ar: 'هندسة معمارية متكاملة بالاعتماد على Laravel و MySQL مع تفعيل الـ Queues و Scheduled Jobs للتنبيهات، نظام صلاحيات RBAC متقدم، ولوحة تحكم تفاعلية متجاوبة.',
+                    en: 'Engineered a scalable architecture using Laravel and MySQL with automated queues and cron jobs for expiry alerts, granular RBAC authorization, and responsive dashboards.'
+                },
+                stack: ['Laravel 11', 'PHP 8.2', 'MySQL', 'Queues & Cron Jobs', 'RBAC', 'RESTful APIs', 'Tailwind CSS'],
+                image: 'assets/images/projects/amlak-realestate.png',
+                adminLogin: 'https://mjkalthani.com/ar/dashboard/login',
+                portalLogin: '',
+                mostaql: '',
+                liveUrl: 'https://mjkalthani.com/ar'
+            },
+            {
                 id: 1,
                 featured: true,
                 category: 'erp',
@@ -272,10 +336,10 @@ function portfolioApp() {
                 },
                 stack: ['Laravel', 'MySQL', 'Queues & Jobs', 'RESTful APIs', 'Sanctum'],
                 image: 'assets/images/projects/orphan-system.png',
-                adminLogin: 'https://noorelmarifaa.org/en/dashboard/login',
-                portalLogin: 'https://noorelmarifaa.org/en/child/welcome',
+                adminLogin: 'https://noorelmarifaa.org/ar/dashboard/login',
+                portalLogin: 'https://noorelmarifaa.org/ar/child/welcome',
                 mostaql: 'https://mostaql.com/portfolio/3362912',
-                liveUrl: 'https://noorelmarifaa.org/en/dashboard/login'
+                liveUrl: 'https://noorelmarifaa.org/ar/dashboard/login'
             },
             {
                 id: 3,
@@ -480,7 +544,10 @@ function portfolioApp() {
                 modalChallenge: 'المتطلبات والتحدي التقني:',
                 modalSolution: 'الحل المعماري والتنفيذ:',
                 modalStack: 'التقنيات والمكتبات المستخدمة:',
-                btnClose: 'إغلاق'
+                btnClose: 'إغلاق',
+                footerDesc: 'تطوير حلول برمجية متكاملة وأنظمة ERP مخصصة بمعايير معمارية متقدمة وأداء عالي.',
+                footerRights: 'جميع الحقوق محفوظة.',
+                btnBackToTop: 'الرجوع للأعلى'
             },
             en: {
                 brandName: 'Ghassan Abo Hozaun',
@@ -534,7 +601,10 @@ function portfolioApp() {
                 modalChallenge: 'Engineering Challenge & Requirements:',
                 modalSolution: 'Architectural Implementation:',
                 modalStack: 'Tech Stack & Packages:',
-                btnClose: 'Close'
+                btnClose: 'Close',
+                footerDesc: 'Engineering scalable enterprise ERP solutions and clean architecture backend systems.',
+                footerRights: 'All rights reserved.',
+                btnBackToTop: 'Back to Top'
             }
         }
     };

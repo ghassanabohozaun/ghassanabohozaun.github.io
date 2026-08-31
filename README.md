@@ -94,8 +94,10 @@ Experienced **Backend Laravel & PHP Developer** with 6+ years of hands-on experi
 
 | المشروع | التصنيف | المكدس التقني (Tech Stack) | الروابط الحية |
 | :--- | :---: | :---: | :--- |
+| **منصة دكانة السحابية ونقاط البيع (Dokkanah SaaS)** | `SaaS & POS` | `Laravel 11` `MySQL` `Multi-Tenant` `Livewire` | [Dashboard Login](https://dokkanah.store/ar/dashboard/login) / [Cashier Notebook](https://dokkanah.store/ar/casher/notebook) |
+| **منصة أملاك لإدارة العقارات (MJK Althani)** | `Real Estate ERP` | `Laravel 11` `MySQL` `Queues` `RBAC` | [Live Website](https://mjkalthani.com/ar) / [Dashboard Login](https://mjkalthani.com/ar/dashboard/login) |
 | **نظام إدارة الموارد والشركات (PTC ERP)** | `Enterprise ERP` | `Laravel 11` `MySQL` `RBAC` `Livewire` | [Admin Login](https://ptcsystem.org/en/dashboard/login) / [Employees](https://ptcsystem.org/en/employees/login) |
-| **نظام كفالة ومتابعة الأيتام (نور المعرفة)** | `Sponsorship` | `Laravel` `MySQL` `Queues` `Sanctum` | [Admin Dashboard](https://noorelmarifaa.org/en/dashboard/login) / [Child Portal](https://noorelmarifaa.org/en/child/welcome) |
+| **نظام كفالة ومتابعة الأيتام (نور المعرفة)** | `Sponsorship` | `Laravel` `MySQL` `Queues` `Sanctum` | [Admin Dashboard](https://noorelmarifaa.org/ar/dashboard/login) / [Child Portal](https://noorelmarifaa.org/en/child/welcome) |
 | **منصة بكة أكاديمي للتدريب الطبي (ليبيا)** | `Medical LMS` | `Laravel` `Vue.js` `MySQL` `Streaming` | [Live Website](https://bakkaacademy.com/en) |
 | **البوابة الرسمية لجمعية نور المعرفة** | `NGO Portal` | `Laravel` `Bootstrap 5` `MySQL` `CMS` | [Live Website](https://noorelmarifaa.org/en) |
 | **تحويل تصميم UI/UX إلى ويب (شركة نقاط)** | `Travel UI` | `Tailwind CSS` `JavaScript` `Adobe XD` | [Mostaql Preview](https://mostaql.com/portfolio/3418352) |
