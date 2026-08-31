@@ -8,7 +8,22 @@
 
     <!-- Meta Tags for SEO & Social Sharing -->
     <meta name="description"
-        content="معرض أعمال غسان أبو حزين - مطور Laravel و Full-Stack متخصص في بناء الأنظمة المعقدة وقواعد البيانات ولوحات التحكم المتقدمة.">
+        content="معرض أعمال وسيرة ذاتية غسان أبو حزين - مهندس برمجيات ومطور Laravel & PHP متخصص في بناء وتطوير أنظمة الـ ERP المعقدة، واجهات RESTful APIs، وهندسة قواعد البيانات.">
+    <meta name="keywords"
+        content="غسان أبو حزين, Ghassan Abo Hozaun, Laravel Developer, PHP Developer, Backend Engineer, ERP Systems, RESTful API, MySQL, Livewire, Palestine, Gaza">
+    <meta name="author" content="Ghassan Abo Hozaun">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/avatar.png">
+
+    <!-- Google Fonts: Cairo & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons (Local + CDN Fallback) -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -61,89 +76,39 @@
         }
     </script>
 
+    <!-- Critical Anti-FOUC Early Theme & Lang Script -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('ghassan_theme') || 'dark';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            var lang = localStorage.getItem('ghassan_lang') || 'ar';
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        })();
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
+    <!-- Custom Style File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Custom App Script (Must load before Alpine initializes) -->
+    <script src="assets/js/app.js"></script>
+
     <!-- Alpine.js CDN (Collapse + Core) -->
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-
-        /* Default Font Settings */
-        html[dir="rtl"] body {
-            font-family: 'Cairo', sans-serif;
-        }
-
-        html[dir="ltr"] body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .dark ::-webkit-scrollbar-track {
-            background: #070B14;
-        }
-
-        .dark ::-webkit-scrollbar-thumb {
-            background: #1F2937;
-            border-radius: 4px;
-        }
-
-        .dark ::-webkit-scrollbar-thumb:hover {
-            background: #FF2D20;
-        }
-
-        html:not(.dark) ::-webkit-scrollbar-track {
-            background: #F1F5F9;
-        }
-
-        html:not(.dark) ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 4px;
-        }
-
-        html:not(.dark) ::-webkit-scrollbar-thumb:hover {
-            background: #FF2D20;
-        }
-
-        /* Glassmorphism Classes */
-        .glass-dark {
-            background: rgba(17, 24, 39, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(31, 41, 55, 0.8);
-        }
-
-        .glass-light {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-        }
-
-        /* Print CV Styles */
-        @media print {
-            body {
-                background: white !important;
-                color: black !important;
-            }
-            header, footer, #theme-btn, #lang-btn, .no-print {
-                display: none !important;
-            }
-            .print-only {
-                display: block !important;
-            }
-        }
-    </style>
 </head>
 
 <body x-data="portfolioApp()" x-init="initApp()"
     :class="theme === 'dark' ? 'bg-[#070B14] text-slate-100' : 'bg-[#F8FAFC] text-slate-800'"
-    class="antialiased selection:bg-laravel selection:text-white transition-colors duration-300 min-h-screen relative overflow-x-hidden"
+    class="preload antialiased selection:bg-laravel selection:text-white transition-colors duration-300 min-h-screen relative overflow-x-hidden"
     @keydown.escape.window="modalOpen = false; cvModalOpen = false">
 
     <!-- Ambient Glowing Lights Backdrop -->
@@ -179,26 +144,26 @@
                         <div class="flex items-center gap-2">
                             <span class="font-black text-lg tracking-tight transition-colors"
                                 :class="theme === 'dark' ? 'text-white group-hover:text-red-400' : 'text-slate-900 group-hover:text-red-600'"
-                                x-text="t('brandName')"></span>
+                                x-text="t('brandName')">غسان أبو حزين</span>
                             <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-red-500/10 text-red-500 border border-red-500/20">
                                 Laravel
                             </span>
                         </div>
                         <span class="text-xs font-semibold block transition-colors"
                             :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-500'"
-                            x-text="t('brandSubtitle')"></span>
+                            x-text="t('brandSubtitle')">Senior Backend Laravel Developer</span>
                     </div>
                 </a>
 
                 <!-- Desktop Navigation Links -->
                 <nav class="hidden lg:flex items-center gap-7 text-sm font-bold transition-colors"
                     :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'">
-                    <a href="#about" class="hover:text-laravel transition duration-200" x-text="t('navAbout')"></a>
-                    <a href="#experience" class="hover:text-laravel transition duration-200" x-text="t('navExperience')"></a>
-                    <a href="#skills" class="hover:text-laravel transition duration-200" x-text="t('navSkills')"></a>
-                    <a href="#projects" class="hover:text-laravel transition duration-200" x-text="t('navProjects')"></a>
-                    <a href="#education" class="hover:text-laravel transition duration-200" x-text="t('navEducation')"></a>
-                    <a href="#contact" class="hover:text-laravel transition duration-200" x-text="t('navContact')"></a>
+                    <a href="#about" class="hover:text-laravel transition duration-200" x-text="t('navAbout')">نبذة</a>
+                    <a href="#experience" class="hover:text-laravel transition duration-200" x-text="t('navExperience')">الخبرات</a>
+                    <a href="#skills" class="hover:text-laravel transition duration-200" x-text="t('navSkills')">المهارات</a>
+                    <a href="#projects" class="hover:text-laravel transition duration-200" x-text="t('navProjects')">المشاريع</a>
+                    <a href="#education" class="hover:text-laravel transition duration-200" x-text="t('navEducation')">التعليم</a>
+                    <a href="#contact" class="hover:text-laravel transition duration-200" x-text="t('navContact')">تواصل معي</a>
                 </nav>
 
                 <!-- Action Tools: Theme, Language, CV, Contact -->
@@ -210,7 +175,7 @@
                         :class="theme === 'dark' ? 'bg-slate-900/90 text-slate-200 border-slate-700 hover:border-slate-500 hover:text-white' : 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200'"
                         :title="lang === 'ar' ? 'Switch to English' : 'التحويل للغة العربية'">
                         <i class="fa-solid fa-globe text-red-500"></i>
-                        <span x-text="lang === 'ar' ? 'English' : 'العربية'"></span>
+                        <span x-text="lang === 'ar' ? 'English' : 'العربية'">English</span>
                     </button>
 
                     <!-- Theme Toggle Button -->
@@ -226,14 +191,14 @@
                         class="px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-2 border"
                         :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 hover:border-slate-500 text-slate-200' : 'bg-slate-100 border-slate-300 hover:bg-slate-200 text-slate-700'">
                         <i class="fa-solid fa-file-arrow-down text-red-500"></i>
-                        <span x-text="t('btnCV')"></span>
+                        <span x-text="t('btnCV')">السيرة الذاتية</span>
                     </button>
 
                     <!-- Primary Contact CTA Button -->
                     <a href="#contact"
                         class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs font-bold transition shadow-lg shadow-red-600/25 flex items-center gap-2">
                         <i class="fa-solid fa-paper-plane"></i>
-                        <span x-text="t('btnContact')"></span>
+                        <span x-text="t('btnContact')">راسلني</span>
                     </a>
                 </div>
 
@@ -242,7 +207,7 @@
                     <!-- Quick Lang Button Mobile -->
                     <button @click="toggleLang()" class="p-2 rounded-lg text-xs font-bold border"
                         :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-700'">
-                        <span x-text="lang === 'ar' ? 'EN' : 'ع'"></span>
+                        <span x-text="lang === 'ar' ? 'EN' : 'ع'">EN</span>
                     </button>
 
                     <!-- Quick Theme Button Mobile -->
@@ -265,12 +230,12 @@
         <div x-show="mobileMenu" x-collapse
             class="sm:hidden border-b px-6 py-6 space-y-4 text-sm font-bold transition-colors"
             :class="theme === 'dark' ? 'bg-[#0B0F19] border-slate-800' : 'bg-white border-slate-200 shadow-xl'">
-            <a @click="mobileMenu = false" href="#about" class="block hover:text-laravel" x-text="t('navAbout')"></a>
-            <a @click="mobileMenu = false" href="#experience" class="block hover:text-laravel" x-text="t('navExperience')"></a>
-            <a @click="mobileMenu = false" href="#skills" class="block hover:text-laravel" x-text="t('navSkills')"></a>
-            <a @click="mobileMenu = false" href="#projects" class="block hover:text-laravel" x-text="t('navProjects')"></a>
-            <a @click="mobileMenu = false" href="#education" class="block hover:text-laravel" x-text="t('navEducation')"></a>
-            <a @click="mobileMenu = false" href="#contact" class="block hover:text-laravel" x-text="t('navContact')"></a>
+            <a @click="mobileMenu = false" href="#about" class="block hover:text-laravel" x-text="t('navAbout')">نبذة</a>
+            <a @click="mobileMenu = false" href="#experience" class="block hover:text-laravel" x-text="t('navExperience')">الخبرات</a>
+            <a @click="mobileMenu = false" href="#skills" class="block hover:text-laravel" x-text="t('navSkills')">المهارات</a>
+            <a @click="mobileMenu = false" href="#projects" class="block hover:text-laravel" x-text="t('navProjects')">المشاريع</a>
+            <a @click="mobileMenu = false" href="#education" class="block hover:text-laravel" x-text="t('navEducation')">التعليم</a>
+            <a @click="mobileMenu = false" href="#contact" class="block hover:text-laravel" x-text="t('navContact')">تواصل معي</a>
 
             <div class="pt-4 border-t flex flex-col gap-2.5"
                 :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-200'">
@@ -278,7 +243,7 @@
                     class="w-full py-2.5 rounded-xl text-center font-bold border flex items-center justify-center gap-2"
                     :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-800'">
                     <i class="fa-solid fa-file-arrow-down text-red-500"></i>
-                    <span x-text="t('btnCV')"></span>
+                    <span x-text="t('btnCV')">السيرة الذاتية</span>
                 </button>
                 <a @click="mobileMenu = false" href="https://wa.me/972592404940" target="_blank"
                     class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-center flex items-center justify-center gap-2">
@@ -301,13 +266,13 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                 </span>
-                <span x-text="t('heroStatus')"></span>
+                <span x-text="t('heroStatus')">متاح للعمل على مشاريع برمجية جديدة وعقود العمل عن بُعد</span>
             </div>
 
             <!-- Main Heading with Gradient -->
             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] mb-6 transition-colors"
                 :class="theme === 'dark' ? 'text-white' : 'text-slate-900'">
-                <span x-text="t('heroTitle1')"></span> <br class="hidden sm:inline">
+                <span x-text="t('heroTitle1')">هندسة الأنظمة المعقدة وحلول</span> <br class="hidden sm:inline">
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-orange-500 to-amber-500">
                     Laravel & PHP Backend Architect
                 </span>
@@ -317,6 +282,7 @@
             <p class="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-normal transition-colors"
                 :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
                 x-text="t('heroSummary')">
+                مهندس برمجيات متخصص في تطوير الواجهات الخلفية (Backend) بأنظمة Laravel & PHP بخبرة عملية تزيد عن 6 سنوات في بناء أنظمة الـ ERP، واجهات RESTful APIs فائقة الأداء، وهندسة قواعد البيانات مع التزام صارم بمعايير Clean Architecture وأفضل الممارسات البرمجية.
             </p>
 
             <!-- Quick Action Buttons -->
@@ -324,20 +290,20 @@
                 <a href="#projects"
                     class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold transition shadow-xl shadow-red-600/30 flex items-center gap-2.5 group">
                     <i class="fa-solid fa-layer-group group-hover:rotate-6 transition-transform"></i>
-                    <span x-text="t('btnExploreProjects')"></span>
+                    <span x-text="t('btnExploreProjects')">استكشاف المشاريع الحية</span>
                 </a>
 
                 <a href="https://wa.me/972592404940" target="_blank"
                     class="px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition shadow-lg shadow-emerald-600/25 flex items-center gap-2.5">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span x-text="t('btnDirectWhatsApp')"></span>
+                    <span x-text="t('btnDirectWhatsApp')">محادثة واتساب مباشرة</span>
                 </a>
 
                 <button @click="cvModalOpen = true"
                     class="px-7 py-3.5 rounded-xl border font-bold transition flex items-center gap-2.5"
                     :class="theme === 'dark' ? 'bg-slate-900/90 hover:bg-slate-800 border-slate-700 text-slate-200' : 'bg-white hover:bg-slate-100 border-slate-300 text-slate-800 shadow-sm'">
                     <i class="fa-solid fa-file-pdf text-red-500 text-lg"></i>
-                    <span x-text="t('btnViewCV')"></span>
+                    <span x-text="t('btnViewCV')">عرض الـ CV</span>
                 </button>
             </div>
 
@@ -351,7 +317,7 @@
                     <div class="text-3xl sm:text-4xl font-black text-red-500 mb-1">+6</div>
                     <div class="text-xs sm:text-sm font-bold"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat1Label')"></div>
+                        x-text="t('stat1Label')">سنوات خبرة متخصصة</div>
                 </div>
 
                 <!-- Stat 2 -->
@@ -360,7 +326,7 @@
                     <div class="text-3xl sm:text-4xl font-black text-amber-500 mb-1">+10</div>
                     <div class="text-xs sm:text-sm font-bold"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat2Label')"></div>
+                        x-text="t('stat2Label')">أنظمة حية ومشاريع مكتملة</div>
                 </div>
 
                 <!-- Stat 3 -->
@@ -369,7 +335,7 @@
                     <div class="text-3xl sm:text-4xl font-black text-emerald-500 mb-1">100%</div>
                     <div class="text-xs sm:text-sm font-bold"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat3Label')"></div>
+                        x-text="t('stat3Label')">Clean Code & Architecture</div>
                 </div>
 
                 <!-- Stat 4 -->
@@ -378,7 +344,7 @@
                     <div class="text-3xl sm:text-4xl font-black text-indigo-500 mb-1">2009</div>
                     <div class="text-xs sm:text-sm font-bold"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat4Label')"></div>
+                        x-text="t('stat4Label')">خريج الجامعة الإسلامية</div>
                 </div>
 
             </div>
@@ -396,10 +362,10 @@
             <div class="text-center max-w-2xl mx-auto mb-12">
                 <h2 class="text-3xl font-black transition-colors"
                     :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                    x-text="t('pillarsTitle')"></h2>
+                    x-text="t('pillarsTitle')">الركائز المعمارية والبرمجية</h2>
                 <p class="text-sm mt-2 transition-colors"
                     :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                    x-text="t('pillarsSubtitle')"></p>
+                    x-text="t('pillarsSubtitle')">المعايير الهندسية التي أعتمد عليها في بناء الأنظمة البرمجية المتينة والمستقرة</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -412,10 +378,10 @@
                     </div>
                     <h3 class="font-extrabold text-base mb-2 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar1Title')"></h3>
+                        x-text="t('pillar1Title')">بنية أنظمة ERP & SaaS</h3>
                     <p class="text-xs leading-relaxed transition-colors"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar1Desc')"></p>
+                        x-text="t('pillar1Desc')">بناء أنظمة متكاملة متعددة الصلاحيات (RBAC) ولوحات تحكم معقدة تدير تدفق الأعمال بكفاءة.</p>
                 </div>
 
                 <!-- Pillar 2: Database Optimization -->
@@ -426,10 +392,10 @@
                     </div>
                     <h3 class="font-extrabold text-base mb-2 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar2Title')"></h3>
+                        x-text="t('pillar2Title')">تحسين قواعد البيانات</h3>
                     <p class="text-xs leading-relaxed transition-colors"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar2Desc')"></p>
+                        x-text="t('pillar2Desc')">هندسة MySQL/MariaDB، الفهرسة المتقدمة، تحسين الاستعلامات، وحل مشاكل N+1 بدقة.</p>
                 </div>
 
                 <!-- Pillar 3: Secure RESTful APIs -->
@@ -440,10 +406,10 @@
                     </div>
                     <h3 class="font-extrabold text-base mb-2 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar3Title')"></h3>
+                        x-text="t('pillar3Title')">واجهات APIs ومصادقة آمنة</h3>
                     <p class="text-xs leading-relaxed transition-colors"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar3Desc')"></p>
+                        x-text="t('pillar3Desc')">بناء RESTful APIs متينة وتأمينها باستخدام Laravel Sanctum & Passport مع توثيق شامل.</p>
                 </div>
 
                 <!-- Pillar 4: Queues & Background Processing -->
@@ -454,10 +420,10 @@
                     </div>
                     <h3 class="font-extrabold text-base mb-2 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar4Title')"></h3>
+                        x-text="t('pillar4Title')">معالجة المهام الخلفية</h3>
                     <p class="text-xs leading-relaxed transition-colors"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar4Desc')"></p>
+                        x-text="t('pillar4Desc')">معالجة المهام الثقيلة في الخلفية عبر Queues & Jobs وجدولة المهام الدورية Task Scheduling.</p>
                 </div>
 
             </div>
@@ -470,14 +436,14 @@
     <section id="experience" class="relative z-10 py-24 px-4 max-w-6xl mx-auto">
         <div class="text-center max-w-2xl mx-auto mb-16">
             <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                <i class="fa-solid fa-briefcase"></i> <span x-text="t('expBadge')"></span>
+                <i class="fa-solid fa-briefcase"></i> <span x-text="t('expBadge')">المسار المهني والخبرات</span>
             </div>
             <h2 class="text-3xl sm:text-4xl font-black transition-colors"
                 :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                x-text="t('expTitle')"></h2>
+                x-text="t('expTitle')">الخبرات المهنية وسجل العمل</h2>
             <p class="text-sm mt-2 transition-colors"
                 :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                x-text="t('expSubtitle')"></p>
+                x-text="t('expSubtitle')">محطات واقعية من العمل في شركات ومنظمات برمجية كبرى</p>
         </div>
 
         <!-- Experience Timeline -->
@@ -548,14 +514,14 @@
 
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                    <i class="fa-solid fa-gears"></i> <span x-text="t('skillsBadge')"></span>
+                    <i class="fa-solid fa-gears"></i> <span x-text="t('skillsBadge')">الترسانة التقنية</span>
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-black transition-colors"
                     :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                    x-text="t('skillsTitle')"></h2>
+                    x-text="t('skillsTitle')">المهارات والأدوات البرمجية</h2>
                 <p class="text-sm mt-2 transition-colors"
                     :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                    x-text="t('skillsSubtitle')"></p>
+                    x-text="t('skillsSubtitle')">الأدوات والتقنيات التي أتقنها لبناء تطبيقات ويب قوية وقابلة للتوسع</p>
             </div>
 
             <!-- Skills Grid -->
@@ -570,7 +536,7 @@
                         </div>
                         <h3 class="font-bold text-base transition-colors"
                             :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatBackend')"></h3>
+                            x-text="t('skillCatBackend')">Backend & Laravel</h3>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">PHP 8+ (OOP, MVC)</span>
@@ -593,7 +559,7 @@
                         </div>
                         <h3 class="font-bold text-base transition-colors"
                             :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatDatabase')"></h3>
+                            x-text="t('skillCatDatabase')">قواعد البيانات والأداء</h3>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">MySQL & MariaDB</span>
@@ -615,7 +581,7 @@
                         </div>
                         <h3 class="font-bold text-base transition-colors"
                             :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatFrontend')"></h3>
+                            x-text="t('skillCatFrontend')">Frontend & Reactivity</h3>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Livewire 3</span>
@@ -637,7 +603,7 @@
                         </div>
                         <h3 class="font-bold text-base transition-colors"
                             :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatTools')"></h3>
+                            x-text="t('skillCatTools')">الأدوات وبيئة العمل</h3>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Git & GitHub</span>
@@ -662,14 +628,14 @@
 
         <div class="text-center max-w-2xl mx-auto mb-12">
             <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                <i class="fa-solid fa-cubes"></i> <span x-text="t('projectsBadge')"></span>
+                <i class="fa-solid fa-cubes"></i> <span x-text="t('projectsBadge')">معرض الأعمال الحقيقية</span>
             </div>
             <h2 class="text-3xl sm:text-4xl font-black transition-colors"
                 :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                x-text="t('projectsTitle')"></h2>
+                x-text="t('projectsTitle')">المشاريع ودراسات الحالة</h2>
             <p class="text-sm mt-2 transition-colors"
                 :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                x-text="t('projectsSubtitle')"></p>
+                x-text="t('projectsSubtitle')">أنظمة إنتاجية حية ولوحات تحكم تم تطويرها لعملاء وشركات ومؤسسات</p>
         </div>
 
         <!-- Filter Categories -->
@@ -735,12 +701,12 @@
                                     class="py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 border"
                                     :class="theme === 'dark' ? 'bg-slate-900 hover:bg-slate-800 border-slate-800 text-slate-200' : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700'">
                                     <i class="fa-solid fa-circle-info text-red-500"></i>
-                                    <span x-text="t('btnDetails')"></span>
+                                    <span x-text="t('btnDetails')">التفاصيل المعمارية</span>
                                 </button>
 
                                 <a x-show="project.liveUrl" :href="project.liveUrl" target="_blank"
                                     class="py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-red-600/20">
-                                    <span x-text="t('btnLive')"></span>
+                                    <span x-text="t('btnLive')">الموقع الحي</span>
                                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                                 </a>
 
@@ -769,14 +735,14 @@
 
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                    <i class="fa-solid fa-graduation-cap"></i> <span x-text="t('eduBadge')"></span>
+                    <i class="fa-solid fa-graduation-cap"></i> <span x-text="t('eduBadge')">المؤهلات والعضويات</span>
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-black transition-colors"
                     :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                    x-text="t('eduTitle')"></h2>
+                    x-text="t('eduTitle')">التعليم والشهادات الرسمية</h2>
                 <p class="text-sm mt-2 transition-colors"
                     :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                    x-text="t('eduSubtitle')"></p>
+                    x-text="t('eduSubtitle')">المؤهلات الأكاديمية والمهنية المعتمدة</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -790,10 +756,10 @@
                     <span class="text-xs font-mono font-bold text-red-500">2009</span>
                     <h3 class="font-extrabold text-lg mt-1 mb-2 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('degreeTitle')"></h3>
+                        x-text="t('degreeTitle')">بكالوريوس علوم الحاسوب (2009)</h3>
                     <p class="text-xs leading-relaxed transition-colors"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('degreeUniversity')"></p>
+                        x-text="t('degreeUniversity')">كلية تكنولوجيا المعلومات – الجامعة الإسلامية بغزة.</p>
                 </div>
 
                 <!-- Membership Card -->
@@ -805,10 +771,10 @@
                     <span class="text-xs font-mono font-bold text-amber-500">Member</span>
                     <h3 class="font-extrabold text-lg mt-1 mb-2 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('memberTitle')"></h3>
+                        x-text="t('memberTitle')">عضوية نقابة PICTA</h3>
                     <p class="text-xs leading-relaxed transition-colors"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('memberDesc')"></p>
+                        x-text="t('memberDesc')">عضو رسمي في اتحاد شركات تكنولوجيا المعلومات الفلسطينية.</p>
                 </div>
 
                 <!-- Language & Skills Card -->
@@ -820,10 +786,10 @@
                     <span class="text-xs font-mono font-bold text-emerald-500">TOEFL Level 11</span>
                     <h3 class="font-extrabold text-lg mt-1 mb-2 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('languagesTitle')"></h3>
+                        x-text="t('languagesTitle')">اللغات والمهارات الشخصية</h3>
                     <p class="text-xs leading-relaxed transition-colors"
                         :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('languagesDesc')"></p>
+                        x-text="t('languagesDesc')">العربية: اللغة الأم | الإنجليزية: ممتاز (TOEFL Level 11) وحل المشكلات والتفكير التحليلي.</p>
                 </div>
 
             </div>
@@ -842,11 +808,11 @@
 
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-4 transition-colors"
             :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-            x-text="t('contactTitle')"></h2>
+            x-text="t('contactTitle')">هل لديك مشروع أو فرصة عمل تقنية؟</h2>
         
         <p class="max-w-2xl mx-auto mb-10 text-sm sm:text-base leading-relaxed transition-colors"
             :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
-            x-text="t('contactSubtitle')"></p>
+            x-text="t('contactSubtitle')">يسعدني تقديم الاستشارات التقنية، وتطوير وبناء الأنظمة البرمجية من الصفر حتى مرحلة الاستقرار والإطلاق.</p>
 
         <!-- Direct Contact Channels -->
         <div class="flex flex-wrap justify-center gap-4 mb-12">
@@ -856,7 +822,7 @@
                 class="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-3 shadow-xl shadow-emerald-600/25">
                 <i class="fa-brands fa-whatsapp text-2xl"></i>
                 <div class="text-right rtl:text-right ltr:text-left">
-                    <span class="text-[10px] block opacity-80" x-text="t('contactViaWhatsApp')"></span>
+                    <span class="text-[10px] block opacity-80" x-text="t('contactViaWhatsApp')">تواصل فوري عبر الواتساب</span>
                     <span class="text-sm font-mono">+972 592 404 940</span>
                 </div>
             </a>
@@ -866,7 +832,7 @@
                 class="px-8 py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold transition flex items-center gap-3 shadow-xl shadow-red-600/25">
                 <i class="fa-solid fa-envelope text-2xl"></i>
                 <div class="text-right rtl:text-right ltr:text-left">
-                    <span class="text-[10px] block opacity-80" x-text="t('contactViaEmail')"></span>
+                    <span class="text-[10px] block opacity-80" x-text="t('contactViaEmail')">البريد الإلكتروني المباشر</span>
                     <span class="text-sm font-mono">ghassanabohozaun@gmail.com</span>
                 </div>
             </a>
@@ -952,7 +918,7 @@
                         <div class="p-4 rounded-xl border"
                             :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'">
                             <h4 class="font-bold text-sm mb-1.5 flex items-center gap-2 text-red-500">
-                                <i class="fa-solid fa-bullseye"></i> <span x-text="t('modalChallenge')"></span>
+                                <i class="fa-solid fa-bullseye"></i> <span x-text="t('modalChallenge')">التحدي والمشكلة البرمجية:</span>
                             </h4>
                             <p class="leading-relaxed"
                                 :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
@@ -963,7 +929,7 @@
                         <div class="p-4 rounded-xl border"
                             :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'">
                             <h4 class="font-bold text-sm mb-1.5 flex items-center gap-2 text-emerald-500">
-                                <i class="fa-solid fa-gears"></i> <span x-text="t('modalSolution')"></span>
+                                <i class="fa-solid fa-gears"></i> <span x-text="t('modalSolution')">الحل المعماري والتنفيذ:</span>
                             </h4>
                             <p class="leading-relaxed"
                                 :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
@@ -973,7 +939,7 @@
                         <!-- Tech Stack Tags -->
                         <div>
                             <h4 class="font-bold text-sm mb-2 flex items-center gap-2 text-indigo-500">
-                                <i class="fa-solid fa-layer-group"></i> <span x-text="t('modalStack')"></span>
+                                <i class="fa-solid fa-layer-group"></i> <span x-text="t('modalStack')">المكدس التقني والمكتبات:</span>
                             </h4>
                             <div class="flex flex-wrap gap-2">
                                 <template x-for="tech in selectedProject.stack" :key="tech">
@@ -991,7 +957,7 @@
                         <button @click="modalOpen = false"
                             class="px-5 py-2.5 rounded-xl border text-xs font-bold"
                             :class="theme === 'dark' ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700'">
-                            <span x-text="t('btnClose')"></span>
+                            <span x-text="t('btnClose')">إغلاق</span>
                         </button>
 
                         <a x-show="selectedProject.adminLogin" :href="selectedProject.adminLogin" target="_blank"
@@ -1006,7 +972,7 @@
 
                         <a x-show="selectedProject.liveUrl" :href="selectedProject.liveUrl" target="_blank"
                             class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-red-600/25">
-                            <span x-text="t('btnLive')"></span>
+                            <span x-text="t('btnLive')">الموقع الحي</span>
                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
 
@@ -1108,483 +1074,17 @@
                 <button @click="cvModalOpen = false"
                     class="px-5 py-2.5 rounded-xl border text-xs font-bold"
                     :class="theme === 'dark' ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700'">
-                    <span x-text="t('btnClose')"></span>
+                    <span x-text="t('btnClose')">إغلاق</span>
                 </button>
                 <button onclick="window.print()"
                     class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-red-600/25">
-                    <i class="fa-solid fa-print"></i> <span x-text="lang === 'ar' ? 'طباعة / حفظ PDF' : 'Print / Save PDF'"></span>
+                    <i class="fa-solid fa-print"></i> <span x-text="lang === 'ar' ? 'طباعة / حفظ PDF' : 'Print / Save PDF'">طباعة / حفظ PDF</span>
                 </button>
             </div>
 
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT & ALPINE.JS APPLICATION LOGIC -->
-    <!-- ========================================== -->
-    <script>
-        function portfolioApp() {
-            return {
-                lang: localStorage.getItem('ghassan_lang') || 'ar',
-                theme: localStorage.getItem('ghassan_theme') || 'dark',
-                mobileMenu: false,
-                modalOpen: false,
-                cvModalOpen: false,
-                activeCategory: 'all',
-                selectedProject: null,
-
-                initApp() {
-                    this.applyTheme();
-                    this.applyLang();
-                },
-
-                toggleTheme() {
-                    this.theme = this.theme === 'dark' ? 'light' : 'dark';
-                    localStorage.setItem('ghassan_theme', this.theme);
-                    this.applyTheme();
-                },
-
-                applyTheme() {
-                    if (this.theme === 'dark') {
-                        document.documentElement.classList.add('dark');
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                    }
-                },
-
-                toggleLang() {
-                    this.lang = this.lang === 'ar' ? 'en' : 'ar';
-                    localStorage.setItem('ghassan_lang', this.lang);
-                    this.applyLang();
-                },
-
-                applyLang() {
-                    document.documentElement.lang = this.lang;
-                    document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
-                    document.title = this.lang === 'ar'
-                        ? 'غسان أبو حزين | مهندس برمجيات و Backend Laravel Developer'
-                        : 'Ghassan Abo Hozaun | Senior Backend Laravel & PHP Developer';
-                },
-
-                t(key) {
-                    return this.translations[this.lang][key] || key;
-                },
-
-                openProjectModal(project) {
-                    this.selectedProject = project;
-                    this.modalOpen = true;
-                },
-
-                // Project Categories
-                projectCategories: [
-                    { id: 'all', name: { ar: 'جميع المشاريع', en: 'All Projects' } },
-                    { id: 'erp', name: { ar: 'أنظمة ERP & SaaS', en: 'ERP & SaaS' } },
-                    { id: 'ngo', name: { ar: 'أنظمة الجمعيات والأيتام', en: 'NGO & Orphan Systems' } },
-                    { id: 'lms', name: { ar: 'منصات تعليمية وطبية', en: 'LMS & Medical Platforms' } },
-                    { id: 'frontend', name: { ar: 'واجهات وتطبيقات تفاعلية', en: 'Interactive Web & UI' } }
-                ],
-
-                // Real Experience History
-                experienceList: [
-                    {
-                        company: { ar: 'شركة PTC – غزة', en: 'PTC – Gaza' },
-                        role: { ar: 'مطور أول أنظمة Backend Laravel / PHP', en: 'Senior Backend Laravel / PHP Developer' },
-                        period: { ar: '04/2024 – حتى الآن', en: '04/2024 – Present' },
-                        location: { ar: 'غزة، فلسطين', en: 'Gaza, Palestine' },
-                        tasks: {
-                            ar: [
-                                'تطوير وصيانة نظام ERP متكامل لإدارة الشركات والموظفين والعمليات الإدارية.',
-                                'تصميم بنية تحتية برمجية قابلة للتوسع وواجهات RESTful APIs عالية الأداء.',
-                                'تطبيق نظام أمان ومصادقة متقدم ونظام صلاحيات متعدد المستويات (Role-Based Access Control).',
-                                'تحسين استعلامات قواعد البيانات الضخمة وفهرستها لرفع كفاءة وسرعة الاستجابة.'
-                            ],
-                            en: [
-                                'Developing and maintaining a comprehensive enterprise ERP system for companies and staff.',
-                                'Designing scalable backend architecture and high-performance RESTful APIs.',
-                                'Implementing robust authentication, authorization, and multi-tier Role-Based Access Control (RBAC).',
-                                'Optimizing complex database queries, schema indexing, and boosting application response times.'
-                            ]
-                        },
-                        stack: ['Laravel 11', 'PHP 8.2', 'MySQL', 'RBAC', 'RESTful APIs', 'Query Tuning']
-                    },
-                    {
-                        company: { ar: 'شركة Digital Order – السعودية', en: 'Digital Order Company – KSA' },
-                        role: { ar: 'مطور أنظمة Backend Laravel / PHP', en: 'Backend Laravel / PHP Developer' },
-                        period: { ar: '02/2022 – 10/2023', en: '02/2022 – 10/2023' },
-                        location: { ar: 'المملكة العربية السعودية', en: 'Saudi Arabia' },
-                        tasks: {
-                            ar: [
-                                'العمل ضمن فريق برمجي كبير لتطوير نظام ERP معقد ومتعدد الوحدات.',
-                                'بناء وصيانة الوحدات الخلفية للنظام باستخدام Laravel وأحدث معايير Clean Code.',
-                                'التعاون الوثيق مع مطوري الـ Frontend وفرق ضمان الجودة (QA Teams).',
-                                'تحسين استقرار النظام وأمان المعاملات وسرعة الأداء.'
-                            ],
-                            en: [
-                                'Worked within a large distributed development team on an extensive enterprise ERP system.',
-                                'Built and maintained high-traffic backend modules using Laravel and Clean Code principles.',
-                                'Collaborated closely with Frontend engineers and QA testing teams.',
-                                'Significantly improved system stability, transaction safety, and overall backend reliability.'
-                            ]
-                        },
-                        stack: ['Laravel', 'PHP', 'MySQL', 'REST APIs', 'ERP Modules', 'Clean Architecture']
-                    },
-                    {
-                        company: { ar: 'جمعية نور المعرفة – غزة', en: 'Noor El Marifa Association – Gaza' },
-                        role: { ar: 'مطور أنظمة Backend Laravel', en: 'Backend Laravel Developer' },
-                        period: { ar: '01/2021 – 02/2022', en: '01/2021 – 02/2022' },
-                        location: { ar: 'غزة، فلسطين', en: 'Gaza, Palestine' },
-                        tasks: {
-                            ar: [
-                                'تطوير وصيانة أنظمة إدارة وكفالة الأيتام والمنح والمستفيدين باستخدام Laravel.',
-                                'بناء نظام مصادقة وتفويض آمن متعدد البوابات (لوحة الإدارة، بوابة الكفلاء والطلاب).',
-                                'تصميم وبناء واجهات برمجية RESTful APIs لربط المنظومات.',
-                                'تطبيق نظام معالجة المهام غير المتزامنة والرسائل عبر Laravel Queues & Jobs.'
-                            ],
-                            en: [
-                                'Developed and maintained orphan sponsorship and beneficiary management systems using Laravel.',
-                                'Built secure multi-portal authentication (Admin Dashboard, Sponsor & Student Portals).',
-                                'Designed and implemented secure RESTful APIs across services.',
-                                'Configured asynchronous queues, scheduled tasks, and background job processing.'
-                            ]
-                        },
-                        stack: ['Laravel', 'MySQL', 'Queues & Jobs', 'RESTful API', 'Sanctum', 'Task Scheduling']
-                    }
-                ],
-
-                // Real Projects Data with Local Images & Live Links
-                projects: [
-                    {
-                        id: 1,
-                        category: 'erp',
-                        categoryLabel: { ar: 'نظام ERP سحابي', en: 'Enterprise ERP' },
-                        title: {
-                            ar: 'نظام إدارة الموارد والشركات والموظفين - PTC ERP',
-                            en: 'Enterprise ERP & Employee Management System - PTC'
-                        },
-                        description: {
-                            ar: 'نظام متكامل لإدارة الشركات، الموظفين، الحضور والانصراف، الرواتب، والتقارير الإحصائية مع صلاحيات متقدمة (RBAC) ولوحات تحكم مخصصة.',
-                            en: 'Comprehensive enterprise ERP platform for company operations, employee records, attendance, payroll, and advanced RBAC permission tiers.'
-                        },
-                        challenge: {
-                            ar: 'إدارة تدفق كميات كبيرة من البيانات والمعاملات الإدارية المتزامنة مع ضمان سرعة المعالجة وأمان الصلاحيات.',
-                            en: 'Handling heavy concurrency and huge administrative data pipelines with strict permission boundaries and low query latency.'
-                        },
-                        solution: {
-                            ar: 'هندسة معمارية نظيفة (Clean Architecture)، فهرسة قواعد البيانات المتقدمة، وبناء بوابات دخول منفصلة للإدارة والموظفين.',
-                            en: 'Applied Clean Architecture, database indexing, dedicated Admin/Employee entry portals, and robust Eloquent optimizations.'
-                        },
-                        stack: ['Laravel 11', 'PHP 8.2', 'MySQL', 'RESTful APIs', 'RBAC', 'Livewire'],
-                        image: 'assets/images/projects/ptc-erp.png',
-                        adminLogin: 'https://ptcsystem.org/en/dashboard/login',
-                        portalLogin: 'https://ptcsystem.org/en/employees/login',
-                        mostaql: 'https://mostaql.com/portfolio/3362932',
-                        liveUrl: 'https://ptcsystem.org/en/dashboard/login'
-                    },
-                    {
-                        id: 2,
-                        category: 'ngo',
-                        categoryLabel: { ar: 'نظام إدارة وكفالة', en: 'Sponsorship System' },
-                        title: {
-                            ar: 'نظام كفالة ومتابعة الأيتام - جمعية نور المعرفة',
-                            en: 'Orphan Sponsorship & Management System - Noor El-Marifa'
-                        },
-                        description: {
-                            ar: 'منظومة سحابية متخصصة في توثيق ومتابعة ملفات الأيتام والكفلاء، إدارة التقارير الدورية والمعاملات المالية، وبوابة تفاعلية للطلاب والكفلاء.',
-                            en: 'Specialized cloud system for managing orphan profiles, donor sponsorships, periodic welfare reports, and child portal logins.'
-                        },
-                        challenge: {
-                            ar: 'تأمين البيانات الحساسة للأيتام وإرسال التنبيهات والتقارير للكفلاء في المواعيد المحددة دون تأخير.',
-                            en: 'Securing sensitive beneficiary records and scheduling timely automated status and financial reports to global sponsors.'
-                        },
-                        solution: {
-                            ar: 'استخدام Laravel Queues لمعالجة المهام الخلفية وجدولة التقارير مع تطبيق سياسات حماية متقدمة.',
-                            en: 'Leveraged Laravel Queues and Task Scheduling for automated report generation and multi-tier authentication.'
-                        },
-                        stack: ['Laravel', 'MySQL', 'Queues & Jobs', 'RESTful APIs', 'Sanctum'],
-                        image: 'assets/images/projects/orphan-system.png',
-                        adminLogin: 'https://noorelmarifaa.org/en/dashboard/login',
-                        portalLogin: 'https://noorelmarifaa.org/en/child/welcome',
-                        mostaql: 'https://mostaql.com/portfolio/3362912',
-                        liveUrl: 'https://noorelmarifaa.org/en/dashboard/login'
-                    },
-                    {
-                        id: 3,
-                        category: 'lms',
-                        categoryLabel: { ar: 'أكاديمية طبية & LMS', en: 'Medical LMS Platform' },
-                        title: {
-                            ar: 'منصة بكة أكاديمي للتعليم الطبي والمهني - ليبيا',
-                            en: 'Bakka Academy Medical & E-Learning Platform - Libya'
-                        },
-                        description: {
-                            ar: 'منصة تعليمية متكاملة لتقديم الدورات التدريبية الطبية المعتمدة، بث المحتوى التعليمي، الاختبارات التفاعلية، وإصدار الشهادات.',
-                            en: 'E-learning medical academy delivering certified training courses, video/audio lectures, interactive quizzes, and certification workflows.'
-                        },
-                        challenge: {
-                            ar: 'إدارة تشغيل الوسائط وبث الفيديوهات والملفات الصوتية للطلاب مع دعم اللغتين وتأمين المحتوى.',
-                            en: 'Handling seamless multimedia streaming, student registrations, multi-lingual interface, and protected lecture access.'
-                        },
-                        solution: {
-                            ar: 'بناء واجهات برمجية مهيأة للوسائط المتعددة ونظام تخزين مؤقت للدروس وتوفير تجربة مستخدم سريعة بالكامل.',
-                            en: 'Engineered responsive media streaming API, caching layer, student tracking dashboards, and seamless multi-language support.'
-                        },
-                        stack: ['Laravel', 'MySQL', 'Vue.js', 'Video Streaming', 'Bootstrap 5', 'Multi-Lang'],
-                        image: 'assets/images/projects/bakka-academy.png',
-                        adminLogin: '',
-                        portalLogin: 'https://bakkaacademy.com/en/student',
-                        mostaql: 'https://mostaql.com/portfolio/3362888',
-                        liveUrl: 'https://bakkaacademy.com/en'
-                    },
-                    {
-                        id: 4,
-                        category: 'ngo',
-                        categoryLabel: { ar: 'بوابة إلكترونية و CMS', en: 'NGO Official Portal' },
-                        title: {
-                            ar: 'البوابة الرسمية لجمعية نور المعرفة الخيرية',
-                            en: 'Noor El-Marifa NGO Official Web Platform'
-                        },
-                        description: {
-                            ar: 'الموقع الرسمي للجمعية لاستعراض البرامج الإنسانية والتعليمية، إدارة الأخبار والفعاليات، وقصص النجاح واستقبال التبرعات.',
-                            en: 'Official web portal for Noor El-Marifa NGO showcasing humanitarian relief programs, success stories, and donation inquiries.'
-                        },
-                        challenge: {
-                            ar: 'توفير لوحة تحكم مرنة وسريعة لإدارة المحتوى الإخباري والوسائط باللغتين العربية والإنجليزية.',
-                            en: 'Providing a high-performance, dynamic bilingual CMS to handle press releases, photo galleries, and donor interactions.'
-                        },
-                        solution: {
-                            ar: 'تطوير نظام إدارة محتوى (CMS) مخصص بالكامل باستخدام Laravel وربطه بقواعد بيانات متينة وسريعة.',
-                            en: 'Developed a custom, lightweight Laravel CMS with multi-language capabilities and SEO-optimized structures.'
-                        },
-                        stack: ['Laravel', 'MySQL', 'Bootstrap 5', 'Multi-Language', 'Custom CMS'],
-                        image: 'assets/images/projects/noor-ngo.png',
-                        adminLogin: '',
-                        portalLogin: '',
-                        mostaql: 'https://mostaql.com/portfolio/841463',
-                        liveUrl: 'https://noorelmarifaa.org/en'
-                    },
-                    {
-                        id: 5,
-                        category: 'frontend',
-                        categoryLabel: { ar: 'تطبيق سياحة وحجوزات', en: 'Travel & Tourism UI' },
-                        title: {
-                            ar: 'تحويل تصميم UI/UX إلى موقع ويب تفاعلي - شركة نقاط للسياحة',
-                            en: 'Interactive Travel & Tourism Platform - Neqat Travel'
-                        },
-                        description: {
-                            ar: 'تحويل تصميم واجهة مستخدم (UI) احترافية من Adobe XD إلى منصة ويب تفاعلية بالكامل لخدمات السفر والحجوزات السياحية.',
-                            en: 'Pixel-perfect translation of Adobe XD UI/UX prototypes into a dynamic, highly responsive web application for travel and flight bookings.'
-                        },
-                        challenge: {
-                            ar: 'الدقة المتناهية في مطابقة التصميم الأصلي مع ضمان سرعة الاستجابة والتوافق الكامل مع جميع أحجام الشاشات.',
-                            en: 'Pixel-perfect alignment, rich micro-interactions, responsive mobile views, and seamless cross-browser compatibility.'
-                        },
-                        solution: {
-                            ar: 'بناء واجهات متجاوبة باستخدام Tailwind CSS وجافا سكريبت مع مراعاة سرعة التحميل وتجربة المستخدم.',
-                            en: 'Built clean, semantic HTML5/Tailwind markup with optimized assets and silky smooth interactive transitions.'
-                        },
-                        stack: ['Tailwind CSS', 'JavaScript', 'HTML5/CSS3', 'Adobe XD to Web'],
-                        image: 'assets/images/projects/neqat-travel.png',
-                        adminLogin: '',
-                        portalLogin: '',
-                        mostaql: 'https://mostaql.com/portfolio/3418352',
-                        liveUrl: ''
-                    },
-                    {
-                        id: 6,
-                        category: 'erp',
-                        categoryLabel: { ar: 'منصة استشارات', en: 'Consulting Platform' },
-                        title: {
-                            ar: 'منصة مركز هدوء للاستشارات - جدة، السعودية',
-                            en: 'Hodoa Consulting Platform - Jeddah, KSA'
-                        },
-                        description: {
-                            ar: 'نظام ويب متكامل لحجز الجلسات الاستشارية، إدارة المواعيد، وتسهيل التواصل بين المستشارين والعملاء.',
-                            en: 'Integrated booking and consultation platform in Jeddah for appointment scheduling, advisor management, and client records.'
-                        },
-                        challenge: {
-                            ar: 'تنظيم المواعيد ومنع التضارب الزمني بين الجلسات مع سهولة الحجز والدفع.',
-                            en: 'Automating schedule slots, preventing double-bookings, and ensuring clear communication channels.'
-                        },
-                        solution: {
-                            ar: 'بناء محرك جدولة دقيق وإدارة مرنة للأوقات والجلسات المتاحة.',
-                            en: 'Constructed an automated scheduling engine with real-time slot reservation and notification triggers.'
-                        },
-                        stack: ['Laravel', 'PHP', 'MySQL', 'Booking System', 'Bootstrap'],
-                        image: 'assets/images/projects/hodoa-consulting.png',
-                        adminLogin: '',
-                        portalLogin: '',
-                        mostaql: 'https://mostaql.com/portfolio/841461',
-                        liveUrl: ''
-                    },
-                    {
-                        id: 7,
-                        category: 'lms',
-                        categoryLabel: { ar: 'منصة استشارات طبية', en: 'Medical Consulting UK' },
-                        title: {
-                            ar: 'موقع إلكتروني لمركز نفسي واستشاري في بريطانيا',
-                            en: 'Psychological Consulting Center Platform - UK'
-                        },
-                        description: {
-                            ar: 'موقع ويب تعريفي ونظام استشارات لمركز نفسي متخصص في المملكة المتحدة لدعم العملاء وجدولة الجلسات.',
-                            en: 'UK-based psychological support and consultation platform for client intake, session booking, and specialist directory.'
-                        },
-                        challenge: {
-                            ar: 'بناء واجهة مريحة وموثوقة تعكس الخصوصية وسهولة الوصول للخدمات العلاجية.',
-                            en: 'Designing a calm, accessible interface ensuring utmost client confidentiality and streamlined appointment booking.'
-                        },
-                        solution: {
-                            ar: 'تصميم وبناء نظام مرن وسلس متوافق مع معايير الويب العالمية والأجهزة الذكية.',
-                            en: 'Engineered a secure, lightweight web system with responsive booking forms and multilingual support.'
-                        },
-                        stack: ['Laravel', 'PHP', 'MySQL', 'Responsive Design'],
-                        image: 'assets/images/projects/psychology-center.png',
-                        adminLogin: '',
-                        portalLogin: '',
-                        mostaql: 'https://mostaql.com/portfolio/841458',
-                        liveUrl: ''
-                    }
-                ],
-
-                get filteredProjects() {
-                    if (this.activeCategory === 'all') {
-                        return this.projects;
-                    }
-                    return this.projects.filter(p => p.category === this.activeCategory);
-                },
-
-                // Complete Bilingual Dictionary (Arabic & English)
-                translations: {
-                    ar: {
-                        brandName: 'غسان أبو حزين',
-                        brandSubtitle: 'Senior Backend Laravel Developer',
-                        navAbout: 'نبذة',
-                        navExperience: 'الخبرات',
-                        navSkills: 'المهارات',
-                        navProjects: 'المشاريع',
-                        navEducation: 'التعليم',
-                        navContact: 'تواصل معي',
-                        btnCV: 'السيرة الذاتية',
-                        btnContact: 'راسلني',
-                        heroStatus: 'متاح للعمل على مشاريع برمجية جديدة وعقود العمل عن بُعد',
-                        heroTitle1: 'هندسة الأنظمة المعقدة وحلول',
-                        heroSummary: 'مهندس برمجيات متخصص في تطوير الواجهات الخلفية (Backend) بأنظمة Laravel & PHP بخبرة عملية تزيد عن 6 سنوات في بناء أنظمة الـ ERP، واجهات RESTful APIs فائقة الأداء، وهندسة قواعد البيانات مع التزام صارم بمعايير Clean Architecture وأفضل الممارسات البرمجية.',
-                        btnExploreProjects: 'استكشاف المشاريع الحية',
-                        btnDirectWhatsApp: 'محادثة واتساب مباشرة',
-                        btnViewCV: 'عرض الـ CV',
-                        stat1Label: 'سنوات خبرة متخصصة',
-                        stat2Label: 'أنظمة حية ومشاريع مكتملة',
-                        stat3Label: 'Clean Code & Architecture',
-                        stat4Label: 'خريج الجامعة الإسلامية',
-                        pillarsTitle: 'الركائز المعمارية والبرمجية',
-                        pillarsSubtitle: 'المعايير الهندسية التي أعتمد عليها في بناء الأنظمة البرمجية المتينة والمستقرة',
-                        pillar1Title: 'بنية أنظمة ERP & SaaS',
-                        pillar1Desc: 'بناء أنظمة متكاملة متعددة الصلاحيات (RBAC) ولوحات تحكم معقدة تدير تدفق الأعمال بكفاءة.',
-                        pillar2Title: 'تحسين قواعد البيانات',
-                        pillar2Desc: 'هندسة MySQL/MariaDB، الفهرسة المتقدمة، تحسين الاستعلامات، وحل مشاكل N+1 بدقة.',
-                        pillar3Title: 'واجهات APIs ومصادقة آمنة',
-                        pillar3Desc: 'بناء RESTful APIs متينة وتأمينها باستخدام Laravel Sanctum & Passport مع توثيق شامل.',
-                        pillar4Title: 'معالجة المهام الخلفية',
-                        pillar4Desc: 'معالجة المهام الثقيلة في الخلفية عبر Queues & Jobs وجدولة المهام الدورية Task Scheduling.',
-                        expBadge: 'المسار المهني والخبرات',
-                        expTitle: 'الخبرات المهنية وسجل العمل',
-                        expSubtitle: 'محطات واقعية من العمل في شركات ومنظمات برمجية كبرى',
-                        skillsBadge: 'الترسانة التقنية',
-                        skillsTitle: 'المهارات والأدوات البرمجية',
-                        skillsSubtitle: 'الأدوات والتقنيات التي أتقنها لبناء تطبيقات ويب قوية وقابلة للتوسع',
-                        skillCatBackend: 'Backend & Laravel',
-                        skillCatDatabase: 'قواعد البيانات والأداء',
-                        skillCatFrontend: 'Frontend & Reativity',
-                        skillCatTools: 'الأدوات وبيئة العمل',
-                        projectsBadge: 'معرض الأعمال الحقيقية',
-                        projectsTitle: 'المشاريع ودراسات الحالة',
-                        projectsSubtitle: 'أنظمة إنتاجية حية ولوحات تحكم تم تطويرها لعملاء وشركات ومؤسسات',
-                        btnDetails: 'التفاصيل المعمارية',
-                        btnLive: 'الموقع الحي',
-                        eduBadge: 'المؤهلات والعضويات',
-                        eduTitle: 'التعليم والشهادات الرسمية',
-                        eduSubtitle: 'المؤهلات الأكاديمية والمهنية المعتمدة',
-                        degreeTitle: 'بكالوريوس علوم الحاسوب (2009)',
-                        degreeUniversity: 'كلية تكنولوجيا المعلومات – الجامعة الإسلامية بغزة.',
-                        memberTitle: 'عضوية نقابة PICTA',
-                        memberDesc: 'عضو رسمي في اتحاد شركات تكنولوجيا المعلومات الفلسطينية.',
-                        languagesTitle: 'اللغات والمهارات الشخصية',
-                        languagesDesc: 'العربية: اللغة الأم | الإنجليزية: ممتاز (TOEFL Level 11) وحل المشكلات والتفكير التحليلي.',
-                        contactTitle: 'هل لديك مشروع أو فرصة عمل تقنية؟',
-                        contactSubtitle: 'يسعدني تقديم الاستشارات التقنية، وتطوير وبناء الأنظمة البرمجية من الصفر حتى مرحلة الاستقرار والإطلاق.',
-                        contactViaWhatsApp: 'تواصل فوري عبر الواتساب',
-                        contactViaEmail: 'البريد الإلكتروني المباشر',
-                        modalChallenge: 'التحدي والمشكلة البرمجية:',
-                        modalSolution: 'الحل المعماري والتنفيذ:',
-                        modalStack: 'المكدس التقني والمكتبات:',
-                        btnClose: 'إغلاق'
-                    },
-                    en: {
-                        brandName: 'Ghassan Abo Hozaun',
-                        brandSubtitle: 'Senior Backend Laravel Developer',
-                        navAbout: 'About',
-                        navExperience: 'Experience',
-                        navSkills: 'Skills',
-                        navProjects: 'Projects',
-                        navEducation: 'Education',
-                        navContact: 'Contact',
-                        btnCV: 'Resume / CV',
-                        btnContact: 'Get In Touch',
-                        heroStatus: 'Available for new software projects & remote contract roles',
-                        heroTitle1: 'Engineering Complex Web Systems &',
-                        heroSummary: 'Experienced Senior Backend Laravel & PHP Developer with 6+ years of specialized hands-on expertise engineering secure, scalable, and high-performance ERP systems, RESTful APIs, and database architectures with a strict dedication to Clean Code and industry best practices.',
-                        btnExploreProjects: 'Explore Live Projects',
-                        btnDirectWhatsApp: 'Direct WhatsApp Chat',
-                        btnViewCV: 'View Resume',
-                        stat1Label: 'Years Specialized Exp',
-                        stat2Label: 'Live Production Systems',
-                        stat3Label: 'Clean Code & Standards',
-                        stat4Label: 'IUG CS Graduate (2009)',
-                        pillarsTitle: 'Architectural & Engineering Pillars',
-                        pillarsSubtitle: 'The engineering standards and patterns I apply to craft resilient, rock-solid applications',
-                        pillar1Title: 'Enterprise ERP & SaaS Architecture',
-                        pillar1Desc: 'Building multi-tenant systems, robust Role-Based Access Control (RBAC), and high-traffic workflows.',
-                        pillar2Title: 'Database Optimization',
-                        pillar2Desc: 'MySQL/MariaDB schema tuning, advanced indexing, query profiling, and eliminating N+1 bottlenecks.',
-                        pillar3Title: 'Secure RESTful APIs',
-                        pillar3Desc: 'Robust API architecture secured via Laravel Sanctum & Passport with comprehensive documentation.',
-                        pillar4Title: 'Async Queue Processing',
-                        pillar4Desc: 'Offloading heavy workloads via Laravel Queues, Jobs, Events, and scheduled background workers.',
-                        expBadge: 'Career Milestones',
-                        expTitle: 'Professional Experience',
-                        expSubtitle: 'Track record working with leading companies and large production environments',
-                        skillsBadge: 'Tech Stack & Arsenal',
-                        skillsTitle: 'Technical Arsenal & Skills',
-                        skillsSubtitle: 'The modern tools and frameworks I rely on to deliver scalable web solutions',
-                        skillCatBackend: 'Backend & Laravel Core',
-                        skillCatDatabase: 'Databases & Performance',
-                        skillCatFrontend: 'Frontend & Reactivity',
-                        skillCatTools: 'DevOps & Tools',
-                        projectsBadge: 'Real Production Showcase',
-                        projectsTitle: 'Featured Projects & Case Studies',
-                        projectsSubtitle: 'Live systems and enterprise dashboards engineered for businesses and NGOs',
-                        btnDetails: 'Architecture Details',
-                        btnLive: 'Live Preview',
-                        eduBadge: 'Credentials & Degrees',
-                        eduTitle: 'Education & Certifications',
-                        eduSubtitle: 'Verified academic qualifications and professional affiliations',
-                        degreeTitle: 'Bachelor of Computer Science (2009)',
-                        degreeUniversity: 'Information Technology College – Islamic University of Gaza (IUG).',
-                        memberTitle: 'PICTA Association Member',
-                        memberDesc: 'Official member of the Palestinian Information Technology Association.',
-                        languagesTitle: 'Languages & Soft Skills',
-                        languagesDesc: 'Arabic: Native | English: Very Good (TOEFL Level 11) with strong problem solving and analytical thinking.',
-                        contactTitle: 'Have a Project or Remote Role?',
-                        contactSubtitle: 'I am available for technical consulting, architecture design, and end-to-end backend engineering for your next system.',
-                        contactViaWhatsApp: 'Instant Chat on WhatsApp',
-                        contactViaEmail: 'Direct Work Email',
-                        modalChallenge: 'Problem & Engineering Challenge:',
-                        modalSolution: 'Architectural Solution & Implementation:',
-                        modalStack: 'Tech Stack & Libraries:',
-                        btnClose: 'Close'
-                    }
-                }
-            }
-        }
-    </script>
 </body>
 
 </html>
