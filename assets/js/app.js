@@ -705,30 +705,64 @@ function portfolioApp() {
             {
                 id: 7,
                 featured: false,
-                isLive: false,
+                isLive: true,
                 category: 'lms',
-                categoryLabel: { ar: 'منصة استشارات طبية', en: 'Medical Platform UK' },
+                categoryLabel: { ar: 'منصة استشارات نفسية & LMS', en: 'Psychology Consultation & Portal' },
                 title: {
-                    ar: 'موقع إلكتروني لمركز نفسي واستشاري في بريطانيا',
-                    en: 'Psychological Consulting Center - UK'
+                    ar: 'منصة ومركز د. الطويل للاستشارات النفسية - لندن، بريطانيا - SPC Altawil',
+                    en: 'Dr. Altawil Psychological & Consultation Center - London, UK (SPC)'
                 },
                 description: {
-                    ar: 'موقع ويب تعريفي ونظام استشارات لمركز نفسي متخصص في المملكة المتحدة لدعم العملاء وجدولة الجلسات.',
-                    en: 'UK-based psychological support and consultation platform for client intake, session booking, and specialist directory.'
+                    ar: 'منصة إلكترونية متكاملة لمركز نفسي واستشاري معتمد في لندن لدعم العملاء، إدارة الاستشارات والتقييمات، ونظام متكامل لجدولة الجلسات باللغتين العربية والإنجليزية.',
+                    en: 'Comprehensive UK-based psychological support and consultation platform in London featuring appointment booking, assessments directory, and bilingual Arabic/English intake.'
                 },
                 challenge: {
-                    ar: 'بناء واجهة مريحة وموثوقة تعكس الخصوصية وسهولة الوصول للخدمات العلاجية.',
-                    en: 'Designing a calm, accessible interface ensuring utmost client confidentiality and streamlined appointment booking.'
+                    ar: 'بناء واجهة مريحة وموثوقة تعكس الخصوصية وسهولة الوصول للخدمات العلاجية مع دعم التبديل السلس بين اللغتين وجدولة الجلسات.',
+                    en: 'Designing a calm, highly confidential clinical interface ensuring seamless booking workflows, specialist directories, and bilingual localization.'
                 },
                 solution: {
-                    ar: 'تصميم وبناء نظام مرن وسلس متوافق مع معايير الويب العالمية والأجهزة الذكية.',
-                    en: 'Engineered a secure, lightweight web system with responsive booking forms and multilingual support.'
+                    ar: 'تصميم وبناء نظام مرن وسلس متوافق مع معايير الويب العالمية، تكامل قواعد البيانات، وإدارة المحتوى والاستشارات بكفاءة.',
+                    en: 'Engineered a secure, lightweight web application with responsive booking forms, multilingual routing, and optimized MySQL data structure.'
                 },
-                stack: ['Laravel', 'PHP', 'MySQL', 'Responsive Design'],
+                stack: ['Laravel', 'PHP', 'MySQL', 'Multilingual (AR/EN)', 'Booking Engine', 'Responsive UI'],
                 image: 'assets/images/projects/psychology-center.png',
-                portals: [],
+                portals: [
+                    { label: { ar: 'النسخة الإنجليزية', en: 'English Portal' }, url: 'https://spcaltawil.com/en', icon: 'fa-solid fa-globe' },
+                    { label: { ar: 'النسخة العربية', en: 'Arabic Portal' }, url: 'https://spcaltawil.com/ar', icon: 'fa-solid fa-language' }
+                ],
                 mostaql: 'https://mostaql.com/portfolio/841458',
-                liveUrl: ''
+                liveUrl: 'https://spcaltawil.com/en'
+            },
+            {
+                id: 10,
+                featured: false,
+                isLive: true,
+                category: 'erp',
+                categoryLabel: { ar: 'أنظمة صناعية & منصة مؤسسية', en: 'Industrial Manufacturing Platform' },
+                title: {
+                    ar: 'منصة مصنع العربية للمضخات والصناعات الميكانيكية - الرياض، السعودية',
+                    en: 'Al Arabia Pumps & Mechanical Industries Platform (PMI) - Riyadh, KSA'
+                },
+                description: {
+                    ar: 'منظومة ويب متكاملة لمصنع العربية للمضخات وخزانات الوقود بالرياض، لإدارة خطوط الإنتاج وكتالوج المنتجات الصناعية، طلبات عروض الأسعار، والمواصفات الهندسية باللغتين العربية والإنجليزية.',
+                    en: 'Enterprise industrial web platform for Al Arabia Pumps & Fuel Tanks Factory in Riyadh, managing manufacturing catalogs, quote request pipelines, and technical specifications.'
+                },
+                challenge: {
+                    ar: 'عرض وتصنيف خطوط الإنتاج والحلول الميكانيكية المعقدة (خزانات الوقود، مضخات، محطات وقود)، وتسهيل استقبال طلبات عروض الأسعار والمتابعة مع العملاء.',
+                    en: 'Structuring complex mechanical product lines (fuel storage tanks, industrial pumps, station solutions) and streamlining technical quote requests.'
+                },
+                solution: {
+                    ar: 'بناء معمارية برمجية بالاعتماد على Laravel و PHP و MySQL مع لوحة تحكم ديناميكية، دعم ثنائي اللغة (عربي/إنجليزي)، وتحسين محركات البحث SEO ومعدلات الاستجابة.',
+                    en: 'Engineered a robust Laravel/PHP backend with a flexible administrative dashboard, dynamic bilingual routing (AR/EN), and optimized SEO architecture.'
+                },
+                stack: ['Laravel', 'PHP', 'MySQL', 'Bootstrap', 'Multilingual (AR/EN)', 'SEO Optimization'],
+                image: 'assets/images/projects/alarabia-pmi.png',
+                portals: [
+                    { label: { ar: 'النسخة العربية', en: 'Arabic Portal' }, url: 'https://alarabia-pmi.com/ar', icon: 'fa-solid fa-globe' },
+                    { label: { ar: 'النسخة الإنجليزية', en: 'English Portal' }, url: 'https://alarabia-pmi.com/en', icon: 'fa-solid fa-language' }
+                ],
+                mostaql: '',
+                liveUrl: 'https://alarabia-pmi.com/ar'
             }
         ],
 
