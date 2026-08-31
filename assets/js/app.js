@@ -32,6 +32,122 @@ function portfolioApp() {
         activeExpIndex: 0,
         activeWorkflowStep: 0,
         emailCopied: false,
+        isLoading: false,
+
+        // Typewriter Animation State
+        typedText: '',
+        typewriterTitles: [
+            'Senior Backend Engineer & Laravel Architect',
+            'Enterprise ERP & SaaS Solutions Specialist',
+            'Clean Architecture & Database Schema Designer',
+            'MySQL Query Optimization & Indexing Pro',
+            'High-Traffic RESTful APIs & RBAC Architect'
+        ],
+        typewriterIndex: 0,
+        typewriterCharIndex: 0,
+        isDeleting: false,
+        typewriterStarted: false,
+
+        // Key Engineering Metrics
+        counterStats: {
+            exp: 0,
+            projects: 0,
+            users: 0,
+            grad: 1900
+        },
+
+        init() {
+            const startHeroAnimations = () => {
+                if (this.typewriterStarted) return;
+                this.typewriterStarted = true;
+                setTimeout(() => {
+                    this.startTypewriter();
+                    this.animateCounters();
+                }, 100);
+            };
+
+            window.addEventListener('preloader-finished', startHeroAnimations, { once: true });
+            
+            // Failsafe in case preloader was not present
+            setTimeout(startHeroAnimations, 1800);
+        },
+
+        startTypewriter() {
+            const currentTitle = this.typewriterTitles[this.typewriterIndex];
+            
+            if (this.isDeleting) {
+                this.typedText = currentTitle.substring(0, this.typewriterCharIndex - 1);
+                this.typewriterCharIndex--;
+            } else {
+                this.typedText = currentTitle.substring(0, this.typewriterCharIndex + 1);
+                this.typewriterCharIndex++;
+            }
+
+            let typeSpeed = this.isDeleting ? 30 : 65;
+
+            if (!this.isDeleting && this.typewriterCharIndex === currentTitle.length) {
+                typeSpeed = 2200; // Pause at end of sentence
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.typewriterCharIndex === 0) {
+                this.isDeleting = false;
+                this.typewriterIndex = (this.typewriterIndex + 1) % this.typewriterTitles.length;
+                typeSpeed = 350;
+            }
+
+            setTimeout(() => this.startTypewriter(), typeSpeed);
+        },
+
+        animateCounters() {
+            const targets = { exp: 6, projects: 10, users: 10000, grad: 2009 };
+            const duration = 1400;
+            const startTime = performance.now();
+
+            const updateCount = (now) => {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOutQuad = (t) => t * (2 - t);
+                const easedProgress = easeOutQuad(progress);
+
+                this.counterStats.exp = Math.floor(easedProgress * targets.exp);
+                this.counterStats.projects = Math.floor(easedProgress * targets.projects);
+                this.counterStats.users = Math.floor(easedProgress * targets.users);
+                this.counterStats.grad = Math.floor(1900 + (easedProgress * (targets.grad - 1900)));
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                } else {
+                    this.counterStats = { ...targets };
+                }
+            };
+            requestAnimationFrame(updateCount);
+        },
+
+        // Translation Helper Method
+        t(key) {
+            if (this.translations[this.lang] && this.translations[this.lang][key]) {
+                return this.translations[this.lang][key];
+            }
+            return (this.translations['en'] && this.translations['en'][key]) || key;
+        },
+
+        // Language Switcher
+        toggleLang() {
+            this.lang = this.lang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('ghassan_lang', this.lang);
+            document.documentElement.lang = this.lang;
+            document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
+        },
+
+        // Theme Switcher
+        toggleTheme() {
+            this.theme = this.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('ghassan_theme', this.theme);
+            if (this.theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        },
 
         resetProjectFilters() {
             this.activeCategory = 'all';
@@ -833,3 +949,37 @@ function portfolioApp() {
         }
     };
 }
+
+// Top Reading Scroll Progress Bar & Spotlight Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    var progressBar = document.getElementById('top-reading-progress-bar');
+    
+    function updateScrollProgress() {
+        if (!progressBar) {
+            progressBar = document.getElementById('top-reading-progress-bar');
+        }
+        if (progressBar) {
+            var winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + '%';
+        }
+    }
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+
+    // Mouse Tracking for Spotlight Glow Cards
+    document.addEventListener('mousemove', function(e) {
+        var cards = document.querySelectorAll('.spotlight-card');
+        cards.forEach(function(card) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', x + 'px');
+            card.style.setProperty('--mouse-y', y + 'px');
+        });
+    });
+});
+

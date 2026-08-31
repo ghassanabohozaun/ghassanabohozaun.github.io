@@ -2,13 +2,30 @@
     display: none !important;
 }
 
-/* Zero-FOUC: Prevent small text flash before Tailwind generates styles */
-body:not(.is-ready) {
-    visibility: hidden !important;
+/* Disable scrolling while preloading */
+html.is-preloading,
+body.is-preloading {
+    overflow: hidden !important;
+    height: 100vh !important;
 }
 
-body.is-ready {
-    visibility: visible !important;
+/* Standalone High-Tech Preloader Styles */
+#app-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background-color: #070A12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#app-preloader.preloader-hidden {
+    opacity: 0 !important;
+    transform: scale(1.02);
+    pointer-events: none !important;
 }
 
 /* Anti-flicker on initial page load */
@@ -48,51 +65,37 @@ html:not(.dark) body {
     background-size: 28px 28px;
 }
 
-/* Ultra-Sleek & Thin Custom Scrollbar Styles */
+/* Hide Scrollbar Globally across all browsers while keeping smooth scrolling */
+html,
+body {
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE and Edge */
+}
+
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    display: none !important; /* Chrome, Safari, Edge, Opera */
+    width: 0px !important;
+    height: 0px !important;
 }
 
-/* Dark Mode Scrollbar */
-.dark ::-webkit-scrollbar-track {
+/* Smart Top Reading Progress Bar */
+#top-reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 9999;
+    pointer-events: none;
     background: transparent;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-    background: #242E42;
-    border-radius: 9999px;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-    background: #3B4861;
-}
-
-/* Light Mode Scrollbar */
-html:not(.dark) ::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-html:not(.dark) ::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
-    border-radius: 9999px;
-}
-
-html:not(.dark) ::-webkit-scrollbar-thumb:hover {
-    background: #94A3B8;
-}
-
-/* Firefox Scrollbar Support */
-* {
-    scrollbar-width: thin;
-}
-
-.dark * {
-    scrollbar-color: #242E42 transparent;
-}
-
-html:not(.dark) * {
-    scrollbar-color: #CBD5E1 transparent;
+#top-reading-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #FF2D20, #F43F5E, #FB7185, #F59E0B);
+    box-shadow: 0 0 12px rgba(255, 45, 32, 0.75), 0 0 4px rgba(244, 63, 94, 0.9);
+    transition: width 0.08s linear;
 }
 
 /* Terminal & Code Block Styling */

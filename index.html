@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<html lang="ar" dir="rtl" class="dark scroll-smooth is-preloading">
 
 <head>
     <meta charset="UTF-8">
@@ -69,8 +69,6 @@
 
     <style>
         [x-cloak] { display: none !important; }
-        body:not(.is-ready) { visibility: hidden !important; }
-        body.is-ready { visibility: visible !important; }
     </style>
 
     <!-- Custom Style File -->
@@ -84,10 +82,165 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body x-data="portfolioApp()" x-init="initApp()"
+<body x-data="portfolioApp()"
     :class="theme === 'dark' ? 'text-slate-100' : 'text-slate-800'"
     class="preload antialiased selection:bg-red-600 selection:text-white transition-colors duration-300 min-h-screen relative overflow-x-hidden"
     @keydown.escape.window="modalOpen = false; cvModalOpen = false">
+
+    <!-- ========================================== -->
+    <!-- HIGH-TECH ENTERPRISE PRELOADER -->
+    <!-- ========================================== -->
+    <div id="app-preloader" class="select-none">
+        
+        <!-- Ambient Glowing Background Aura -->
+        <div class="absolute w-96 h-96 rounded-full bg-red-600/10 blur-[100px] pointer-events-none animate-pulse"></div>
+        <div class="absolute w-72 h-72 rounded-full bg-emerald-500/5 blur-[90px] pointer-events-none translate-y-24"></div>
+
+        <!-- Center Console -->
+        <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-sm w-full">
+            
+            <!-- Modern Circuit Monogram Emblem -->
+            <div class="relative mb-6">
+                <!-- Dual Glowing Rotating Orbitals -->
+                <div class="w-20 h-20 rounded-2xl border border-red-500/20 border-t-red-500 animate-spin" style="animation-duration: 1.5s;"></div>
+                <div class="absolute inset-1.5 rounded-xl border border-dashed border-emerald-500/20 animate-spin" style="animation-duration: 4s; animation-direction: reverse;"></div>
+                
+                <!-- Inner Solid Developer Emblem -->
+                <div class="absolute inset-3 rounded-lg bg-[#0C1220] border border-slate-700/80 flex items-center justify-center shadow-2xl">
+                    <span class="text-lg font-black font-mono tracking-tighter text-red-500">
+                        &lt;<span class="text-white">GA</span>/&gt;
+                    </span>
+                </div>
+            </div>
+
+            <!-- Identity Header (Dynamic Bilingual) -->
+            <h1 id="preloader-name" class="text-base sm:text-lg font-black tracking-wide text-white mb-1">غسان أبو حزين</h1>
+            <p id="preloader-subtitle" class="text-xs text-red-400 font-mono font-medium mb-6 tracking-tight">Senior Backend Laravel Architect</p>
+
+            <!-- Real-Time Progress Bar & Numerical Counter -->
+            <div class="w-full space-y-2 mb-4">
+                <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <span id="preloader-status">جاري تهيئة النظام...</span>
+                    <span id="preloader-counter" class="text-red-400 font-bold">0%</span>
+                </div>
+
+                <div class="w-full h-1.5 rounded-full bg-slate-900 border border-slate-800/80 overflow-hidden relative p-0.5">
+                    <div id="preloader-bar" class="h-full rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-emerald-400 transition-all duration-150 ease-out" style="width: 5%;"></div>
+                </div>
+            </div>
+
+            <!-- Security & System Spec Subtext -->
+            <div class="flex items-center gap-2 text-[10px] font-mono text-slate-500">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span id="preloader-specs">Laravel 11 • Clean Architecture • MySQL</span>
+            </div>
+
+        </div>
+
+        <!-- Fast Standalone Preloader Engine Script -->
+        <script>
+            (function() {
+                var preloader = document.getElementById('app-preloader');
+                var bar = document.getElementById('preloader-bar');
+                var counter = document.getElementById('preloader-counter');
+                var status = document.getElementById('preloader-status');
+                var nameEl = document.getElementById('preloader-name');
+                var subEl = document.getElementById('preloader-subtitle');
+                var specsEl = document.getElementById('preloader-specs');
+                
+                if (!preloader) return;
+
+                var lang = localStorage.getItem('ghassan_lang') || 'ar';
+                var isAr = (lang === 'ar');
+
+                if (nameEl) nameEl.innerText = isAr ? 'غسان أبو حزين' : 'Ghassan Abo Hozaun';
+                if (subEl) subEl.innerText = isAr ? 'مطور أول Backend Laravel & مهندس حلول' : 'Senior Backend Laravel Architect';
+                if (specsEl) specsEl.innerText = isAr ? 'معمارية نظيفة • Laravel 11 • قواعد بيانات MySQL' : 'Clean Architecture • Laravel 11 • MySQL';
+
+                var statuses = isAr ? [
+                    'جاري تحليل المعمارية البرمجية...',
+                    'جاري تحميل الأنظمة ولوحات التحكم...',
+                    'جاري تهيئة قواعد البيانات والمخدمات...',
+                    'فحص استقرار المنظومة...',
+                    'النظام جاهز للانطلاق!'
+                ] : [
+                    'Analyzing System Architecture...',
+                    'Loading Enterprise Systems & Portals...',
+                    'Mounting Database Schemas & Workers...',
+                    'Verifying System Integrity...',
+                    'System Ready!'
+                ];
+
+                var progress = 0;
+                var steps = [18, 42, 68, 88, 100];
+                var stepIndex = 0;
+
+                var interval = setInterval(function() {
+                    if (stepIndex < steps.length) {
+                        progress = steps[stepIndex];
+                        stepIndex++;
+                    } else {
+                        progress = 100;
+                    }
+
+                    if (bar) bar.style.width = progress + '%';
+                    if (counter) counter.innerText = progress + '%';
+
+                    if (status) {
+                        if (progress <= 20) status.innerText = statuses[0];
+                        else if (progress <= 45) status.innerText = statuses[1];
+                        else if (progress <= 70) status.innerText = statuses[2];
+                        else if (progress < 100) status.innerText = statuses[3];
+                        else {
+                            status.innerText = statuses[4];
+                            status.className = 'text-emerald-400 font-bold';
+                        }
+                    }
+
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(hidePreloader, 320);
+                    }
+                }, 280);
+
+                var isHidden = false;
+                function hidePreloader() {
+                    if (isHidden || !preloader) return;
+                    isHidden = true;
+                    
+                    // Unlock page scrolling
+                    document.documentElement.classList.remove('is-preloading');
+                    document.body.classList.remove('is-preloading');
+                    document.body.classList.remove('preload');
+
+                    // Trigger smooth entry animations right as screen is revealed
+                    window.dispatchEvent(new CustomEvent('preloader-finished'));
+
+                    preloader.classList.add('preloader-hidden');
+                    setTimeout(function() {
+                        if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+                    }, 500);
+                }
+
+                // Guaranteed safety fallback
+                setTimeout(function() {
+                    if (!isHidden) {
+                        if (bar) bar.style.width = '100%';
+                        if (counter) counter.innerText = '100%';
+                        hidePreloader();
+                    }
+                }, 2200);
+            })();
+        </script>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SMART TOP READING PROGRESS BAR (خط القراءة العلوي المتوهج) -->
+    <!-- ========================================== -->
+    <div id="top-reading-progress">
+        <div id="top-reading-progress-bar"></div>
+    </div>
 
     <!-- ========================================== -->
     <!-- NAVBAR (شريط التنقل المتجاوب) -->
