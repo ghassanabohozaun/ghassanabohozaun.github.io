@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>غسان أبو حزين | مطور أنظمة ويب و Laravel Full-Stack</title>
+
+    <!-- Meta Tags -->
+    <meta name="description"
+        content="معرض أعمال غسان أبو حزين - مطور Laravel و Full-Stack متخصص في بناء الأنظمة المعقدة وقواعد البيانات ولوحات التحكم المتقدمة.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        laravel: '#FF2D20',
+                        brand: {
+                            dark: '#0B0F19',
+                            card: '#111827',
+                            border: '#1F2937',
+                            accent: '#F43F5E'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Alpine.js CDN (Core + Collapse plugin) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #070B14;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1F2937;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF2D20;
+        }
+    </style>
+</head>
+
+<body class="text-slate-100 antialiased selection:bg-laravel selection:text-white" x-data="portfolioData()"
+    @keydown.escape.window="modalOpen = false">
+
+    <!-- خلفية تفاعلية وإضاءات ناعمة -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 right-1/4 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px]"></div>
+        <div class="absolute top-1/2 left-[-100px] w-[450px] h-[450px] bg-indigo-600/10 rounded-full blur-[130px]">
+        </div>
+        <div class="absolute bottom-10 right-10 w-[350px] h-[350px] bg-emerald-600/5 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- شريط التنقل (Navbar) -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-[#070B14]/80 backdrop-blur-xl border-b border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+
+                <!-- الشعار -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div
+                        class="w-11 h-11 rounded-xl bg-gradient-to-tr from-red-600 to-orange-500 flex items-center justify-center shadow-lg shadow-red-600/20 group-hover:scale-105 transition-transform duration-300">
+                        <i class="fa-brands fa-laravel text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg tracking-tight text-white block">غسان أبو حزين</span>
+                        <span class="text-[11px] font-semibold text-slate-400 block -mt-1">Full-Stack Laravel
+                            Engineer</span>
+                    </div>
+                </a>
+
+                <!-- روابط سطح المكتب -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+                    <a href="#about" class="hover:text-laravel transition">نبذة</a>
+                    <a href="#experience" class="hover:text-laravel transition">الخبرات</a>
+                    <a href="#skills" class="hover:text-laravel transition">المهارات</a>
+                    <a href="#projects" class="hover:text-laravel transition">المشاريع</a>
+                    <a href="#contact"
+                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold transition shadow-lg shadow-red-600/25">
+                        تواصل معي
+                    </a>
+                </nav>
+
+                <!-- زر القائمة للجوال -->
+                <button @click="mobileMenu = !mobileMenu"
+                    class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg bg-slate-900 border border-slate-800">
+                    <i :class="mobileMenu ? 'fa-solid fa-xmark text-xl' : 'fa-solid fa-bars text-xl'"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- قائمة الجوال -->
+        <div x-show="mobileMenu" x-collapse
+            class="md:hidden bg-[#0B0F19] border-b border-slate-800 px-6 py-5 space-y-4 text-sm font-semibold">
+            <a @click="mobileMenu = false" href="#about" class="block text-slate-300 hover:text-laravel">نبذة</a>
+            <a @click="mobileMenu = false" href="#experience"
+                class="block text-slate-300 hover:text-laravel">الخبرات</a>
+            <a @click="mobileMenu = false" href="#skills" class="block text-slate-300 hover:text-laravel">المهارات</a>
+            <a @click="mobileMenu = false" href="#projects" class="block text-slate-300 hover:text-laravel">المشاريع</a>
+            <a @click="mobileMenu = false" href="#contact"
+                class="block text-center py-2.5 rounded-lg bg-red-600 text-white font-bold">تواصل معي</a>
+        </div>
+    </header>
+
+    <!-- قسم الهيرو (Hero Section) -->
+    <section id="about" class="relative z-10 pt-36 pb-20 md:pt-48 md:pb-28 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+
+            <!-- شارة الحالة -->
+            <div
+                class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-semibold text-slate-300 mb-8 backdrop-blur-md shadow-inner">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                متاح للعمل على مشاريع برمجية جديدة وعقود العمل عن بُعد
+            </div>
+
+            <!-- العنوان الرئيسي -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.2] mb-6 text-white">
+                هندسة أنظمة الويب وحلول <br class="hidden sm:inline">
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-amber-500">Laravel
+                    المتكاملة</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
+                أعمل على تصميم وبناء تطبيقات الويب المعقدة، لوحات التحكم، وبوابات الدفع الإلكترونية، مع التركيز على
+                كتابة كود نظيف (Clean Architecture)، تحسين أداء الاستعلامات، وقواعد البيانات عالية الكفاءة.
+            </p>
+
+            <!-- أزرار الإجراء السريع -->
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <a href="#projects"
+                    class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold transition shadow-xl shadow-red-600/30 flex items-center gap-2.5">
+                    <i class="fa-solid fa-code-branch"></i> استكشاف المشاريع
+                </a>
+                <a href="https://github.com/ghassanabohozaun" target="_blank"
+                    class="px-8 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 font-bold transition flex items-center gap-2.5">
+                    <i class="fa-brands fa-github text-xl"></i> GitHub
+                </a>
+            </div>
+
+            <!-- إحصائيات سريعة -->
+            <div
+                class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto pt-8 border-t border-slate-800/80">
+                <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60">
+                    <div class="text-3xl font-extrabold text-red-500 mb-1">+10</div>
+                    <div class="text-xs text-slate-400 font-medium">سنوات خبرة تقنية</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60">
+                    <div class="text-3xl font-extrabold text-white mb-1">+25</div>
+                    <div class="text-xs text-slate-400 font-medium">أنظمة وتطبيقات مكتملة</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60">
+                    <div class="text-3xl font-extrabold text-orange-400 mb-1">100%</div>
+                    <div class="text-xs text-slate-400 font-medium">كود معياري وClean Code</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/60">
+                    <div class="text-3xl font-extrabold text-emerald-400 mb-1">24/7</div>
+                    <div class="text-xs text-slate-400 font-medium">استجابة ودعم فني</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- قسم المهارات والترسانة التقنية (Tech Stack) -->
+    <section id="skills" class="relative z-10 py-20 bg-[#090D18] border-y border-slate-800/80">
+        <div class="max-w-6xl mx-auto px-4">
+
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <h2 class="text-3xl font-black text-white">المهارات والترسانة البرمجية</h2>
+                <p class="text-slate-400 text-sm mt-2">الأدوات وأطر العمل التي أعتمد عليها في بناء الحلول البرمجية
+                    المتينة</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- مهارة: Backend -->
+                <div
+                    class="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl hover:border-red-500/40 transition duration-300 group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-laravel"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Backend Architecture</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        PHP 8+, Laravel Ecosystem, MVC, Clean Architecture, RESTful APIs, Queues & Cron Jobs.
+                    </p>
+                </div>
+
+                <!-- مهارة: Database -->
+                <div
+                    class="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/40 transition duration-300 group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Databases & Optimization</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        MySQL Schema Design, Indexing, Query Optimization, Eloquent ORM, Transactions & Integrity.
+                    </p>
+                </div>
+
+                <!-- مهارة: Frontend -->
+                <div
+                    class="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl hover:border-cyan-500/40 transition duration-300 group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Frontend & Reactivity</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Tailwind CSS, Alpine.js, Livewire, Vue.js, Bootstrap, Responsive Design & Mobile-First.
+                    </p>
+                </div>
+
+                <!-- مهارة: DevOps & Integration -->
+                <div
+                    class="bg-slate-900/70 border border-slate-800 p-6 rounded-2xl hover:border-indigo-500/40 transition duration-300 group">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">DevOps & Payments</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Git/GitHub, Server Deployment, E-Wallets & Payment Gateways, Webhooks, Postman.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- قسم المشاريع ودراسات الحالة (مع Alpine.js للتصفية والمودال) -->
+    <section id="projects" class="relative z-10 py-24 px-4 max-w-6xl mx-auto">
+
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl font-black text-white">معرض المشاريع ودراسات الحالة</h2>
+            <p class="text-slate-400 text-sm mt-2">نماذج حية وتطبيقات عملية تم تصميمها وهندستها لتلبية متطلبات واقعية
+            </p>
+        </div>
+
+        <!-- أزرار التصفية التفاعلية بـ Alpine.js -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12">
+            <template x-for="cat in categories" :key="cat.id">
+                <button @click="activeCategory = cat.id"
+                    :class="activeCategory === cat.id ? 'bg-red-600 text-white shadow-lg shadow-red-600/20' : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'"
+                    class="px-5 py-2 rounded-xl text-xs font-bold transition duration-200" x-text="cat.name">
+                </button>
+            </template>
+        </div>
+
+        <!-- شبكة عرض المشاريع -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="project in filteredProjects" :key="project.id">
+                <div
+                    class="bg-[#0D1322] border border-slate-800/90 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition duration-300 group">
+
+                    <div>
+                        <!-- تصنيف المشروع وروابطه -->
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span
+                                class="px-3 py-1 rounded-full text-[11px] font-semibold bg-red-500/10 text-red-400 border border-red-500/20"
+                                x-text="project.categoryLabel"></span>
+
+                            <div class="flex items-center gap-3 text-slate-400 text-sm">
+                                <a x-show="project.github" :href="project.github" target="_blank"
+                                    class="hover:text-white transition" title="GitHub Code">
+                                    <i class="fa-brands fa-github text-lg"></i>
+                                </a>
+                                <a x-show="project.liveUrl" :href="project.liveUrl" target="_blank"
+                                    class="hover:text-white transition" title="Live Preview">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- اسم المشروع ووصفه -->
+                        <h3 class="text-lg font-bold text-white mb-2 group-hover:text-red-400 transition"
+                            x-text="project.title"></h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-6" x-text="project.description"></p>
+                    </div>
+
+                    <div>
+                        <!-- الوسوم والتقنيات -->
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            <template x-for="tech in project.stack" :key="tech">
+                                <span
+                                    class="bg-slate-900/80 border border-slate-800 px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-300"
+                                    x-text="tech"></span>
+                            </template>
+                        </div>
+
+                        <!-- زر استعراض التفاصيل -->
+                        <button @click="openModal(project)"
+                            class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-200 hover:text-white transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-info text-red-500"></i> التفاصيل المعمارية
+                        </button>
+                    </div>
+
+                </div>
+            </template>
+        </div>
+
+    </section>
+
+    <!-- نافذة منبثقة تفاعلية لعرض تفاصيل المشروع (Alpine Modal) -->
+    <div x-show="modalOpen" x-cloak
+        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+
+        <div @click.outside="modalOpen = false"
+            class="bg-[#0F172A] border border-slate-700 w-full max-w-2xl rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+
+            <!-- زر الإغلاق -->
+            <button @click="modalOpen = false"
+                class="absolute top-5 left-5 text-slate-400 hover:text-white w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- محتوى النافذة -->
+            <div v-if="selectedProject">
+                <span
+                    class="px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20"
+                    x-text="selectedProject.categoryLabel"></span>
+                <h3 class="text-2xl font-black text-white mt-3 mb-4" x-text="selectedProject.title"></h3>
+
+                <div class="space-y-4 text-sm text-slate-300">
+                    <div>
+                        <h4 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-red-500"></i> التحدي والمشكلة البرمجية:
+                        </h4>
+                        <p class="text-slate-400 text-xs leading-relaxed" x-text="selectedProject.challenge"></p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-gears text-emerald-400"></i> الحل الهندسي والتنفيذ:
+                        </h4>
+                        <p class="text-slate-400 text-xs leading-relaxed" x-text="selectedProject.solution"></p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-white text-sm mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-blue-400"></i> المكدس التقني والمكتبات:
+                        </h4>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <template x-for="tech in selectedProject.stack" :key="tech">
+                                <span class="bg-slate-800 px-2.5 py-1 rounded-md text-xs font-mono text-slate-200"
+                                    x-text="tech"></span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-800 flex justify-end gap-3">
+                    <button @click="modalOpen = false"
+                        class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300">
+                        إغلاق
+                    </button>
+                    <a x-show="selectedProject.liveUrl" :href="selectedProject.liveUrl" target="_blank"
+                        class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-xs font-bold text-white flex items-center gap-2">
+                        معاينة حية <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- قسم التواصل ودعوة العمل (Contact Section) -->
+    <section id="contact" class="relative z-10 py-24 bg-[#090D18] border-t border-slate-800/80">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+
+            <div
+                class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-red-600 to-orange-500 text-white flex items-center justify-center text-3xl mx-auto mb-6 shadow-xl shadow-red-600/20">
+                <i class="fa-solid fa-handshake"></i>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">هل لديك فكرة أو مشروع برمجيات قادم؟</h2>
+            <p class="text-slate-400 max-w-xl mx-auto mb-10 text-sm leading-relaxed">
+                يسعدني تقديم الاستشارات التقنية، وتصميم وبناء بنية الأنظمة البرمجية من الصفر حتى مرحلة الإطلاق
+                والاستقرار.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="mailto:ghassan@example.com"
+                    class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold transition flex items-center gap-2.5 shadow-xl shadow-red-600/25">
+                    <i class="fa-solid fa-envelope"></i> راسلني عبر الإيميل
+                </a>
+                <a href="https://wa.me/970000000000" target="_blank"
+                    class="px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-2.5 shadow-xl shadow-emerald-600/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> تواصل عبر واتساب
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- الفوتر (Footer) -->
+    <footer class="relative z-10 py-8 border-t border-slate-900 bg-[#070B14] text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© 2026 غسان أبو حزين. تم التطوير باستخدام Tailwind CSS و Alpine.js.</p>
+            <div class="flex gap-4 text-base text-slate-400">
+                <a href="https://github.com/ghassanabohozaun" target="_blank" class="hover:text-red-500 transition"><i
+                        class="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-red-500 transition"><i
+                        class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- منطق وتخزين بيانات المشاريع بـ Alpine.js -->
+    <script>
+        function portfolioData() {
+            return {
+                mobileMenu: false,
+                modalOpen: false,
+                activeCategory: 'all',
+                selectedProject: null,
+
+                categories: [
+                    { id: 'all', name: 'جميع المشاريع' },
+                    { id: 'erp', name: 'أنظمة إدارية & SaaS' },
+                    { id: 'fintech', name: 'أنظمة مالية وتجارة' },
+                    { id: 'api', name: 'APIs وخدمات' }
+                ],
+
+                projects: [
+                    {
+                        id: 1,
+                        category: 'erp',
+                        categoryLabel: 'نظام إداري SaaS',
+                        title: 'نظام إدارة وأرشفة إلكتروني سحابي',
+                        description: 'نظام متكامل لإدارة بيانات المستفيدين وتتبع الملفات الإدارية مع نظام صلاحيات متعدد المستويات (RBAC) وتوليد تقارير إحصائية متقدمة.',
+                        challenge: 'التعامل مع كميات ضخمة من السجلات والاستعلامات المعقدة مع الحفاظ على سرعة الاستجابة ومنع تضارب الصلاحيات.',
+                        solution: 'تم بناء فهارس قاعدة بيانات مخصصة (Database Indexing)، واستخدام Eager Loading لمنع مشاكل N+1، وتطبيق سياسات حماية متقدمة بـ Laravel Gates/Policies.',
+                        stack: ['Laravel 11', 'MySQL', 'Livewire', 'Tailwind CSS', 'Redis'],
+                        github: 'https://github.com/ghassanabohozaun',
+                        liveUrl: ''
+                    },
+                    {
+                        id: 2,
+                        category: 'fintech',
+                        categoryLabel: 'تطبيق تجاري ومحفظة',
+                        title: 'نظام إدارة المبيعات والذمم والمحافظ الرقمية',
+                        description: 'منصة لإدارة المعاملات المالية اليومية، تتبع الذمم والديون، والربط مع المحافظ الإلكترونية ونقاط البيع السريعة.',
+                        challenge: 'ضمان دقة العمليات المالية وتجنب مشاكل المعاملات المتزامنة وحساب الأرصدة بدقة متناهية.',
+                        solution: 'استخدام Database Transactions، وتفعيل سجل التدقيق (Audit Logging) لكل عملية مالية، مع تأمين الواجهات البرمجية.',
+                        stack: ['Laravel', 'MySQL', 'RESTful API', 'Bootstrap 5', 'E-Wallets'],
+                        github: 'https://github.com/ghassanabohozaun',
+                        liveUrl: ''
+                    },
+                    {
+                        id: 3,
+                        category: 'erp',
+                        categoryLabel: 'منصة تعليمية',
+                        title: 'بوابة إدارة الدورات والاشتراكات',
+                        description: 'نظام تعليمي متكامل يدعم إدارة الاشتراكات، بث المحتوى التعليمي، واختبارات تفاعلية مع متابعة إنجاز الطلاب.',
+                        challenge: 'معالجة إشعارات البريد ورفع الوسائط وجدولة المهام الدورية دون التأثير على أداء تجربة المستخدم.',
+                        solution: 'الاعتماد على Laravel Queues لمعالجة المهام الثقيلة في الخلفية وجدولة المهام عبر Task Scheduling.',
+                        stack: ['Laravel', 'Vue.js', 'MySQL', 'Queues / Jobs'],
+                        github: 'https://github.com/ghassanabohozaun',
+                        liveUrl: ''
+                    },
+                    {
+                        id: 4,
+                        category: 'api',
+                        categoryLabel: 'Backend API',
+                        title: 'واجهات برمجية لتطبيق توصيل وخدمات',
+                        description: 'بناء RESTful API عالي الأداء لتطبيق جوال مع نظام مصادقة آمن وإدارة فورية للطلبات والإشعارات.',
+                        challenge: 'توفير استجابة سريعة جداً للموبايل (Low Latency) وتأمين نقاط الدخول للمستخدمين والسائقين.',
+                        solution: 'تطبيق Laravel Sanctum للمصادقة وتخزين الاستجابات الشائعة في الذاكرة المؤقتة (Caching) مع توثيق Swagger/Postman.',
+                        stack: ['Laravel Sanctum', 'RESTful API', 'Postman', 'MySQL'],
+                        github: 'https://github.com/ghassanabohozaun',
+                        liveUrl: ''
+                    }
+                ],
+
+                get filteredProjects() {
+                    if (this.activeCategory === 'all') {
+                        return this.projects;
+                    }
+                    return this.projects.filter(p => p.category === this.activeCategory);
+                },
+
+                openModal(project) {
+                    this.selectedProject = project;
+                    this.modalOpen = true;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
