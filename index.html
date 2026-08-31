@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غسان أبو حزين | مهندس برمجيات و Backend Laravel Developer</title>
+    <title>غسان أبو حزين | مطور أول Backend Laravel & PHP</title>
 
     <!-- Meta Tags for SEO & Social Sharing -->
     <meta name="description"
-        content="معرض أعمال وسيرة ذاتية غسان أبو حزين - مهندس برمجيات ومطور Laravel & PHP متخصص في بناء وتطوير أنظمة الـ ERP المعقدة، واجهات RESTful APIs، وهندسة قواعد البيانات.">
+        content="غسان أبو حزين - مهندس برمجيات ومطور أول Backend Laravel & PHP بخبرة 6+ سنوات في بناء وتطوير أنظمة الـ ERP المعقدة، منصات SaaS، وواجهات RESTful APIs وقواعد البيانات.">
     <meta name="keywords"
         content="غسان أبو حزين, Ghassan Abo Hozaun, Laravel Developer, PHP Developer, Backend Engineer, ERP Systems, RESTful API, MySQL, Livewire, Palestine, Gaza">
     <meta name="author" content="Ghassan Abo Hozaun">
@@ -19,7 +19,7 @@
     <!-- Google Fonts: Cairo & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=block" rel="stylesheet">
 
     <!-- Font Awesome Icons (Local + CDN Fallback) -->
     <link rel="stylesheet" href="assets/css/all.min.css">
@@ -40,36 +40,12 @@
                             500: '#FF2D20',
                             600: '#E0261A',
                             700: '#B81D14'
-                        },
-                        dark: {
-                            bg: '#070B14',
-                            surface: '#0B0F19',
-                            card: '#111827',
-                            border: '#1F2937',
-                            muted: '#94A3B8'
-                        },
-                        light: {
-                            bg: '#F8FAFC',
-                            surface: '#FFFFFF',
-                            card: '#FFFFFF',
-                            border: '#E2E8F0',
-                            text: '#0F172A',
-                            muted: '#64748B'
                         }
                     },
                     fontFamily: {
                         cairo: ['Cairo', 'sans-serif'],
-                        jakarta: ['"Plus Jakarta Sans"', 'sans-serif']
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite'
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        }
+                        jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
                     }
                 }
             }
@@ -93,6 +69,8 @@
 
     <style>
         [x-cloak] { display: none !important; }
+        body:not(.is-ready) { visibility: hidden !important; }
+        body.is-ready { visibility: visible !important; }
     </style>
 
     <!-- Custom Style File -->
@@ -107,146 +85,150 @@
 </head>
 
 <body x-data="portfolioApp()" x-init="initApp()"
-    :class="theme === 'dark' ? 'bg-[#070B14] text-slate-100' : 'bg-[#F8FAFC] text-slate-800'"
-    class="preload antialiased selection:bg-laravel selection:text-white transition-colors duration-300 min-h-screen relative overflow-x-hidden"
+    :class="theme === 'dark' ? 'text-slate-100' : 'text-slate-800'"
+    class="preload antialiased selection:bg-red-600 selection:text-white transition-colors duration-300 min-h-screen relative overflow-x-hidden"
     @keydown.escape.window="modalOpen = false; cvModalOpen = false">
 
-    <!-- Ambient Glowing Lights Backdrop -->
-    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <!-- Red/Laravel Glow -->
-        <div class="absolute -top-40 right-1/4 w-[600px] h-[600px] rounded-full blur-[140px] transition-opacity duration-500"
-            :class="theme === 'dark' ? 'bg-red-600/15' : 'bg-red-500/10'"></div>
-        <!-- Indigo/Cyan Glow -->
-        <div class="absolute top-1/3 left-[-150px] w-[500px] h-[500px] rounded-full blur-[140px] transition-opacity duration-500"
-            :class="theme === 'dark' ? 'bg-indigo-600/15' : 'bg-blue-500/10'"></div>
-        <!-- Emerald Glow -->
-        <div class="absolute bottom-10 right-10 w-[450px] h-[450px] rounded-full blur-[130px] transition-opacity duration-500"
-            :class="theme === 'dark' ? 'bg-emerald-600/10' : 'bg-emerald-500/5'"></div>
-    </div>
-
     <!-- ========================================== -->
-    <!-- NAVBAR (شريط التنقل العلوي) -->
+    <!-- NAVBAR (شريط التنقل المتجاوب) -->
     <!-- ========================================== -->
     <header class="fixed top-0 left-0 right-0 z-40 transition-colors duration-300"
-        :class="theme === 'dark' ? 'bg-[#070B14]/85 border-b border-slate-800/80 backdrop-blur-xl' : 'bg-white/85 border-b border-slate-200/80 backdrop-blur-xl shadow-sm'">
+        :class="theme === 'dark' ? 'bg-[#090D16]/90 border-b border-slate-800/80 backdrop-blur-md' : 'bg-white/90 border-b border-slate-200/80 backdrop-blur-md shadow-sm'">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-20 gap-2">
 
                 <!-- Logo & Identity -->
-                <a href="#" class="flex items-center gap-3.5 group">
-                    <div class="relative">
+                <a href="#" class="flex items-center gap-3 group min-w-0 flex-shrink">
+                    <div class="relative flex-shrink-0">
                         <img src="assets/images/avatar.png" alt="Ghassan Abo Hozaun"
-                            class="w-12 h-12 rounded-2xl object-cover border-2 border-red-500/40 shadow-lg shadow-red-500/20 group-hover:scale-105 transition-transform duration-300">
-                        <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 rounded-full"
-                            :class="theme === 'dark' ? 'border-[#070B14]' : 'border-white'"></span>
+                            class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-cover border-2 border-red-500/40 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                        <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 rounded-full"
+                            :class="theme === 'dark' ? 'border-[#090D16]' : 'border-white'"></span>
                     </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-black text-lg tracking-tight transition-colors"
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-bold text-base sm:text-lg tracking-tight truncate transition-colors"
                                 :class="theme === 'dark' ? 'text-white group-hover:text-red-400' : 'text-slate-900 group-hover:text-red-600'"
                                 x-text="t('brandName')">غسان أبو حزين</span>
-                            <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-red-500/10 text-red-500 border border-red-500/20">
+                            <span class="hidden sm:inline-block px-1.5 py-0.5 text-[9px] font-mono font-bold rounded bg-red-500/10 text-red-500 border border-red-500/20">
                                 Laravel
                             </span>
                         </div>
-                        <span class="text-xs font-semibold block transition-colors"
+                        <span class="text-[11px] sm:text-xs font-medium block truncate transition-colors"
                             :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-500'"
                             x-text="t('brandSubtitle')">Senior Backend Laravel Developer</span>
                     </div>
                 </a>
 
-                <!-- Desktop Navigation Links -->
-                <nav class="hidden lg:flex items-center gap-7 text-sm font-bold transition-colors"
+                <!-- Desktop Navigation Links with Pill Hover -->
+                <nav class="hidden lg:flex items-center gap-1.5 text-xs xl:text-sm font-semibold transition-colors"
                     :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'">
-                    <a href="#about" class="hover:text-laravel transition duration-200" x-text="t('navAbout')">نبذة</a>
-                    <a href="#experience" class="hover:text-laravel transition duration-200" x-text="t('navExperience')">الخبرات</a>
-                    <a href="#skills" class="hover:text-laravel transition duration-200" x-text="t('navSkills')">المهارات</a>
-                    <a href="#projects" class="hover:text-laravel transition duration-200" x-text="t('navProjects')">المشاريع</a>
-                    <a href="#education" class="hover:text-laravel transition duration-200" x-text="t('navEducation')">التعليم</a>
-                    <a href="#contact" class="hover:text-laravel transition duration-200" x-text="t('navContact')">تواصل معي</a>
+                    <a href="#about" class="px-3 py-1.5 rounded-lg transition duration-200"
+                        :class="theme === 'dark' ? 'hover:text-white hover:bg-slate-800/70' : 'hover:text-slate-900 hover:bg-slate-100'"
+                        x-text="t('navAbout')">عني</a>
+                    <a href="#experience" class="px-3 py-1.5 rounded-lg transition duration-200"
+                        :class="theme === 'dark' ? 'hover:text-white hover:bg-slate-800/70' : 'hover:text-slate-900 hover:bg-slate-100'"
+                        x-text="t('navExperience')">الخبرات</a>
+                    <a href="#skills" class="px-3 py-1.5 rounded-lg transition duration-200"
+                        :class="theme === 'dark' ? 'hover:text-white hover:bg-slate-800/70' : 'hover:text-slate-900 hover:bg-slate-100'"
+                        x-text="t('navSkills')">المهارات</a>
+                    <a href="#projects" class="px-3 py-1.5 rounded-lg transition duration-200"
+                        :class="theme === 'dark' ? 'hover:text-white hover:bg-slate-800/70' : 'hover:text-slate-900 hover:bg-slate-100'"
+                        x-text="t('navProjects')">المشاريع</a>
+                    <a href="#education" class="px-3 py-1.5 rounded-lg transition duration-200"
+                        :class="theme === 'dark' ? 'hover:text-white hover:bg-slate-800/70' : 'hover:text-slate-900 hover:bg-slate-100'"
+                        x-text="t('navEducation')">المؤهلات</a>
+                    <a href="#contact" class="px-3 py-1.5 rounded-lg transition duration-200"
+                        :class="theme === 'dark' ? 'hover:text-white hover:bg-slate-800/70' : 'hover:text-slate-900 hover:bg-slate-100'"
+                        x-text="t('navContact')">تواصل معي</a>
                 </nav>
 
-                <!-- Action Tools: Theme, Language, CV, Contact -->
-                <div class="hidden sm:flex items-center gap-3">
+                <!-- Desktop Controls Cluster -->
+                <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
                     
-                    <!-- Language Toggle Button -->
+                    <!-- Language Switcher -->
                     <button @click="toggleLang()" id="lang-btn"
-                        class="px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-2 border"
-                        :class="theme === 'dark' ? 'bg-slate-900/90 text-slate-200 border-slate-700 hover:border-slate-500 hover:text-white' : 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200'"
+                        class="h-9 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 border active:scale-95 shadow-sm"
+                        :class="theme === 'dark' ? 'bg-slate-900 text-slate-200 border-slate-700/80 hover:border-slate-500 hover:text-white' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 hover:border-slate-400'"
                         :title="lang === 'ar' ? 'Switch to English' : 'التحويل للغة العربية'">
-                        <i class="fa-solid fa-globe text-red-500"></i>
+                        <i class="fa-solid fa-globe text-red-500 text-xs"></i>
                         <span x-text="lang === 'ar' ? 'English' : 'العربية'">English</span>
                     </button>
 
-                    <!-- Theme Toggle Button -->
+                    <!-- Theme Switcher -->
                     <button @click="toggleTheme()" id="theme-btn"
-                        class="w-10 h-10 rounded-xl text-sm transition-all duration-200 flex items-center justify-center border"
-                        :class="theme === 'dark' ? 'bg-slate-900/90 text-amber-400 border-slate-700 hover:border-amber-400/50' : 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200'"
+                        class="w-9 h-9 rounded-xl text-sm transition-all duration-200 flex items-center justify-center border active:scale-95 shadow-sm"
+                        :class="theme === 'dark' ? 'bg-slate-900 text-amber-400 border-slate-700/80 hover:border-amber-400/50 hover:bg-slate-800' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50 hover:text-indigo-600 hover:border-slate-400'"
                         :title="theme === 'dark' ? 'Switch to Light Mode' : 'التحويل للوضع الليلي'">
                         <i :class="theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon text-indigo-600'"></i>
                     </button>
 
-                    <!-- CV Download Button -->
+                    <!-- Subtle Vertical Divider -->
+                    <div class="h-5 w-[1px] mx-1" :class="theme === 'dark' ? 'bg-slate-800' : 'bg-slate-300'"></div>
+
+                    <!-- CV Modal Button -->
                     <button @click="cvModalOpen = true"
-                        class="px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-2 border"
-                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 hover:border-slate-500 text-slate-200' : 'bg-slate-100 border-slate-300 hover:bg-slate-200 text-slate-700'">
-                        <i class="fa-solid fa-file-arrow-down text-red-500"></i>
+                        class="h-9 px-3.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 border active:scale-95 shadow-sm"
+                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-700/80 hover:border-slate-500 text-slate-200 hover:text-white' : 'bg-white border-slate-300 hover:bg-slate-50 hover:border-slate-400 text-slate-700'"
+                        :title="lang === 'ar' ? 'عرض السيرة الذاتية' : 'View Resume'">
+                        <i class="fa-solid fa-file-arrow-down text-red-500 text-xs"></i>
                         <span x-text="t('btnCV')">السيرة الذاتية</span>
                     </button>
 
                     <!-- Primary Contact CTA Button -->
                     <a href="#contact"
-                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white text-xs font-bold transition shadow-lg shadow-red-600/25 flex items-center gap-2">
-                        <i class="fa-solid fa-paper-plane"></i>
+                        class="h-9 px-4 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all duration-200 shadow-sm hover:shadow-md hover:shadow-red-500/20 active:scale-95 flex items-center gap-1.5">
+                        <i class="fa-solid fa-paper-plane text-[11px]"></i>
                         <span x-text="t('btnContact')">راسلني</span>
                     </a>
                 </div>
 
-                <!-- Mobile Menu Toggle Button -->
-                <div class="flex items-center gap-2 sm:hidden">
-                    <!-- Quick Lang Button Mobile -->
-                    <button @click="toggleLang()" class="p-2 rounded-lg text-xs font-bold border"
-                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-700'">
+                <!-- Tablet & Mobile Quick Controls -->
+                <div class="flex lg:hidden items-center gap-2 flex-shrink-0">
+                    <button @click="toggleLang()"
+                        class="h-8 px-2.5 rounded-lg text-xs font-bold border transition flex items-center gap-1 shadow-sm"
+                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-white border-slate-300 text-slate-700'">
+                        <i class="fa-solid fa-globe text-red-500 text-[11px]"></i>
                         <span x-text="lang === 'ar' ? 'EN' : 'ع'">EN</span>
                     </button>
 
-                    <!-- Quick Theme Button Mobile -->
-                    <button @click="toggleTheme()" class="p-2 rounded-lg text-xs border"
-                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 text-amber-400' : 'bg-slate-100 border-slate-300 text-slate-700'">
+                    <button @click="toggleTheme()"
+                        class="w-8 h-8 rounded-lg text-xs border flex items-center justify-center transition shadow-sm"
+                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 text-amber-400' : 'bg-white border-slate-300 text-slate-700'">
                         <i :class="theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon text-indigo-600'"></i>
                     </button>
 
                     <button @click="mobileMenu = !mobileMenu"
-                        class="p-2.5 rounded-xl border transition-colors"
-                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-700'">
-                        <i :class="mobileMenu ? 'fa-solid fa-xmark text-lg' : 'fa-solid fa-bars text-lg'"></i>
+                        class="w-8 h-8 rounded-lg border flex items-center justify-center transition shadow-sm"
+                        :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-slate-300 text-slate-700'">
+                        <i :class="mobileMenu ? 'fa-solid fa-xmark text-sm' : 'fa-solid fa-bars text-sm'"></i>
                     </button>
                 </div>
 
             </div>
         </div>
 
-        <!-- Mobile Dropdown Menu -->
+        <!-- Mobile & Tablet Full Navigation Drawer -->
         <div x-show="mobileMenu" x-collapse
-            class="sm:hidden border-b px-6 py-6 space-y-4 text-sm font-bold transition-colors"
-            :class="theme === 'dark' ? 'bg-[#0B0F19] border-slate-800' : 'bg-white border-slate-200 shadow-xl'">
-            <a @click="mobileMenu = false" href="#about" class="block hover:text-laravel" x-text="t('navAbout')">نبذة</a>
-            <a @click="mobileMenu = false" href="#experience" class="block hover:text-laravel" x-text="t('navExperience')">الخبرات</a>
-            <a @click="mobileMenu = false" href="#skills" class="block hover:text-laravel" x-text="t('navSkills')">المهارات</a>
-            <a @click="mobileMenu = false" href="#projects" class="block hover:text-laravel" x-text="t('navProjects')">المشاريع</a>
-            <a @click="mobileMenu = false" href="#education" class="block hover:text-laravel" x-text="t('navEducation')">التعليم</a>
-            <a @click="mobileMenu = false" href="#contact" class="block hover:text-laravel" x-text="t('navContact')">تواصل معي</a>
+            class="lg:hidden border-b px-6 py-5 space-y-3.5 text-sm font-semibold transition-colors shadow-xl"
+            :class="theme === 'dark' ? 'bg-[#0B0F17] border-slate-800' : 'bg-white border-slate-200'">
+            <a @click="mobileMenu = false" href="#about" class="block py-1 hover:text-red-500" x-text="t('navAbout')">عني</a>
+            <a @click="mobileMenu = false" href="#experience" class="block py-1 hover:text-red-500" x-text="t('navExperience')">الخبرات</a>
+            <a @click="mobileMenu = false" href="#skills" class="block py-1 hover:text-red-500" x-text="t('navSkills')">المهارات</a>
+            <a @click="mobileMenu = false" href="#projects" class="block py-1 hover:text-red-500" x-text="t('navProjects')">المشاريع</a>
+            <a @click="mobileMenu = false" href="#education" class="block py-1 hover:text-red-500" x-text="t('navEducation')">المؤهلات</a>
+            <a @click="mobileMenu = false" href="#contact" class="block py-1 hover:text-red-500" x-text="t('navContact')">تواصل معي</a>
 
-            <div class="pt-4 border-t flex flex-col gap-2.5"
+            <div class="pt-3 border-t flex flex-col gap-2"
                 :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-200'">
                 <button @click="mobileMenu = false; cvModalOpen = true"
-                    class="w-full py-2.5 rounded-xl text-center font-bold border flex items-center justify-center gap-2"
+                    class="w-full py-2.5 rounded-lg text-center font-bold border flex items-center justify-center gap-2"
                     :class="theme === 'dark' ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-slate-100 border-slate-300 text-slate-800'">
                     <i class="fa-solid fa-file-arrow-down text-red-500"></i>
-                    <span x-text="t('btnCV')">السيرة الذاتية</span>
+                    <span x-text="t('btnCV')">السيرة الذاتية (CV)</span>
                 </button>
                 <a @click="mobileMenu = false" href="https://wa.me/972592404940" target="_blank"
-                    class="w-full py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-center flex items-center justify-center gap-2">
+                    class="w-full py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-center flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp"></i> WhatsApp
                 </a>
             </div>
@@ -254,464 +236,442 @@
     </header>
 
     <!-- ========================================== -->
-    <!-- HERO SECTION (قسم الواجهة الرئيسي) -->
+    <!-- HERO SECTION (قسم الواجهة المتناسق مع أنيميشن Alpine.js) -->
     <!-- ========================================== -->
-    <section id="about" class="relative z-10 pt-36 pb-20 md:pt-48 md:pb-28 px-4">
-        <div class="max-w-5xl mx-auto text-center">
+    <section id="about" class="relative z-10 pt-28 pb-16 md:pt-36 md:pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-            <!-- Availability Status Pill -->
-            <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full border text-xs font-bold mb-8 backdrop-blur-md shadow-inner transition-all duration-300"
-                :class="theme === 'dark' ? 'bg-slate-900/90 border-slate-700/80 text-slate-300' : 'bg-white/90 border-slate-300 text-slate-700 shadow-sm'">
-                <span class="relative flex h-3 w-3">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-                </span>
-                <span x-text="t('heroStatus')">متاح للعمل على مشاريع برمجية جديدة وعقود العمل عن بُعد</span>
+            <!-- Information Column -->
+            <div class="lg:col-span-7 text-center lg:text-right rtl:lg:text-right ltr:lg:text-left space-y-5">
+
+                <!-- Availability Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-semibold transition-all shadow-sm"
+                    :class="theme === 'dark' ? 'bg-slate-900/90 border-slate-700 text-slate-300' : 'bg-white border-slate-300 text-slate-700'">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span x-text="t('heroStatus')">متاح للعمل على مشاريع برمجية وعقود عن بُعد</span>
+                </div>
+
+                <!-- Main Name & Title -->
+                <div>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight transition-colors leading-tight"
+                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'">
+                        <span x-text="t('brandName')">غسان أبو حزين</span>
+                    </h1>
+
+                    <!-- Dynamic Alpine.js Typewriter Subtitle -->
+                    <div class="h-8 sm:h-9 mt-2 flex items-center justify-center lg:justify-start gap-1.5 font-mono text-base sm:text-lg md:text-xl font-bold text-red-500">
+                        <span class="text-slate-400">&gt;</span>
+                        <span dir="ltr" x-text="typedText">Enterprise ERP Systems Specialist</span>
+                        <span class="inline-block w-2 h-5 bg-red-500 animate-pulse"></span>
+                    </div>
+                </div>
+
+                <!-- Concise & Punchy Bio Paragraph -->
+                <p class="text-sm sm:text-base max-w-2xl mx-auto lg:mx-0 leading-relaxed transition-colors"
+                    :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
+                    x-text="t('heroSummary')">
+                    مهندس برمجيات بخبرة تزيد عن 6 سنوات في بناء وتطوير أنظمة الـ ERP المعقدة، منصات SaaS، وواجهات RESTful APIs الآمنة. أركز على كتابة كود نظيف وقابل للتوسع (Clean Architecture)، تصميم قواعد البيانات بكفاءة، وتحسين أداء الاستعلامات وتكامل الأنظمة.
+                </p>
+
+                <!-- Clean CTA Action Buttons -->
+                <div class="flex flex-wrap justify-center lg:justify-start items-center gap-3 pt-2">
+                    <a href="#projects"
+                        class="h-11 px-5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold transition shadow-sm hover:shadow-md hover:shadow-red-500/20 active:scale-95 flex items-center gap-2 text-xs sm:text-sm">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <span x-text="t('btnExploreProjects')">استعراض المشاريع والأنظمة</span>
+                    </a>
+
+                    <a href="https://wa.me/972592404940" target="_blank"
+                        class="h-11 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition shadow-sm active:scale-95 flex items-center gap-2 text-xs sm:text-sm">
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                        <span x-text="t('btnDirectWhatsApp')">محادثة واتساب مباشرة</span>
+                    </a>
+
+                    <button @click="cvModalOpen = true"
+                        class="h-11 px-4 rounded-xl border font-bold transition active:scale-95 flex items-center gap-2 text-xs sm:text-sm shadow-sm"
+                        :class="theme === 'dark' ? 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-200' : 'bg-white hover:bg-slate-50 border-slate-300 text-slate-700'">
+                        <i class="fa-solid fa-file-pdf text-red-500 text-sm"></i>
+                        <span x-text="t('btnCV')">السيرة الذاتية (CV)</span>
+                    </button>
+                </div>
+
             </div>
 
-            <!-- Main Heading with Gradient -->
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.15] mb-6 transition-colors"
-                :class="theme === 'dark' ? 'text-white' : 'text-slate-900'">
-                <span x-text="t('heroTitle1')">هندسة الأنظمة المعقدة وحلول</span> <br class="hidden sm:inline">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-orange-500 to-amber-500">
-                    Laravel & PHP Backend Architect
-                </span>
-            </h1>
+            <!-- Terminal Column with Smooth Alpine Transitions -->
+            <div class="lg:col-span-5 max-w-lg mx-auto lg:max-w-none w-full">
+                <div class="rounded-2xl border shadow-xl overflow-hidden terminal-window transition-all"
+                    :class="theme === 'dark' ? 'bg-[#0B0F19] border-slate-800 text-slate-200' : 'bg-[#0F172A] border-slate-700 text-slate-100'">
+                    
+                    <!-- Terminal Top Bar -->
+                    <div class="px-4 py-2.5 bg-[#070A12] border-b border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-[11px] font-mono">
+                            <button @click="activeTerminalTab = 'artisan'" 
+                                :class="activeTerminalTab === 'artisan' ? 'text-red-400 font-bold bg-slate-800/80' : 'text-slate-400 hover:text-slate-200'"
+                                class="px-2 py-0.5 rounded transition">artisan info</button>
+                            <button @click="activeTerminalTab = 'schema'" 
+                                :class="activeTerminalTab === 'schema' ? 'text-emerald-400 font-bold bg-slate-800/80' : 'text-slate-400 hover:text-slate-200'"
+                                class="px-2 py-0.5 rounded transition">Developer.php</button>
+                        </div>
+                        <i class="fa-solid fa-terminal text-[11px] text-slate-500"></i>
+                    </div>
 
-            <!-- Professional Summary Paragraph -->
-            <p class="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-normal transition-colors"
-                :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
-                x-text="t('heroSummary')">
-                مهندس برمجيات متخصص في تطوير الواجهات الخلفية (Backend) بأنظمة Laravel & PHP بخبرة عملية تزيد عن 6 سنوات في بناء أنظمة الـ ERP، واجهات RESTful APIs فائقة الأداء، وهندسة قواعد البيانات مع التزام صارم بمعايير Clean Architecture وأفضل الممارسات البرمجية.
-            </p>
+                    <!-- Fixed Height Content Container (Zero Layout Shift on Refresh) -->
+                    <div class="h-[190px] sm:h-[195px] relative overflow-hidden">
 
-            <!-- Quick Action Buttons -->
-            <div class="flex flex-wrap justify-center items-center gap-4">
-                <a href="#projects"
-                    class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold transition shadow-xl shadow-red-600/30 flex items-center gap-2.5 group">
-                    <i class="fa-solid fa-layer-group group-hover:rotate-6 transition-transform"></i>
-                    <span x-text="t('btnExploreProjects')">استكشاف المشاريع الحية</span>
-                </a>
+                        <!-- Tab 1: Artisan Command Output -->
+                        <div x-show="activeTerminalTab === 'artisan'" x-cloak
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0"
+                            x-transition:enter-end="opacity-100"
+                            class="p-4 text-xs leading-relaxed font-mono space-y-1 text-left absolute inset-0 overflow-y-auto" dir="ltr">
+                            <p class="text-slate-400">$ <span class="text-white">php artisan</span> <span class="text-red-400">about:ghassan</span></p>
+                            <div class="pt-1 text-slate-300 space-y-1 text-[11px] sm:text-xs">
+                                <p><span class="text-slate-500">Name ..........:</span> <span class="text-emerald-400 font-bold">Ghassan Abo Hozaun</span></p>
+                                <p><span class="text-slate-500">Role ..........:</span> <span class="text-cyan-300">Senior Backend Developer</span></p>
+                                <p><span class="text-slate-500">Experience ....:</span> <span class="text-amber-400 font-bold">6+ Years (Since 2018)</span></p>
+                                <p><span class="text-slate-500">Core Stack ....:</span> <span class="text-red-400">Laravel 11</span>, <span class="text-blue-400">PHP 8.2</span>, <span class="text-amber-400">MySQL</span></p>
+                                <p><span class="text-slate-500">Specialization :</span> <span class="text-slate-200">ERP & Scalable SaaS Architectures</span></p>
+                                <p><span class="text-slate-500">Status ........:</span> <span class="text-emerald-400 font-semibold">● Available for Roles & Contracts</span></p>
+                            </div>
+                        </div>
 
-                <a href="https://wa.me/972592404940" target="_blank"
-                    class="px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition shadow-lg shadow-emerald-600/25 flex items-center gap-2.5">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span x-text="t('btnDirectWhatsApp')">محادثة واتساب مباشرة</span>
-                </a>
+                        <!-- Tab 2: PHP Model Output -->
+                        <div x-show="activeTerminalTab === 'schema'" x-cloak
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0"
+                            x-transition:enter-end="opacity-100"
+                            class="p-4 text-[11px] sm:text-xs leading-relaxed font-mono text-left absolute inset-0 overflow-y-auto" dir="ltr">
+                            <pre class="text-slate-300"><code><span class="code-keyword">class</span> <span class="code-var">GhassanAboHozaun</span> <span class="code-keyword">implements</span> <span class="text-amber-400">SeniorBackend</span>
+{
+    <span class="code-keyword">public const</span> <span class="code-var">EXPERIENCE</span> = <span class="code-string">'6+ Years'</span>;
 
-                <button @click="cvModalOpen = true"
-                    class="px-7 py-3.5 rounded-xl border font-bold transition flex items-center gap-2.5"
-                    :class="theme === 'dark' ? 'bg-slate-900/90 hover:bg-slate-800 border-slate-700 text-slate-200' : 'bg-white hover:bg-slate-100 border-slate-300 text-slate-800 shadow-sm'">
-                    <i class="fa-solid fa-file-pdf text-red-500 text-lg"></i>
-                    <span x-text="t('btnViewCV')">عرض الـ CV</span>
-                </button>
-            </div>
+    <span class="code-keyword">public function</span> <span class="text-cyan-400">getCompetencies</span>(): <span class="code-var">array</span> {
+        <span class="code-keyword">return</span> [
+            <span class="code-string">'Enterprise ERP & SaaS'</span>,
+            <span class="code-string">'MySQL Query Tuning'</span>,
+            <span class="code-string">'REST APIs & Sanctum'</span>,
+        ];
+    }
+}</code></pre>
+                        </div>
 
-            <!-- Key Metric Counters -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-16 max-w-4xl mx-auto pt-10 border-t transition-colors"
-                :class="theme === 'dark' ? 'border-slate-800/80' : 'border-slate-200'">
-                
-                <!-- Stat 1 -->
-                <div class="p-5 rounded-2xl border transition-all duration-300 hover:scale-105"
-                    :class="theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="text-3xl sm:text-4xl font-black text-red-500 mb-1">+6</div>
-                    <div class="text-xs sm:text-sm font-bold"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat1Label')">سنوات خبرة متخصصة</div>
+                    </div>
+
+                    <!-- Terminal Footer Bar -->
+                    <div class="px-4 py-1.5 bg-[#070A12] border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+                        <span>UTF-8</span>
+                        <span>PHP 8.2 / Laravel 11.x</span>
+                    </div>
+
                 </div>
-
-                <!-- Stat 2 -->
-                <div class="p-5 rounded-2xl border transition-all duration-300 hover:scale-105"
-                    :class="theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="text-3xl sm:text-4xl font-black text-amber-500 mb-1">+10</div>
-                    <div class="text-xs sm:text-sm font-bold"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat2Label')">أنظمة حية ومشاريع مكتملة</div>
-                </div>
-
-                <!-- Stat 3 -->
-                <div class="p-5 rounded-2xl border transition-all duration-300 hover:scale-105"
-                    :class="theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="text-3xl sm:text-4xl font-black text-emerald-500 mb-1">100%</div>
-                    <div class="text-xs sm:text-sm font-bold"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat3Label')">Clean Code & Architecture</div>
-                </div>
-
-                <!-- Stat 4 -->
-                <div class="p-5 rounded-2xl border transition-all duration-300 hover:scale-105"
-                    :class="theme === 'dark' ? 'bg-slate-900/50 border-slate-800/80' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="text-3xl sm:text-4xl font-black text-indigo-500 mb-1">2009</div>
-                    <div class="text-xs sm:text-sm font-bold"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('stat4Label')">خريج الجامعة الإسلامية</div>
-                </div>
-
             </div>
 
         </div>
-    </section>
 
-    <!-- ========================================== -->
-    <!-- PROFESSIONAL HIGHLIGHTS & ARCHITECTURE PILLARS -->
-    <!-- ========================================== -->
-    <section class="relative z-10 py-16 transition-colors border-y"
-        :class="theme === 'dark' ? 'bg-[#090D18] border-slate-800/80' : 'bg-slate-100/70 border-slate-200'">
-        <div class="max-w-6xl mx-auto px-4">
+        <!-- Integrated Alpine.js Animated Metrics Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 pt-8 border-t transition-colors"
+            :class="theme === 'dark' ? 'border-slate-800/80' : 'border-slate-200'">
             
-            <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl font-black transition-colors"
-                    :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                    x-text="t('pillarsTitle')">الركائز المعمارية والبرمجية</h2>
-                <p class="text-sm mt-2 transition-colors"
-                    :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                    x-text="t('pillarsSubtitle')">المعايير الهندسية التي أعتمد عليها في بناء الأنظمة البرمجية المتينة والمستقرة</p>
+            <!-- Metric 1 -->
+            <div class="p-4 rounded-xl border transition-all text-center sm:text-right rtl:sm:text-right ltr:sm:text-left"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="text-2xl sm:text-3xl font-black text-red-500 font-mono flex items-center justify-center sm:justify-start gap-0.5">
+                    <span>+</span><span x-text="counterStats.exp">6</span>
+                </div>
+                <div class="text-xs font-semibold mt-1" :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'" x-text="t('stat1Label')">سنوات خبرة في Laravel & PHP</div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-                <!-- Pillar 1: ERP & RBAC -->
-                <div class="p-6 rounded-2xl border transition-all duration-300 group hover:-translate-y-1.5"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800 hover:border-red-500/50' : 'bg-white border-slate-200 hover:border-red-500/50 shadow-sm'">
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-sitemap"></i>
-                    </div>
-                    <h3 class="font-extrabold text-base mb-2 transition-colors"
-                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar1Title')">بنية أنظمة ERP & SaaS</h3>
-                    <p class="text-xs leading-relaxed transition-colors"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar1Desc')">بناء أنظمة متكاملة متعددة الصلاحيات (RBAC) ولوحات تحكم معقدة تدير تدفق الأعمال بكفاءة.</p>
+            <!-- Metric 2 -->
+            <div class="p-4 rounded-xl border transition-all text-center sm:text-right rtl:sm:text-right ltr:sm:text-left"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="text-2xl sm:text-3xl font-black text-amber-500 font-mono flex items-center justify-center sm:justify-start gap-0.5">
+                    <span>+</span><span x-text="counterStats.projects">10</span>
                 </div>
-
-                <!-- Pillar 2: Database Optimization -->
-                <div class="p-6 rounded-2xl border transition-all duration-300 group hover:-translate-y-1.5"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800 hover:border-amber-500/50' : 'bg-white border-slate-200 hover:border-amber-500/50 shadow-sm'">
-                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-database"></i>
-                    </div>
-                    <h3 class="font-extrabold text-base mb-2 transition-colors"
-                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar2Title')">تحسين قواعد البيانات</h3>
-                    <p class="text-xs leading-relaxed transition-colors"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar2Desc')">هندسة MySQL/MariaDB، الفهرسة المتقدمة، تحسين الاستعلامات، وحل مشاكل N+1 بدقة.</p>
-                </div>
-
-                <!-- Pillar 3: Secure RESTful APIs -->
-                <div class="p-6 rounded-2xl border transition-all duration-300 group hover:-translate-y-1.5"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800 hover:border-emerald-500/50' : 'bg-white border-slate-200 hover:border-emerald-500/50 shadow-sm'">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <h3 class="font-extrabold text-base mb-2 transition-colors"
-                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar3Title')">واجهات APIs ومصادقة آمنة</h3>
-                    <p class="text-xs leading-relaxed transition-colors"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar3Desc')">بناء RESTful APIs متينة وتأمينها باستخدام Laravel Sanctum & Passport مع توثيق شامل.</p>
-                </div>
-
-                <!-- Pillar 4: Queues & Background Processing -->
-                <div class="p-6 rounded-2xl border transition-all duration-300 group hover:-translate-y-1.5"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800 hover:border-indigo-500/50' : 'bg-white border-slate-200 hover:border-indigo-500/50 shadow-sm'">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-bolt-lightning"></i>
-                    </div>
-                    <h3 class="font-extrabold text-base mb-2 transition-colors"
-                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('pillar4Title')">معالجة المهام الخلفية</h3>
-                    <p class="text-xs leading-relaxed transition-colors"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('pillar4Desc')">معالجة المهام الثقيلة في الخلفية عبر Queues & Jobs وجدولة المهام الدورية Task Scheduling.</p>
-                </div>
-
+                <div class="text-xs font-semibold mt-1" :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'" x-text="t('stat2Label')">أنظمة ERP وحلول حية</div>
             </div>
+
+            <!-- Metric 3 -->
+            <div class="p-4 rounded-xl border transition-all text-center sm:text-right rtl:sm:text-right ltr:sm:text-left"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="text-2xl sm:text-3xl font-black text-emerald-500 font-mono flex items-center justify-center sm:justify-start gap-0.5">
+                    <span>+</span><span x-text="counterStats.users.toLocaleString()">10,000</span>
+                </div>
+                <div class="text-xs font-semibold mt-1" :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'" x-text="t('stat3Label')">مستخدم ومستفيد مُدار</div>
+            </div>
+
+            <!-- Metric 4 -->
+            <div class="p-4 rounded-xl border transition-all text-center sm:text-right rtl:sm:text-right ltr:sm:text-left"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="text-2xl sm:text-3xl font-black text-indigo-500 font-mono flex items-center justify-center sm:justify-start gap-0.5">
+                    <span x-text="counterStats.grad">2009</span>
+                </div>
+                <div class="text-xs font-semibold mt-1" :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'" x-text="t('stat4Label')">خريج الجامعة الإسلامية (2009)</div>
+            </div>
+
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- EXPERIENCE SECTION (الخبرات المهنية الحقيقية) -->
+    <!-- EXPERIENCE SECTION (المسار المهني الحقيقي) -->
     <!-- ========================================== -->
-    <section id="experience" class="relative z-10 py-24 px-4 max-w-6xl mx-auto">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                <i class="fa-solid fa-briefcase"></i> <span x-text="t('expBadge')">المسار المهني والخبرات</span>
+    <section id="experience" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t"
+        :class="theme === 'dark' ? 'border-slate-800/80' : 'border-slate-200'">
+        
+        <div class="mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-2">
+                <i class="fa-solid fa-briefcase"></i> <span x-text="t('navExperience')">الخبرات</span>
             </div>
-            <h2 class="text-3xl sm:text-4xl font-black transition-colors"
+            <h2 class="text-2xl sm:text-3xl font-black transition-colors"
                 :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
                 x-text="t('expTitle')">الخبرات المهنية وسجل العمل</h2>
-            <p class="text-sm mt-2 transition-colors"
+            <p class="text-xs sm:text-sm mt-1 transition-colors"
                 :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
                 x-text="t('expSubtitle')">محطات واقعية من العمل في شركات ومنظمات برمجية كبرى</p>
         </div>
 
-        <!-- Experience Timeline -->
-        <div class="relative border-l-2 sm:border-l-0 sm:border-r-0 max-w-4xl mx-auto space-y-10 pl-6 sm:pl-0"
-            :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-300'">
-
+        <!-- Experience Timeline Cards -->
+        <div class="space-y-6">
             <template x-for="(exp, index) in experienceList" :key="index">
-                <div class="relative p-6 sm:p-8 rounded-2xl border transition-all duration-300 hover:shadow-xl"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm'">
+                <div class="p-6 rounded-2xl border transition-all card-hover"
+                    :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
 
                     <!-- Company and Role Header -->
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-4 border-b"
+                        :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-100'">
                         <div>
-                            <div class="flex items-center gap-3">
-                                <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
-                                <h3 class="text-xl font-black transition-colors"
-                                    :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                                    x-text="exp.role[lang]"></h3>
-                            </div>
-                            <div class="text-sm font-bold text-red-500 mt-1 flex items-center gap-2">
-                                <i class="fa-solid fa-building"></i>
+                            <h3 class="text-lg font-bold transition-colors"
+                                :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
+                                x-text="exp.role[lang]"></h3>
+                            <div class="text-sm font-semibold text-red-500 mt-1 flex items-center gap-2">
+                                <i class="fa-solid fa-building text-xs"></i>
                                 <span x-text="exp.company[lang]"></span>
-                                <span class="text-xs px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono" x-text="exp.location[lang]"></span>
+                                <span class="text-xs px-2 py-0.5 rounded font-mono"
+                                    :class="theme === 'dark' ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'"
+                                    x-text="exp.location[lang]"></span>
                             </div>
                         </div>
 
                         <!-- Date Badge -->
-                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold"
-                            :class="theme === 'dark' ? 'bg-slate-800 text-slate-300 border border-slate-700' : 'bg-slate-100 text-slate-700 border border-slate-200'">
-                            <i class="fa-regular fa-calendar"></i>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-bold self-start sm:self-auto"
+                            :class="theme === 'dark' ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'">
+                            <i class="fa-regular fa-calendar text-[11px]"></i>
                             <span x-text="exp.period[lang]"></span>
                         </span>
                     </div>
 
-                    <!-- Description Tasks -->
-                    <ul class="space-y-2.5 text-xs sm:text-sm transition-colors"
+                    <!-- Tasks List -->
+                    <ul class="space-y-2 text-xs sm:text-sm transition-colors"
                         :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'">
                         <template x-for="(task, tIndex) in exp.tasks[lang]" :key="tIndex">
                             <li class="flex items-start gap-2.5 leading-relaxed">
-                                <i class="fa-solid fa-check text-red-500 mt-1 flex-shrink-0 text-xs"></i>
+                                <i class="fa-solid fa-check text-emerald-500 mt-1 flex-shrink-0 text-xs"></i>
                                 <span x-text="task"></span>
                             </li>
                         </template>
                     </ul>
 
-                    <!-- Tags -->
-                    <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t"
+                    <!-- Stack Tags -->
+                    <div class="flex flex-wrap gap-1.5 mt-5 pt-4 border-t"
                         :class="theme === 'dark' ? 'border-slate-800/80' : 'border-slate-100'">
                         <template x-for="tech in exp.stack" :key="tech">
-                            <span class="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold"
-                                :class="theme === 'dark' ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'"
+                            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono font-semibold"
+                                :class="theme === 'dark' ? 'bg-slate-800/80 text-slate-300 border border-slate-700' : 'bg-slate-100 text-slate-700 border border-slate-200'"
                                 x-text="tech"></span>
                         </template>
                     </div>
 
                 </div>
             </template>
-
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- SKILLS MATRIX (الترسانة التقنية والمهارات) -->
+    <!-- SKILLS MATRIX (المهارات والمكتبات التقنية) -->
     <!-- ========================================== -->
-    <section id="skills" class="relative z-10 py-24 transition-colors border-y"
-        :class="theme === 'dark' ? 'bg-[#090D18] border-slate-800/80' : 'bg-slate-100/70 border-slate-200'">
-        <div class="max-w-6xl mx-auto px-4">
-
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                    <i class="fa-solid fa-gears"></i> <span x-text="t('skillsBadge')">الترسانة التقنية</span>
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-black transition-colors"
-                    :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                    x-text="t('skillsTitle')">المهارات والأدوات البرمجية</h2>
-                <p class="text-sm mt-2 transition-colors"
-                    :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                    x-text="t('skillsSubtitle')">الأدوات والتقنيات التي أتقنها لبناء تطبيقات ويب قوية وقابلة للتوسع</p>
-            </div>
-
-            <!-- Skills Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-                <!-- 1. Backend Architecture -->
-                <div class="p-6 rounded-2xl border transition-all duration-300"
-                    :class="theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-xl">
-                            <i class="fa-brands fa-laravel"></i>
-                        </div>
-                        <h3 class="font-bold text-base transition-colors"
-                            :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatBackend')">Backend & Laravel</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">PHP 8+ (OOP, MVC)</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">Laravel 8, 9, 10, 11</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">RESTful API Design</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Sanctum & Passport</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Queues, Jobs & Events</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Task Scheduling</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Repository Pattern</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Clean Architecture</span>
-                    </div>
-                </div>
-
-                <!-- 2. Database & Performance -->
-                <div class="p-6 rounded-2xl border transition-all duration-300"
-                    :class="theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-database"></i>
-                        </div>
-                        <h3 class="font-bold text-base transition-colors"
-                            :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatDatabase')">قواعد البيانات والأداء</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">MySQL & MariaDB</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">Database Design & ERD</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Query Optimization</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Eloquent ORM</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Database Indexing</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Transactions & Integrity</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Migrations & Seeders</span>
-                    </div>
-                </div>
-
-                <!-- 3. Frontend & Client-side -->
-                <div class="p-6 rounded-2xl border transition-all duration-300"
-                    :class="theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <h3 class="font-bold text-base transition-colors"
-                            :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatFrontend')">Frontend & Reactivity</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Livewire 3</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Vue.js</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Tailwind CSS</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Alpine.js</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">JavaScript & jQuery</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Bootstrap 5</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Responsive UI</span>
-                    </div>
-                </div>
-
-                <!-- 4. Tools & Soft Skills -->
-                <div class="p-6 rounded-2xl border transition-all duration-300"
-                    :class="theme === 'dark' ? 'bg-slate-900/70 border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-terminal"></i>
-                        </div>
-                        <h3 class="font-bold text-base transition-colors"
-                            :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                            x-text="t('skillCatTools')">الأدوات وبيئة العمل</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Git & GitHub</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Postman API Testing</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Linux & Windows Server</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Problem Solving</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Clean Code Standards</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Analytical Thinking</span>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 border border-slate-700">Debugging & Logs</span>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- PROJECTS SHOWCASE & CASE STUDIES -->
-    <!-- ========================================== -->
-    <section id="projects" class="relative z-10 py-24 px-4 max-w-7xl mx-auto">
-
+    <section id="skills" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t"
+        :class="theme === 'dark' ? 'border-slate-800/80 bg-[#070A12]/40' : 'border-slate-200 bg-slate-50/60'">
+        
         <div class="text-center max-w-2xl mx-auto mb-12">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                <i class="fa-solid fa-cubes"></i> <span x-text="t('projectsBadge')">معرض الأعمال الحقيقية</span>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-2">
+                <i class="fa-solid fa-layer-group"></i> <span x-text="t('skillsBadge')">التقنيات والأدوات</span>
             </div>
-            <h2 class="text-3xl sm:text-4xl font-black transition-colors"
+            <h2 class="text-2xl sm:text-3xl font-black transition-colors"
                 :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                x-text="t('projectsTitle')">المشاريع ودراسات الحالة</h2>
-            <p class="text-sm mt-2 transition-colors"
+                x-text="t('skillsTitle')">المهارات والبيئة البرمجية</h2>
+            <p class="text-xs sm:text-sm mt-1 transition-colors"
                 :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                x-text="t('projectsSubtitle')">أنظمة إنتاجية حية ولوحات تحكم تم تطويرها لعملاء وشركات ومؤسسات</p>
+                x-text="t('skillsSubtitle')">الأدوات والتقنيات التي أستخدمها لبناء وإدارة الأنظمة البرمجية بكفاءة</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+            <!-- 1. Backend Core -->
+            <div class="p-5 rounded-2xl border transition-all"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="flex items-center gap-2.5 mb-4 text-red-500 font-bold text-sm">
+                    <i class="fa-brands fa-laravel text-lg"></i>
+                    <h3 x-text="t('skillCatBackend')">تطوير الـ Backend و Laravel</h3>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-red-500/10 text-red-400 border border-red-500/20 font-bold">PHP 8+ (OOP)</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-red-500/10 text-red-400 border border-red-500/20 font-bold">Laravel 8, 9, 10, 11</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">RESTful API Design</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Sanctum & Passport</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Queues & Jobs</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Task Scheduling</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Clean Architecture</span>
+                </div>
+            </div>
+
+            <!-- 2. Database -->
+            <div class="p-5 rounded-2xl border transition-all"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="flex items-center gap-2.5 mb-4 text-amber-500 font-bold text-sm">
+                    <i class="fa-solid fa-database text-lg"></i>
+                    <h3 x-text="t('skillCatDatabase')">قواعد البيانات وتحسين الأداء</h3>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">MySQL & MariaDB</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">Schema Design</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Query Optimization</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Eloquent ORM</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Database Indexing</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Transactions Safety</span>
+                </div>
+            </div>
+
+            <!-- 3. Frontend & UI -->
+            <div class="p-5 rounded-2xl border transition-all"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="flex items-center gap-2.5 mb-4 text-cyan-400 font-bold text-sm">
+                    <i class="fa-solid fa-code text-lg"></i>
+                    <h3 x-text="t('skillCatFrontend')">الواجهات الأمامية والتفاعل</h3>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">Livewire 3</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">Vue.js</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Tailwind CSS</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Alpine.js</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">JavaScript & jQuery</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Bootstrap 5</span>
+                </div>
+            </div>
+
+            <!-- 4. Tools & Environment -->
+            <div class="p-5 rounded-2xl border transition-all"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="flex items-center gap-2.5 mb-4 text-indigo-400 font-bold text-sm">
+                    <i class="fa-solid fa-terminal text-lg"></i>
+                    <h3 x-text="t('skillCatTools')">أدوات التطوير وبيئة العمل</h3>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">Git & GitHub</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">Postman Testing</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Linux & VPS</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Problem Solving</span>
+                    <span class="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-300">Clean Code Standards</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- PROJECTS SHOWCASE (الأنظمة الحقيقية المميزة) -->
+    <!-- ========================================== -->
+    <section id="projects" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t"
+        :class="theme === 'dark' ? 'border-slate-800/80' : 'border-slate-200'">
+
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-2">
+                <i class="fa-solid fa-cubes"></i> <span x-text="t('projectsBadge')">سابقة الأعمال والأنظمة</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black transition-colors"
+                :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
+                x-text="t('projectsTitle')">الأنظمة والمشاريع المنفذة</h2>
+            <p class="text-xs sm:text-sm mt-1 transition-colors"
+                :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
+                x-text="t('projectsSubtitle')">أنظمة إنتاجية حية ولوحات تحكم تم تطويرها لشركات ومؤسسات حقيقية</p>
         </div>
 
         <!-- Filter Categories -->
-        <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <div class="flex flex-wrap justify-center gap-2 mb-10">
             <template x-for="cat in projectCategories" :key="cat.id">
                 <button @click="activeCategory = cat.id"
-                    :class="activeCategory === cat.id ? 'bg-red-600 text-white shadow-lg shadow-red-600/25' : (theme === 'dark' ? 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800' : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200 shadow-sm')"
-                    class="px-5 py-2.5 rounded-xl text-xs font-bold transition duration-200"
+                    :class="activeCategory === cat.id ? 'bg-red-600 text-white shadow-sm' : (theme === 'dark' ? 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800' : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200 shadow-sm')"
+                    class="px-4 py-2 rounded-xl text-xs font-bold transition duration-200"
                     x-text="cat.name[lang]">
                 </button>
             </template>
         </div>
 
         <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <template x-for="project in filteredProjects" :key="project.id">
-                <div class="rounded-2xl border flex flex-col justify-between overflow-hidden transition-all duration-300 group hover:-translate-y-1.5"
-                    :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800 hover:border-slate-700' : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm hover:shadow-xl'">
+                <div class="rounded-2xl border flex flex-col justify-between overflow-hidden transition-all card-hover"
+                    :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
 
-                    <!-- Project Media Thumbnail -->
-                    <div class="relative h-48 sm:h-52 bg-slate-950 overflow-hidden border-b"
+                    <!-- Media Header -->
+                    <div class="relative h-48 bg-slate-950 overflow-hidden border-b"
                         :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-200'">
                         <img :src="project.image" :alt="project.title[lang]"
-                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                            class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
                             onerror="this.src='assets/images/avatar.png'">
                         
-                        <!-- Floating Category Pill -->
-                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-[11px] font-bold backdrop-blur-md border shadow-md"
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-md text-[11px] font-bold backdrop-blur-md border shadow-sm"
                             :class="theme === 'dark' ? 'bg-slate-900/90 text-red-400 border-red-500/30' : 'bg-white/95 text-red-600 border-red-200'"
                             x-text="project.categoryLabel[lang]"></span>
                     </div>
 
-                    <!-- Project Info Body -->
-                    <div class="p-6 flex-1 flex flex-col justify-between">
+                    <!-- Body -->
+                    <div class="p-5 flex-1 flex flex-col justify-between">
                         <div>
-                            <h3 class="text-lg font-black mb-2.5 transition-colors group-hover:text-red-500"
+                            <h3 class="text-base font-bold mb-2 transition-colors hover:text-red-500"
                                 :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
                                 x-text="project.title[lang]"></h3>
                             
-                            <p class="text-xs leading-relaxed mb-5 line-clamp-3 transition-colors"
+                            <p class="text-xs leading-relaxed mb-4 line-clamp-3 transition-colors"
                                 :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
                                 x-text="project.description[lang]"></p>
                         </div>
 
                         <div>
-                            <!-- Tech Stack Pills -->
-                            <div class="flex flex-wrap gap-1.5 mb-6">
+                            <!-- Stack Tags -->
+                            <div class="flex flex-wrap gap-1.5 mb-5">
                                 <template x-for="tech in project.stack.slice(0, 4)" :key="tech">
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold"
-                                        :class="theme === 'dark' ? 'bg-slate-800/90 text-slate-300 border border-slate-700' : 'bg-slate-100 text-slate-700 border border-slate-200'"
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold"
+                                        :class="theme === 'dark' ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'"
                                         x-text="tech"></span>
                                 </template>
-                                <span x-show="project.stack.length > 4" class="text-[10px] text-slate-500 font-bold self-center">
-                                    +<span x-text="project.stack.length - 4"></span>
-                                </span>
                             </div>
 
-                            <!-- Action Buttons -->
-                            <div class="grid grid-cols-2 gap-2 pt-2 border-t"
+                            <!-- Actions -->
+                            <div class="grid grid-cols-2 gap-2 pt-3 border-t"
                                 :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-100'">
                                 
                                 <button @click="openProjectModal(project)"
-                                    class="py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 border"
-                                    :class="theme === 'dark' ? 'bg-slate-900 hover:bg-slate-800 border-slate-800 text-slate-200' : 'bg-slate-100 hover:bg-slate-200 border-slate-200 text-slate-700'">
-                                    <i class="fa-solid fa-circle-info text-red-500"></i>
-                                    <span x-text="t('btnDetails')">التفاصيل المعمارية</span>
+                                    class="py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 border"
+                                    :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-200 hover:border-slate-700' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'">
+                                    <i class="fa-solid fa-circle-info text-red-500 text-[11px]"></i>
+                                    <span x-text="t('btnDetails')">التفاصيل التقنية</span>
                                 </button>
 
                                 <a x-show="project.liveUrl" :href="project.liveUrl" target="_blank"
-                                    class="py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-red-600/20">
-                                    <span x-text="t('btnLive')">الموقع الحي</span>
+                                    class="py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-sm">
+                                    <span x-text="t('btnLive')">المعاينة الحية</span>
                                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                                 </a>
 
                                 <a x-show="!project.liveUrl && project.mostaql" :href="project.mostaql" target="_blank"
-                                    class="py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
+                                    class="py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5">
                                     <span>Mostaql</span>
                                     <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                                 </a>
@@ -727,148 +687,140 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- EDUCATION, MEMBERSHIPS & CREDENTIALS -->
+    <!-- EDUCATION & CREDENTIALS (المؤهلات الرسمية) -->
     <!-- ========================================== -->
-    <section id="education" class="relative z-10 py-24 transition-colors border-y"
-        :class="theme === 'dark' ? 'bg-[#090D18] border-slate-800/80' : 'bg-slate-100/70 border-slate-200'">
-        <div class="max-w-6xl mx-auto px-4">
-
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-3">
-                    <i class="fa-solid fa-graduation-cap"></i> <span x-text="t('eduBadge')">المؤهلات والعضويات</span>
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-black transition-colors"
-                    :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                    x-text="t('eduTitle')">التعليم والشهادات الرسمية</h2>
-                <p class="text-sm mt-2 transition-colors"
-                    :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                    x-text="t('eduSubtitle')">المؤهلات الأكاديمية والمهنية المعتمدة</p>
+    <section id="education" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t"
+        :class="theme === 'dark' ? 'border-slate-800/80' : 'border-slate-200'">
+        
+        <div class="mb-10 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-bold text-red-500 bg-red-500/10 border border-red-500/20 mb-2">
+                <i class="fa-solid fa-graduation-cap"></i> <span x-text="t('eduBadge')">المؤهلات والشهادات</span>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                <!-- Education Card -->
-                <div class="p-6 rounded-2xl border transition-all"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-2xl mb-4">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <span class="text-xs font-mono font-bold text-red-500">2009</span>
-                    <h3 class="font-extrabold text-lg mt-1 mb-2 transition-colors"
-                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('degreeTitle')">بكالوريوس علوم الحاسوب (2009)</h3>
-                    <p class="text-xs leading-relaxed transition-colors"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('degreeUniversity')">كلية تكنولوجيا المعلومات – الجامعة الإسلامية بغزة.</p>
-                </div>
-
-                <!-- Membership Card -->
-                <div class="p-6 rounded-2xl border transition-all"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-4">
-                        <i class="fa-solid fa-id-card-clip"></i>
-                    </div>
-                    <span class="text-xs font-mono font-bold text-amber-500">Member</span>
-                    <h3 class="font-extrabold text-lg mt-1 mb-2 transition-colors"
-                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('memberTitle')">عضوية نقابة PICTA</h3>
-                    <p class="text-xs leading-relaxed transition-colors"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('memberDesc')">عضو رسمي في اتحاد شركات تكنولوجيا المعلومات الفلسطينية.</p>
-                </div>
-
-                <!-- Language & Skills Card -->
-                <div class="p-6 rounded-2xl border transition-all"
-                    :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-2xl mb-4">
-                        <i class="fa-solid fa-language"></i>
-                    </div>
-                    <span class="text-xs font-mono font-bold text-emerald-500">TOEFL Level 11</span>
-                    <h3 class="font-extrabold text-lg mt-1 mb-2 transition-colors"
-                        :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-                        x-text="t('languagesTitle')">اللغات والمهارات الشخصية</h3>
-                    <p class="text-xs leading-relaxed transition-colors"
-                        :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
-                        x-text="t('languagesDesc')">العربية: اللغة الأم | الإنجليزية: ممتاز (TOEFL Level 11) وحل المشكلات والتفكير التحليلي.</p>
-                </div>
-
-            </div>
-
+            <h2 class="text-2xl sm:text-3xl font-black transition-colors"
+                :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
+                x-text="t('eduTitle')">التعليم والعضويات المهنية</h2>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <!-- Degree -->
+            <div class="p-6 rounded-2xl border transition-all"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="w-10 h-10 rounded-lg bg-red-500/10 text-red-500 flex items-center justify-center text-xl mb-3">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-red-500">2009</span>
+                <h3 class="font-bold text-base mt-1 mb-2 transition-colors"
+                    :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
+                    x-text="t('degreeTitle')">بكالوريوس علوم الحاسوب (2009)</h3>
+                <p class="text-xs leading-relaxed transition-colors"
+                    :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
+                    x-text="t('degreeUniversity')">كلية تكنولوجيا المعلومات – الجامعة الإسلامية بغزة (IUG).</p>
+            </div>
+
+            <!-- PICTA Member -->
+            <div class="p-6 rounded-2xl border transition-all"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl mb-3">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-amber-500">Member</span>
+                <h3 class="font-bold text-base mt-1 mb-2 transition-colors"
+                    :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
+                    x-text="t('memberTitle')">عضوية اتحاد PICTA</h3>
+                <p class="text-xs leading-relaxed transition-colors"
+                    :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
+                    x-text="t('memberDesc')">عضو رسمي في اتحاد شركات تكنولوجيا المعلومات الفلسطينية.</p>
+            </div>
+
+            <!-- TOEFL & Problem Solving -->
+            <div class="p-6 rounded-2xl border transition-all"
+                :class="theme === 'dark' ? 'bg-[#0D1322] border-slate-800' : 'bg-white border-slate-200 shadow-sm'">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl mb-3">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <span class="text-xs font-mono font-bold text-emerald-500">TOEFL Level 11</span>
+                <h3 class="font-bold text-base mt-1 mb-2 transition-colors"
+                    :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
+                    x-text="t('languagesTitle')">اللغات والمهارات التحليلية</h3>
+                <p class="text-xs leading-relaxed transition-colors"
+                    :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
+                    x-text="t('languagesDesc')">العربية: اللغة الأم | الإنجليزية: ممتاز (TOEFL Level 11) مع مهارات حل المشكلات والتفكير التحليلي.</p>
+            </div>
+        </div>
+
     </section>
 
     <!-- ========================================== -->
-    <!-- CONTACT & HIRE ME SECTION -->
+    <!-- CONTACT SECTION (قنوات التواصل المباشرة) -->
     <!-- ========================================== -->
-    <section id="contact" class="relative z-10 py-24 px-4 max-w-5xl mx-auto text-center">
+    <section id="contact" class="relative z-10 py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center border-t"
+        :class="theme === 'dark' ? 'border-slate-800/80' : 'border-slate-200'">
 
-        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-red-600 to-orange-500 text-white flex items-center justify-center text-3xl mx-auto mb-6 shadow-xl shadow-red-600/30">
+        <div class="w-14 h-14 rounded-2xl bg-red-600 text-white flex items-center justify-center text-2xl mx-auto mb-5 shadow-md">
             <i class="fa-solid fa-handshake"></i>
         </div>
 
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-4 transition-colors"
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-black mb-3 transition-colors"
             :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
-            x-text="t('contactTitle')">هل لديك مشروع أو فرصة عمل تقنية؟</h2>
+            x-text="t('contactTitle')">هل لديك مشروع أو تحتاج استشارة برمجية؟</h2>
         
-        <p class="max-w-2xl mx-auto mb-10 text-sm sm:text-base leading-relaxed transition-colors"
-            :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
-            x-text="t('contactSubtitle')">يسعدني تقديم الاستشارات التقنية، وتطوير وبناء الأنظمة البرمجية من الصفر حتى مرحلة الاستقرار والإطلاق.</p>
+        <p class="max-w-xl mx-auto mb-8 text-xs sm:text-sm leading-relaxed transition-colors"
+            :class="theme === 'dark' ? 'text-slate-400' : 'text-slate-600'"
+            x-text="t('contactSubtitle')">يسعدني مناقشة متطلبات مشروعك، تصميم البنية التحتية البرمجية، وتطوير النظام من الصفر حتى مرحلة الإطلاق والاستقرار.</p>
 
-        <!-- Direct Contact Channels -->
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-            
-            <!-- WhatsApp Direct -->
+        <!-- Direct Channels -->
+        <div class="flex flex-wrap justify-center gap-3.5 mb-10">
+            <!-- WhatsApp -->
             <a href="https://wa.me/972592404940" target="_blank"
-                class="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-3 shadow-xl shadow-emerald-600/25">
+                class="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-3 shadow-md">
                 <i class="fa-brands fa-whatsapp text-2xl"></i>
                 <div class="text-right rtl:text-right ltr:text-left">
                     <span class="text-[10px] block opacity-80" x-text="t('contactViaWhatsApp')">تواصل فوري عبر الواتساب</span>
-                    <span class="text-sm font-mono">+972 592 404 940</span>
+                    <span class="text-xs sm:text-sm font-mono">+972 592 404 940</span>
                 </div>
             </a>
 
-            <!-- Email Direct -->
+            <!-- Email -->
             <a href="mailto:ghassanabohozaun@gmail.com"
-                class="px-8 py-4 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold transition flex items-center gap-3 shadow-xl shadow-red-600/25">
+                class="px-6 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold transition flex items-center gap-3 shadow-md">
                 <i class="fa-solid fa-envelope text-2xl"></i>
                 <div class="text-right rtl:text-right ltr:text-left">
                     <span class="text-[10px] block opacity-80" x-text="t('contactViaEmail')">البريد الإلكتروني المباشر</span>
-                    <span class="text-sm font-mono">ghassanabohozaun@gmail.com</span>
+                    <span class="text-xs sm:text-sm font-mono">ghassanabohozaun@gmail.com</span>
                 </div>
             </a>
-
         </div>
 
-        <!-- Social Media & Profile Links -->
-        <div class="flex flex-wrap justify-center items-center gap-3">
+        <!-- Social Profiles -->
+        <div class="flex flex-wrap justify-center items-center gap-2.5">
             <a href="https://www.linkedin.com/in/ghassan-abo-hozaun-7300061a7/" target="_blank"
-                class="px-5 py-2.5 rounded-xl border text-xs font-bold transition flex items-center gap-2"
-                :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-slate-600' : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm'">
-                <i class="fa-brands fa-linkedin text-blue-500 text-base"></i> LinkedIn
+                class="px-4 py-2 rounded-xl border text-xs font-semibold transition flex items-center gap-2"
+                :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white' : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm'">
+                <i class="fa-brands fa-linkedin text-blue-500 text-sm"></i> LinkedIn
             </a>
 
             <a href="https://github.com/ghassanabohozaun" target="_blank"
-                class="px-5 py-2.5 rounded-xl border text-xs font-bold transition flex items-center gap-2"
-                :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-slate-600' : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm'">
-                <i class="fa-brands fa-github text-base"></i> GitHub
+                class="px-4 py-2 rounded-xl border text-xs font-semibold transition flex items-center gap-2"
+                :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white' : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm'">
+                <i class="fa-brands fa-github text-sm"></i> GitHub
             </a>
 
             <a href="https://mostaql.com/u/ghassan_hozaun/portfolio" target="_blank"
-                class="px-5 py-2.5 rounded-xl border text-xs font-bold transition flex items-center gap-2"
-                :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white hover:border-slate-600' : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm'">
-                <i class="fa-solid fa-briefcase text-blue-400 text-base"></i> Mostaql Portfolio
+                class="px-4 py-2 rounded-xl border text-xs font-semibold transition flex items-center gap-2"
+                :class="theme === 'dark' ? 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white' : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 shadow-sm'">
+                <i class="fa-solid fa-briefcase text-blue-400 text-sm"></i> Mostaql Portfolio
             </a>
         </div>
 
     </section>
 
     <!-- ========================================== -->
-    <!-- FOOTER (الفوتر) -->
+    <!-- FOOTER -->
     <!-- ========================================== -->
-    <footer class="relative z-10 py-8 border-t text-xs transition-colors"
-        :class="theme === 'dark' ? 'border-slate-900 bg-[#070B14] text-slate-500' : 'border-slate-200 bg-white text-slate-500'">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>© 2026 غسان أبو حزين (Ghassan Abo Hozaun) - All Rights Reserved.</p>
+    <footer class="relative z-10 py-6 border-t text-xs transition-colors"
+        :class="theme === 'dark' ? 'border-slate-900 bg-[#070A12] text-slate-500' : 'border-slate-200 bg-white text-slate-500'">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>© 2026 غسان أبو حزين (Ghassan Abo Hozaun) - Senior Backend Laravel Developer.</p>
             <div class="flex gap-4 text-base">
                 <a href="https://github.com/ghassanabohozaun" target="_blank" class="hover:text-red-500 transition"><i class="fa-brands fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/ghassan-abo-hozaun-7300061a7/" target="_blank" class="hover:text-red-500 transition"><i class="fa-brands fa-linkedin"></i></a>
@@ -878,10 +830,10 @@
     </footer>
 
     <!-- ========================================== -->
-    <!-- ARCHITECTURAL PROJECT DETAILS MODAL -->
+    <!-- PROJECT DETAILS MODAL -->
     <!-- ========================================== -->
     <div x-show="modalOpen" x-cloak
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
         x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
@@ -906,10 +858,10 @@
                             class="w-full h-full object-cover object-top">
                     </div>
 
-                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-red-500/10 text-red-500 border border-red-500/20"
+                    <span class="px-3 py-1 rounded-md text-xs font-bold bg-red-500/10 text-red-500 border border-red-500/20"
                         x-text="selectedProject.categoryLabel[lang]"></span>
 
-                    <h3 class="text-2xl font-black mt-3 mb-4 transition-colors"
+                    <h3 class="text-xl sm:text-2xl font-bold mt-3 mb-4 transition-colors"
                         :class="theme === 'dark' ? 'text-white' : 'text-slate-900'"
                         x-text="selectedProject.title[lang]"></h3>
 
@@ -917,8 +869,8 @@
                         <!-- Problem & Challenge -->
                         <div class="p-4 rounded-xl border"
                             :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'">
-                            <h4 class="font-bold text-sm mb-1.5 flex items-center gap-2 text-red-500">
-                                <i class="fa-solid fa-bullseye"></i> <span x-text="t('modalChallenge')">التحدي والمشكلة البرمجية:</span>
+                            <h4 class="font-bold text-xs sm:text-sm mb-1.5 flex items-center gap-2 text-red-500">
+                                <i class="fa-solid fa-bullseye"></i> <span x-text="t('modalChallenge')">المتطلبات والتحدي التقني:</span>
                             </h4>
                             <p class="leading-relaxed"
                                 :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'"
@@ -928,7 +880,7 @@
                         <!-- Architectural Solution -->
                         <div class="p-4 rounded-xl border"
                             :class="theme === 'dark' ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'">
-                            <h4 class="font-bold text-sm mb-1.5 flex items-center gap-2 text-emerald-500">
+                            <h4 class="font-bold text-xs sm:text-sm mb-1.5 flex items-center gap-2 text-emerald-500">
                                 <i class="fa-solid fa-gears"></i> <span x-text="t('modalSolution')">الحل المعماري والتنفيذ:</span>
                             </h4>
                             <p class="leading-relaxed"
@@ -938,12 +890,12 @@
 
                         <!-- Tech Stack Tags -->
                         <div>
-                            <h4 class="font-bold text-sm mb-2 flex items-center gap-2 text-indigo-500">
-                                <i class="fa-solid fa-layer-group"></i> <span x-text="t('modalStack')">المكدس التقني والمكتبات:</span>
+                            <h4 class="font-bold text-xs sm:text-sm mb-2 flex items-center gap-2 text-indigo-400">
+                                <i class="fa-solid fa-layer-group"></i> <span x-text="t('modalStack')">التقنيات والمكتبات المستخدمة:</span>
                             </h4>
-                            <div class="flex flex-wrap gap-2">
+                            <div class="flex flex-wrap gap-1.5">
                                 <template x-for="tech in selectedProject.stack" :key="tech">
-                                    <span class="px-2.5 py-1 rounded-md text-xs font-mono font-bold"
+                                    <span class="px-2.5 py-1 rounded text-xs font-mono font-semibold"
                                         :class="theme === 'dark' ? 'bg-slate-800 text-slate-200 border border-slate-700' : 'bg-slate-100 text-slate-700 border border-slate-200'"
                                         x-text="tech"></span>
                                 </template>
@@ -952,34 +904,34 @@
                     </div>
 
                     <!-- Modal Actions & Links -->
-                    <div class="mt-8 pt-6 border-t flex flex-wrap justify-end gap-3"
+                    <div class="mt-6 pt-5 border-t flex flex-wrap justify-end gap-2.5"
                         :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-200'">
                         <button @click="modalOpen = false"
-                            class="px-5 py-2.5 rounded-xl border text-xs font-bold"
+                            class="px-4 py-2 rounded-lg border text-xs font-semibold"
                             :class="theme === 'dark' ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700'">
                             <span x-text="t('btnClose')">إغلاق</span>
                         </button>
 
                         <a x-show="selectedProject.adminLogin" :href="selectedProject.adminLogin" target="_blank"
-                            class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center gap-2">
+                            class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center gap-1.5">
                             <i class="fa-solid fa-lock text-red-400"></i> Admin Login
                         </a>
 
                         <a x-show="selectedProject.portalLogin" :href="selectedProject.portalLogin" target="_blank"
-                            class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center gap-2">
+                            class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center gap-1.5">
                             <i class="fa-solid fa-user text-emerald-400"></i> User Portal
                         </a>
 
                         <a x-show="selectedProject.liveUrl" :href="selectedProject.liveUrl" target="_blank"
-                            class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-red-600/25">
-                            <span x-text="t('btnLive')">الموقع الحي</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                            <span x-text="t('btnLive')">المعاينة الحية</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
 
                         <a x-show="selectedProject.mostaql" :href="selectedProject.mostaql" target="_blank"
-                            class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-2">
+                            class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1.5">
                             <span>Mostaql</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                         </a>
                     </div>
                 </div>
@@ -992,7 +944,7 @@
     <!-- CV MODAL & RESUME VIEWER -->
     <!-- ========================================== -->
     <div x-show="cvModalOpen" x-cloak
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
         x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
@@ -1008,14 +960,14 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Printable CV Header -->
-            <div class="border-b pb-6 mb-6"
+            <!-- Printable Header -->
+            <div class="border-b pb-5 mb-5"
                 :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-200'">
                 <div class="flex items-center gap-4">
-                    <img src="assets/images/avatar.png" alt="Ghassan Abo Hozaun" class="w-16 h-16 rounded-2xl object-cover border-2 border-red-500">
+                    <img src="assets/images/avatar.png" alt="Ghassan Abo Hozaun" class="w-14 h-14 rounded-xl object-cover border-2 border-red-500">
                     <div>
-                        <h2 class="text-2xl font-black">غسان أبو حزين | Ghassan Abo Hozaun</h2>
-                        <p class="text-sm text-red-500 font-bold">Senior Backend Laravel & PHP Developer</p>
+                        <h2 class="text-xl sm:text-2xl font-bold">غسان أبو حزين | Ghassan Abo Hozaun</h2>
+                        <p class="text-sm text-red-500 font-semibold font-mono">Senior Backend Laravel & PHP Developer</p>
                         <p class="text-xs text-slate-400 mt-1">
                             📍 Gaza, Palestine | 📱 +972592404940 | ✉️ ghassanabohozaun@gmail.com
                         </p>
@@ -1023,36 +975,36 @@
                 </div>
             </div>
 
-            <!-- Resume Sections Preview -->
-            <div class="space-y-6 text-xs sm:text-sm">
+            <!-- Resume Sections -->
+            <div class="space-y-5 text-xs sm:text-sm">
                 <div>
-                    <h3 class="text-sm font-black text-red-500 uppercase tracking-wider mb-2">Professional Summary</h3>
+                    <h3 class="text-xs font-mono font-bold text-red-500 uppercase tracking-wider mb-1.5">Professional Summary</h3>
                     <p class="leading-relaxed" :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'">
                         Experienced Backend Laravel & PHP Developer with 6+ years of hands-on experience building secure, scalable, and high-performance web applications and ERP systems. Strong expertise in RESTful API development, authentication & authorization, database design, and backend performance optimization.
                     </p>
                 </div>
 
                 <div>
-                    <h3 class="text-sm font-black text-red-500 uppercase tracking-wider mb-2">Work Experience</h3>
-                    <div class="space-y-3">
+                    <h3 class="text-xs font-mono font-bold text-red-500 uppercase tracking-wider mb-2">Work Experience</h3>
+                    <div class="space-y-2.5">
                         <div class="p-3 rounded-lg border" :class="theme === 'dark' ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-50 border-slate-200'">
                             <div class="flex justify-between font-bold text-xs sm:text-sm">
-                                <span>Backend Laravel / PHP Developer – PTC (Gaza)</span>
-                                <span class="text-red-500">04/2024 – Present</span>
+                                <span>Senior Backend Laravel Developer – PTC (Gaza)</span>
+                                <span class="text-red-500 font-mono">04/2024 – Present</span>
                             </div>
-                            <p class="text-xs text-slate-400 mt-1">Developing and maintaining a full ERP system, RBAC, REST APIs & query optimization.</p>
+                            <p class="text-xs text-slate-400 mt-1">Developing and maintaining enterprise ERP system, RBAC, REST APIs & database query tuning.</p>
                         </div>
                         <div class="p-3 rounded-lg border" :class="theme === 'dark' ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-200'">
                             <div class="flex justify-between font-bold text-xs sm:text-sm">
-                                <span>Backend Laravel Developer – Digital Order (KSA)</span>
-                                <span class="text-red-500">02/2022 – 10/2023</span>
+                                <span>Backend Laravel Developer – Digital Order (KSA, Remote)</span>
+                                <span class="text-red-500 font-mono">02/2022 – 10/2023</span>
                             </div>
-                            <p class="text-xs text-slate-400 mt-1">Worked within a large development team on a complex ERP system, modular backend & QA.</p>
+                            <p class="text-xs text-slate-400 mt-1">Worked within a large distributed engineering team on modular enterprise ERP & Clean Code architecture.</p>
                         </div>
                         <div class="p-3 rounded-lg border" :class="theme === 'dark' ? 'bg-slate-900/50 border-slate-800' : 'bg-slate-200'">
                             <div class="flex justify-between font-bold text-xs sm:text-sm">
                                 <span>Backend Laravel Developer – Noor El Marifa NGO (Gaza)</span>
-                                <span class="text-red-500">01/2021 – 02/2022</span>
+                                <span class="text-red-500 font-mono">01/2021 – 02/2022</span>
                             </div>
                             <p class="text-xs text-slate-400 mt-1">Built orphan management systems, RESTful APIs, queues, jobs, and authentication.</p>
                         </div>
@@ -1060,7 +1012,7 @@
                 </div>
 
                 <div>
-                    <h3 class="text-sm font-black text-red-500 uppercase tracking-wider mb-2">Education & Credentials</h3>
+                    <h3 class="text-xs font-mono font-bold text-red-500 uppercase tracking-wider mb-1.5">Education & Credentials</h3>
                     <p :class="theme === 'dark' ? 'text-slate-300' : 'text-slate-600'">
                         🎓 <b>Bachelor of Computer Science (2009)</b> – Information Technology College, Islamic University of Gaza.<br>
                         🏛️ <b>Member of PICTA</b> | 🌐 <b>TOEFL Level 11</b>
@@ -1069,15 +1021,15 @@
             </div>
 
             <!-- Actions -->
-            <div class="mt-8 pt-6 border-t flex justify-end gap-3"
+            <div class="mt-6 pt-4 border-t flex justify-end gap-2.5"
                 :class="theme === 'dark' ? 'border-slate-800' : 'border-slate-200'">
                 <button @click="cvModalOpen = false"
-                    class="px-5 py-2.5 rounded-xl border text-xs font-bold"
+                    class="px-4 py-2 rounded-lg border text-xs font-semibold"
                     :class="theme === 'dark' ? 'bg-slate-800 border-slate-700 text-slate-300' : 'bg-slate-100 border-slate-200 text-slate-700'">
                     <span x-text="t('btnClose')">إغلاق</span>
                 </button>
                 <button onclick="window.print()"
-                    class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-red-600/25">
+                    class="px-5 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-print"></i> <span x-text="lang === 'ar' ? 'طباعة / حفظ PDF' : 'Print / Save PDF'">طباعة / حفظ PDF</span>
                 </button>
             </div>

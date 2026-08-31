@@ -14,14 +14,94 @@ function portfolioApp() {
         cvModalOpen: false,
         activeCategory: 'all',
         selectedProject: null,
+        activeTerminalTab: 'artisan',
+
+        // Typewriter Animation State
+        typewriterWords: {
+            ar: [
+                'Enterprise ERP Systems Specialist',
+                'Laravel & PHP Backend Architect',
+                'High-Performance RESTful APIs',
+                'Database Schema & Query Tuning'
+            ],
+            en: [
+                'Enterprise ERP Systems Specialist',
+                'Laravel & PHP Backend Architect',
+                'High-Performance RESTful APIs',
+                'Database Schema & Query Tuning'
+            ]
+        },
+        typedText: '',
+        wordIndex: 0,
+        charIndex: 0,
+        isDeleting: false,
+        typingTimeout: null,
+
+        // Animated Counters State
+        counterStats: { exp: 0, projects: 0, users: 0, grad: 1900 },
 
         // Lifecycle Initialize
         initApp() {
             this.applyTheme();
             this.applyLang();
+            document.body.classList.add('is-ready');
             setTimeout(() => {
                 document.body.classList.remove('preload');
-            }, 60);
+                this.startTypewriter();
+                this.animateCounters();
+            }, 100);
+        },
+
+        // Typewriter Logic
+        startTypewriter() {
+            if (this.typingTimeout) clearTimeout(this.typingTimeout);
+            const words = this.typewriterWords[this.lang] || this.typewriterWords.ar;
+            const currentWord = words[this.wordIndex % words.length];
+
+            if (this.isDeleting) {
+                this.typedText = currentWord.substring(0, this.charIndex - 1);
+                this.charIndex--;
+            } else {
+                this.typedText = currentWord.substring(0, this.charIndex + 1);
+                this.charIndex++;
+            }
+
+            let speed = this.isDeleting ? 35 : 70;
+
+            if (!this.isDeleting && this.charIndex === currentWord.length) {
+                speed = 2200; // Pause when word is completely typed
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.charIndex === 0) {
+                this.isDeleting = false;
+                this.wordIndex++;
+                speed = 350; // Pause before typing next word
+            }
+
+            this.typingTimeout = setTimeout(() => this.startTypewriter(), speed);
+        },
+
+        // Smooth Counter Animation Logic
+        animateCounters() {
+            const animateValue = (key, start, end, duration) => {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    // Ease-out cubic curve for natural deceleration
+                    const easeProgress = 1 - Math.pow(1 - progress, 3);
+                    this.counterStats[key] = Math.floor(easeProgress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        this.counterStats[key] = end;
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+            animateValue('exp', 0, 6, 1200);
+            animateValue('projects', 0, 10, 1400);
+            animateValue('users', 0, 10000, 1800);
+            animateValue('grad', 1900, 2009, 1000);
         },
 
         // Theme Toggle & Persistence
@@ -50,35 +130,33 @@ function portfolioApp() {
             document.documentElement.lang = this.lang;
             document.documentElement.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
             document.title = this.lang === 'ar'
-                ? 'غسان أبو حزين | مهندس برمجيات و Backend Laravel Developer'
+                ? 'غسان أبو حزين | مطور أول Backend Laravel & PHP'
                 : 'Ghassan Abo Hozaun | Senior Backend Laravel & PHP Developer';
         },
 
-        // Translation Helper
         t(key) {
-            return (this.translations[this.lang] && this.translations[this.lang][key]) || key;
+            return this.translations[this.lang][key] || key;
         },
 
-        // Project Modal Actions
         openProjectModal(project) {
             this.selectedProject = project;
             this.modalOpen = true;
         },
 
-        // Project Filter Categories
+        // Project Categories
         projectCategories: [
             { id: 'all', name: { ar: 'جميع المشاريع', en: 'All Projects' } },
-            { id: 'erp', name: { ar: 'أنظمة ERP & SaaS', en: 'ERP & SaaS' } },
-            { id: 'ngo', name: { ar: 'أنظمة الجمعيات والأيتام', en: 'NGO & Orphan Systems' } },
-            { id: 'lms', name: { ar: 'منصات تعليمية وطبية', en: 'LMS & Medical Platforms' } },
-            { id: 'frontend', name: { ar: 'واجهات وتطبيقات تفاعلية', en: 'Interactive Web & UI' } }
+            { id: 'erp', name: { ar: 'أنظمة ERP وإدارة شركات', en: 'ERP & Enterprise' } },
+            { id: 'ngo', name: { ar: 'أنظمة الجمعيات والأيتام', en: 'NGO & Welfare Systems' } },
+            { id: 'lms', name: { ar: 'منصات طبية وتعليمية', en: 'Medical & E-Learning' } },
+            { id: 'frontend', name: { ar: 'تطبيقات تفاعلية و UI', en: 'Interactive Web' } }
         ],
 
-        // Real Work Experience History
+        // Real Experience History
         experienceList: [
             {
                 company: { ar: 'شركة PTC – غزة', en: 'PTC – Gaza' },
-                role: { ar: 'مطور أول أنظمة Backend Laravel / PHP', en: 'Senior Backend Laravel / PHP Developer' },
+                role: { ar: 'مطور أول Backend Laravel / PHP', en: 'Senior Backend Laravel / PHP Developer' },
                 period: { ar: '04/2024 – حتى الآن', en: '04/2024 – Present' },
                 location: { ar: 'غزة، فلسطين', en: 'Gaza, Palestine' },
                 tasks: {
@@ -101,7 +179,7 @@ function portfolioApp() {
                 company: { ar: 'شركة Digital Order – السعودية', en: 'Digital Order Company – KSA' },
                 role: { ar: 'مطور أنظمة Backend Laravel / PHP', en: 'Backend Laravel / PHP Developer' },
                 period: { ar: '02/2022 – 10/2023', en: '02/2022 – 10/2023' },
-                location: { ar: 'المملكة العربية السعودية', en: 'Saudi Arabia' },
+                location: { ar: 'المملكة العربية السعودية (عن بُعد)', en: 'Saudi Arabia (Remote)' },
                 tasks: {
                     ar: [
                         'العمل ضمن فريق برمجي كبير لتطوير نظام ERP معقد ومتعدد الوحدات.',
@@ -145,15 +223,16 @@ function portfolioApp() {
         projects: [
             {
                 id: 1,
+                featured: true,
                 category: 'erp',
                 categoryLabel: { ar: 'نظام ERP سحابي', en: 'Enterprise ERP' },
                 title: {
                     ar: 'نظام إدارة الموارد والشركات والموظفين - PTC ERP',
-                    en: 'Enterprise ERP & Employee Management System - PTC'
+                    en: 'Enterprise ERP & Staff Management Platform - PTC'
                 },
                 description: {
-                    ar: 'نظام متكامل لإدارة الشركات، الموظفين، الحضور والانصراف، الرواتب، والتقارير الإحصائية مع صلاحيات متقدمة (RBAC) ولوحات تحكم مخصصة.',
-                    en: 'Comprehensive enterprise ERP platform for company operations, employee records, attendance, payroll, and advanced RBAC permission tiers.'
+                    ar: 'نظام متكامل لإدارة الشركات، الموظفين، الحضور والانصراف، الرواتب، والتقارير الإحصائية مع صلاحيات متقدمة (RBAC) ولوحات تحكم مخصصة للإدارة والموظفين.',
+                    en: 'Comprehensive enterprise ERP platform for multi-branch operations, employee records, attendance, payroll, and advanced RBAC permission tiers.'
                 },
                 challenge: {
                     ar: 'إدارة تدفق كميات كبيرة من البيانات والمعاملات الإدارية المتزامنة مع ضمان سرعة المعالجة وأمان الصلاحيات.',
@@ -172,11 +251,12 @@ function portfolioApp() {
             },
             {
                 id: 2,
+                featured: true,
                 category: 'ngo',
                 categoryLabel: { ar: 'نظام إدارة وكفالة', en: 'Sponsorship System' },
                 title: {
                     ar: 'نظام كفالة ومتابعة الأيتام - جمعية نور المعرفة',
-                    en: 'Orphan Sponsorship & Management System - Noor El-Marifa'
+                    en: 'Orphan Sponsorship & Welfare System - Noor El-Marifa'
                 },
                 description: {
                     ar: 'منظومة سحابية متخصصة في توثيق ومتابعة ملفات الأيتام والكفلاء، إدارة التقارير الدورية والمعاملات المالية، وبوابة تفاعلية للطلاب والكفلاء.',
@@ -199,11 +279,12 @@ function portfolioApp() {
             },
             {
                 id: 3,
+                featured: false,
                 category: 'lms',
-                categoryLabel: { ar: 'أكاديمية طبية & LMS', en: 'Medical LMS Platform' },
+                categoryLabel: { ar: 'أكاديمية طبية & LMS', en: 'Medical LMS' },
                 title: {
                     ar: 'منصة بكة أكاديمي للتعليم الطبي والمهني - ليبيا',
-                    en: 'Bakka Academy Medical & E-Learning Platform - Libya'
+                    en: 'Bakka Academy Medical E-Learning - Libya'
                 },
                 description: {
                     ar: 'منصة تعليمية متكاملة لتقديم الدورات التدريبية الطبية المعتمدة، بث المحتوى التعليمي، الاختبارات التفاعلية، وإصدار الشهادات.',
@@ -217,7 +298,7 @@ function portfolioApp() {
                     ar: 'بناء واجهات برمجية مهيأة للوسائط المتعددة ونظام تخزين مؤقت للدروس وتوفير تجربة مستخدم سريعة بالكامل.',
                     en: 'Engineered responsive media streaming API, caching layer, student tracking dashboards, and seamless multi-language support.'
                 },
-                stack: ['Laravel', 'MySQL', 'Vue.js', 'Video Streaming', 'Bootstrap 5', 'Multi-Lang'],
+                stack: ['Laravel', 'MySQL', 'Vue.js', 'Video Streaming', 'Bootstrap 5'],
                 image: 'assets/images/projects/bakka-academy.png',
                 adminLogin: '',
                 portalLogin: 'https://bakkaacademy.com/en/student',
@@ -226,11 +307,12 @@ function portfolioApp() {
             },
             {
                 id: 4,
+                featured: false,
                 category: 'ngo',
-                categoryLabel: { ar: 'بوابة إلكترونية و CMS', en: 'NGO Official Portal' },
+                categoryLabel: { ar: 'بوابة إلكترونية & CMS', en: 'NGO Portal' },
                 title: {
                     ar: 'البوابة الرسمية لجمعية نور المعرفة الخيرية',
-                    en: 'Noor El-Marifa NGO Official Web Platform'
+                    en: 'Noor El-Marifa NGO Web Platform'
                 },
                 description: {
                     ar: 'الموقع الرسمي للجمعية لاستعراض البرامج الإنسانية والتعليمية، إدارة الأخبار والفعاليات، وقصص النجاح واستقبال التبرعات.',
@@ -253,11 +335,12 @@ function portfolioApp() {
             },
             {
                 id: 5,
+                featured: false,
                 category: 'frontend',
-                categoryLabel: { ar: 'تطبيق سياحة وحجوزات', en: 'Travel & Tourism UI' },
+                categoryLabel: { ar: 'تطبيق سياحة وحجوزات', en: 'Travel & Booking UI' },
                 title: {
-                    ar: 'تحويل تصميم UI/UX إلى موقع ويب تفاعلي - شركة نقاط للسياحة',
-                    en: 'Interactive Travel & Tourism Platform - Neqat Travel'
+                    ar: 'تحويل تصميم UI/UX إلى منصة ويب تفاعلية - شركة نقاط للسياحة',
+                    en: 'Interactive Travel & Booking Platform - Neqat Travel'
                 },
                 description: {
                     ar: 'تحويل تصميم واجهة مستخدم (UI) احترافية من Adobe XD إلى منصة ويب تفاعلية بالكامل لخدمات السفر والحجوزات السياحية.',
@@ -280,8 +363,9 @@ function portfolioApp() {
             },
             {
                 id: 6,
+                featured: false,
                 category: 'erp',
-                categoryLabel: { ar: 'منصة استشارات', en: 'Consulting Platform' },
+                categoryLabel: { ar: 'منصة استشارات وحجوزات', en: 'Consulting Platform' },
                 title: {
                     ar: 'منصة مركز هدوء للاستشارات - جدة، السعودية',
                     en: 'Hodoa Consulting Platform - Jeddah, KSA'
@@ -298,7 +382,7 @@ function portfolioApp() {
                     ar: 'بناء محرك جدولة دقيق وإدارة مرنة للأوقات والجلسات المتاحة.',
                     en: 'Constructed an automated scheduling engine with real-time slot reservation and notification triggers.'
                 },
-                stack: ['Laravel', 'PHP', 'MySQL', 'Booking System', 'Bootstrap'],
+                stack: ['Laravel', 'PHP', 'MySQL', 'Booking Engine', 'Bootstrap'],
                 image: 'assets/images/projects/hodoa-consulting.png',
                 adminLogin: '',
                 portalLogin: '',
@@ -307,11 +391,12 @@ function portfolioApp() {
             },
             {
                 id: 7,
+                featured: false,
                 category: 'lms',
-                categoryLabel: { ar: 'منصة استشارات طبية', en: 'Medical Consulting UK' },
+                categoryLabel: { ar: 'منصة استشارات طبية', en: 'Medical Platform UK' },
                 title: {
                     ar: 'موقع إلكتروني لمركز نفسي واستشاري في بريطانيا',
-                    en: 'Psychological Consulting Center Platform - UK'
+                    en: 'Psychological Consulting Center - UK'
                 },
                 description: {
                     ar: 'موقع ويب تعريفي ونظام استشارات لمركز نفسي متخصص في المملكة المتحدة لدعم العملاء وجدولة الجلسات.',
@@ -346,65 +431,55 @@ function portfolioApp() {
             ar: {
                 brandName: 'غسان أبو حزين',
                 brandSubtitle: 'Senior Backend Laravel Developer',
-                navAbout: 'نبذة',
+                navAbout: 'عني',
                 navExperience: 'الخبرات',
                 navSkills: 'المهارات',
                 navProjects: 'المشاريع',
-                navEducation: 'التعليم',
+                navEducation: 'المؤهلات',
                 navContact: 'تواصل معي',
                 btnCV: 'السيرة الذاتية',
                 btnContact: 'راسلني',
-                heroStatus: 'متاح للعمل على مشاريع برمجية جديدة وعقود العمل عن بُعد',
-                heroTitle1: 'هندسة الأنظمة المعقدة وحلول',
-                heroSummary: 'مهندس برمجيات متخصص في تطوير الواجهات الخلفية (Backend) بأنظمة Laravel & PHP بخبرة عملية تزيد عن 6 سنوات في بناء أنظمة الـ ERP، واجهات RESTful APIs فائقة الأداء، وهندسة قواعد البيانات مع التزام صارم بمعايير Clean Architecture وأفضل الممارسات البرمجية.',
-                btnExploreProjects: 'استكشاف المشاريع الحية',
-                btnDirectWhatsApp: 'محادثة واتساب مباشرة',
-                btnViewCV: 'عرض الـ CV',
-                stat1Label: 'سنوات خبرة متخصصة',
-                stat2Label: 'أنظمة حية ومشاريع مكتملة',
-                stat3Label: 'Clean Code & Architecture',
-                stat4Label: 'خريج الجامعة الإسلامية',
-                pillarsTitle: 'الركائز المعمارية والبرمجية',
-                pillarsSubtitle: 'المعايير الهندسية التي أعتمد عليها في بناء الأنظمة البرمجية المتينة والمستقرة',
-                pillar1Title: 'بنية أنظمة ERP & SaaS',
-                pillar1Desc: 'بناء أنظمة متكاملة متعددة الصلاحيات (RBAC) ولوحات تحكم معقدة تدير تدفق الأعمال بكفاءة.',
-                pillar2Title: 'تحسين قواعد البيانات',
-                pillar2Desc: 'هندسة MySQL/MariaDB، الفهرسة المتقدمة، تحسين الاستعلامات، وحل مشاكل N+1 بدقة.',
-                pillar3Title: 'واجهات APIs ومصادقة آمنة',
-                pillar3Desc: 'بناء RESTful APIs متينة وتأمينها باستخدام Laravel Sanctum & Passport مع توثيق شامل.',
-                pillar4Title: 'معالجة المهام الخلفية',
-                pillar4Desc: 'معالجة المهام الثقيلة في الخلفية عبر Queues & Jobs وجدولة المهام الدورية Task Scheduling.',
-                expBadge: 'المسار المهني والخبرات',
+                heroStatus: 'متاح للعمل على مشاريع برمجية وعقود عن بُعد',
+                heroTitle1: 'مطور أول أنظمة خلفية ومهندس حلول',
+                heroSummary: 'مهندس برمجيات بخبرة تزيد عن 6 سنوات في بناء وتطوير أنظمة الـ ERP المعقدة، منصات SaaS، وواجهات RESTful APIs الآمنة. أركز على كتابة كود نظيف وقابل للتوسع (Clean Architecture)، تصميم قواعد البيانات بكفاءة، وتحسين أداء الاستعلامات وتكامل الأنظمة.',
+                btnExploreProjects: 'استعراض المشاريع والأنظمة',
+                btnDirectWhatsApp: 'محادثة مباشرة عبر واتساب',
+                btnViewCV: 'تحميل / عرض السيرة الذاتية',
+                stat1Label: 'سنوات خبرة في Laravel & PHP',
+                stat2Label: 'أنظمة ERP وحلول حية',
+                stat3Label: 'مستخدم ومستفيد مُدار',
+                stat4Label: 'خريج الجامعة الإسلامية (2009)',
+                expBadge: 'المسار المهني',
                 expTitle: 'الخبرات المهنية وسجل العمل',
                 expSubtitle: 'محطات واقعية من العمل في شركات ومنظمات برمجية كبرى',
-                skillsBadge: 'الترسانة التقنية',
-                skillsTitle: 'المهارات والأدوات البرمجية',
-                skillsSubtitle: 'الأدوات والتقنيات التي أتقنها لبناء تطبيقات ويب قوية وقابلة للتوسع',
-                skillCatBackend: 'Backend & Laravel',
-                skillCatDatabase: 'قواعد البيانات والأداء',
-                skillCatFrontend: 'Frontend & Reactivity',
-                skillCatTools: 'الأدوات وبيئة العمل',
-                projectsBadge: 'معرض الأعمال الحقيقية',
-                projectsTitle: 'المشاريع ودراسات الحالة',
-                projectsSubtitle: 'أنظمة إنتاجية حية ولوحات تحكم تم تطويرها لعملاء وشركات ومؤسسات',
-                btnDetails: 'التفاصيل المعمارية',
-                btnLive: 'الموقع الحي',
-                eduBadge: 'المؤهلات والعضويات',
-                eduTitle: 'التعليم والشهادات الرسمية',
+                skillsBadge: 'التقنيات والأدوات',
+                skillsTitle: 'المهارات والبيئة البرمجية',
+                skillsSubtitle: 'الأدوات والتقنيات التي أستخدمها لبناء وإدارة الأنظمة البرمجية بكفاءة',
+                skillCatBackend: 'تطوير الـ Backend و Laravel',
+                skillCatDatabase: 'قواعد البيانات وتحسين الأداء',
+                skillCatFrontend: 'الواجهات الأمامية والتفاعل',
+                skillCatTools: 'أدوات التطوير وبيئة العمل',
+                projectsBadge: 'سابقة الأعمال والأنظمة',
+                projectsTitle: 'الأنظمة والمشاريع المنفذة',
+                projectsSubtitle: 'أنظمة إنتاجية حية ولوحات تحكم تم تطويرها لشركات ومؤسسات حقيقية',
+                btnDetails: 'التفاصيل التقنية',
+                btnLive: 'المعاينة الحية',
+                eduBadge: 'المؤهلات والشهادات',
+                eduTitle: 'التعليم والعضويات المهنية',
                 eduSubtitle: 'المؤهلات الأكاديمية والمهنية المعتمدة',
                 degreeTitle: 'بكالوريوس علوم الحاسوب (2009)',
-                degreeUniversity: 'كلية تكنولوجيا المعلومات – الجامعة الإسلامية بغزة.',
-                memberTitle: 'عضوية نقابة PICTA',
+                degreeUniversity: 'كلية تكنولوجيا المعلومات – الجامعة الإسلامية بغزة (IUG).',
+                memberTitle: 'عضوية اتحاد PICTA',
                 memberDesc: 'عضو رسمي في اتحاد شركات تكنولوجيا المعلومات الفلسطينية.',
-                languagesTitle: 'اللغات والمهارات الشخصية',
-                languagesDesc: 'العربية: اللغة الأم | الإنجليزية: ممتاز (TOEFL Level 11) وحل المشكلات والتفكير التحليلي.',
-                contactTitle: 'هل لديك مشروع أو فرصة عمل تقنية؟',
-                contactSubtitle: 'يسعدني تقديم الاستشارات التقنية، وتطوير وبناء الأنظمة البرمجية من الصفر حتى مرحلة الاستقرار والإطلاق.',
+                languagesTitle: 'اللغات والمهارات التحليلية',
+                languagesDesc: 'العربية: اللغة الأم | الإنجليزية: ممتاز (TOEFL Level 11) مع مهارات حل المشكلات والتفكير التحليلي.',
+                contactTitle: 'هل لديك مشروع أو تحتاج استشارة برمجية؟',
+                contactSubtitle: 'يسعدني مناقشة متطلبات مشروعك، تصميم البنية التحتية البرمجية، وتطوير النظام من الصفر حتى مرحلة الإطلاق والاستقرار.',
                 contactViaWhatsApp: 'تواصل فوري عبر الواتساب',
                 contactViaEmail: 'البريد الإلكتروني المباشر',
-                modalChallenge: 'التحدي والمشكلة البرمجية:',
+                modalChallenge: 'المتطلبات والتحدي التقني:',
                 modalSolution: 'الحل المعماري والتنفيذ:',
-                modalStack: 'المكدس التقني والمكتبات:',
+                modalStack: 'التقنيات والمكتبات المستخدمة:',
                 btnClose: 'إغلاق'
             },
             en: {
@@ -414,61 +489,51 @@ function portfolioApp() {
                 navExperience: 'Experience',
                 navSkills: 'Skills',
                 navProjects: 'Projects',
-                navEducation: 'Education',
+                navEducation: 'Credentials',
                 navContact: 'Contact',
                 btnCV: 'Resume / CV',
                 btnContact: 'Get In Touch',
-                heroStatus: 'Available for new software projects & remote contract roles',
-                heroTitle1: 'Engineering Complex Web Systems &',
-                heroSummary: 'Experienced Senior Backend Laravel & PHP Developer with 6+ years of specialized hands-on expertise engineering secure, scalable, and high-performance ERP systems, RESTful APIs, and database architectures with a strict dedication to Clean Code and industry best practices.',
-                btnExploreProjects: 'Explore Live Projects',
-                btnDirectWhatsApp: 'Direct WhatsApp Chat',
-                btnViewCV: 'View Resume',
-                stat1Label: 'Years Specialized Exp',
+                heroStatus: 'Available for backend projects & remote contract roles',
+                heroTitle1: 'Senior Backend Engineer & Laravel Architect',
+                heroSummary: 'Experienced Senior Backend Laravel & PHP Developer with 6+ years of hands-on expertise building enterprise ERP platforms, scalable SaaS products, and secure RESTful APIs. Dedicated to Clean Architecture, database schema design, query optimization, and robust async processing.',
+                btnExploreProjects: 'View Systems & Projects',
+                btnDirectWhatsApp: 'Chat Directly on WhatsApp',
+                btnViewCV: 'View / Download CV',
+                stat1Label: 'Years Laravel & PHP Exp',
                 stat2Label: 'Live Production Systems',
-                stat3Label: 'Clean Code & Standards',
-                stat4Label: 'IUG CS Graduate (2009)',
-                pillarsTitle: 'Architectural & Engineering Pillars',
-                pillarsSubtitle: 'The engineering standards and patterns I apply to craft resilient, rock-solid applications',
-                pillar1Title: 'Enterprise ERP & SaaS Architecture',
-                pillar1Desc: 'Building multi-tenant systems, robust Role-Based Access Control (RBAC), and high-traffic workflows.',
-                pillar2Title: 'Database Optimization',
-                pillar2Desc: 'MySQL/MariaDB schema tuning, advanced indexing, query profiling, and eliminating N+1 bottlenecks.',
-                pillar3Title: 'Secure RESTful APIs',
-                pillar3Desc: 'Robust API architecture secured via Laravel Sanctum & Passport with comprehensive documentation.',
-                pillar4Title: 'Async Queue Processing',
-                pillar4Desc: 'Offloading heavy workloads via Laravel Queues, Jobs, Events, and scheduled background workers.',
+                stat3Label: 'Users & Beneficiaries Managed',
+                stat4Label: 'CS Graduate, IUG (2009)',
                 expBadge: 'Career Milestones',
-                expTitle: 'Professional Experience',
-                expSubtitle: 'Track record working with leading companies and large production environments',
-                skillsBadge: 'Tech Stack & Arsenal',
-                skillsTitle: 'Technical Arsenal & Skills',
-                skillsSubtitle: 'The modern tools and frameworks I rely on to deliver scalable web solutions',
+                expTitle: 'Work Experience & Track Record',
+                expSubtitle: 'Practical career milestones in enterprise software companies and organizations',
+                skillsBadge: 'Technical Arsenal',
+                skillsTitle: 'Technical Arsenal & Stack',
+                skillsSubtitle: 'The core languages, frameworks, databases, and tools I use in production',
                 skillCatBackend: 'Backend & Laravel Core',
-                skillCatDatabase: 'Databases & Performance',
-                skillCatFrontend: 'Frontend & Reactivity',
-                skillCatTools: 'DevOps & Tools',
-                projectsBadge: 'Real Production Showcase',
+                skillCatDatabase: 'Databases & Performance Tuning',
+                skillCatFrontend: 'Frontend & Reactive UI',
+                skillCatTools: 'DevOps & Development Tools',
+                projectsBadge: 'Proven Production Track Record',
                 projectsTitle: 'Featured Projects & Case Studies',
-                projectsSubtitle: 'Live systems and enterprise dashboards engineered for businesses and NGOs',
-                btnDetails: 'Architecture Details',
+                projectsSubtitle: 'Live production ERP systems and enterprise platforms engineered for businesses',
+                btnDetails: 'Technical Details',
                 btnLive: 'Live Preview',
-                eduBadge: 'Credentials & Degrees',
-                eduTitle: 'Education & Certifications',
-                eduSubtitle: 'Verified academic qualifications and professional affiliations',
+                eduBadge: 'Education & Affiliations',
+                eduTitle: 'Education & Professional Credentials',
+                eduSubtitle: 'Verified academic degrees and recognized industry affiliations',
                 degreeTitle: 'Bachelor of Computer Science (2009)',
-                degreeUniversity: 'Information Technology College – Islamic University of Gaza (IUG).',
+                degreeUniversity: 'Faculty of Information Technology – Islamic University of Gaza (IUG).',
                 memberTitle: 'PICTA Association Member',
                 memberDesc: 'Official member of the Palestinian Information Technology Association.',
-                languagesTitle: 'Languages & Soft Skills',
-                languagesDesc: 'Arabic: Native | English: Very Good (TOEFL Level 11) with strong problem solving and analytical thinking.',
-                contactTitle: 'Have a Project or Remote Role?',
-                contactSubtitle: 'I am available for technical consulting, architecture design, and end-to-end backend engineering for your next system.',
-                contactViaWhatsApp: 'Instant Chat on WhatsApp',
+                languagesTitle: 'Languages & Analytical Problem Solving',
+                languagesDesc: 'Arabic: Native | English: Very Good (TOEFL Level 11) with strong system analysis and debugging skills.',
+                contactTitle: 'Have a Project or Backend Engineering Role?',
+                contactSubtitle: 'I am available for technical architecture, database engineering, and full-cycle backend development from design to deployment.',
+                contactViaWhatsApp: 'Instant WhatsApp Chat',
                 contactViaEmail: 'Direct Work Email',
-                modalChallenge: 'Problem & Engineering Challenge:',
-                modalSolution: 'Architectural Solution & Implementation:',
-                modalStack: 'Tech Stack & Libraries:',
+                modalChallenge: 'Engineering Challenge & Requirements:',
+                modalSolution: 'Architectural Implementation:',
+                modalStack: 'Tech Stack & Packages:',
                 btnClose: 'Close'
             }
         }

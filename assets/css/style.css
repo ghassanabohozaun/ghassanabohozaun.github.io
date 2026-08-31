@@ -1,10 +1,14 @@
-/* ========================================================
-   Ghassan Abo Hozaun - Portfolio Stylesheet
-   Full-Stack Laravel Engineer & System Architect
-   ======================================================== */
-
 [x-cloak] {
     display: none !important;
+}
+
+/* Zero-FOUC: Prevent small text flash before Tailwind generates styles */
+body:not(.is-ready) {
+    visibility: hidden !important;
+}
+
+body.is-ready {
+    visibility: visible !important;
 }
 
 /* Anti-flicker on initial page load */
@@ -31,6 +35,19 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Technical Subtle Background Patterns (Developer Grid) */
+.dark body {
+    background-color: #090D16;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+html:not(.dark) body {
+    background-color: #F8FAFC;
+    background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
 /* Ultra-Sleek & Thin Custom Scrollbar Styles */
 ::-webkit-scrollbar {
     width: 5px;
@@ -39,22 +56,21 @@ html {
 
 /* Dark Mode Scrollbar */
 .dark ::-webkit-scrollbar-track {
-    background: rgba(7, 11, 20, 0.6);
+    background: transparent;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: #1E293B;
+    background: #242E42;
     border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #3B4861;
 }
 
 /* Light Mode Scrollbar */
 html:not(.dark) ::-webkit-scrollbar-track {
-    background: rgba(241, 245, 249, 0.8);
+    background: transparent;
 }
 
 html:not(.dark) ::-webkit-scrollbar-thumb {
@@ -72,48 +88,67 @@ html:not(.dark) ::-webkit-scrollbar-thumb:hover {
 }
 
 .dark * {
-    scrollbar-color: #1E293B transparent;
+    scrollbar-color: #242E42 transparent;
 }
 
 html:not(.dark) * {
     scrollbar-color: #CBD5E1 transparent;
 }
 
-/* Glassmorphism Classes */
-.glass-dark {
-    background: rgba(17, 24, 39, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(31, 41, 55, 0.8);
+/* Terminal & Code Block Styling */
+.terminal-window {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-.glass-light {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+.code-keyword {
+    color: #F43F5E;
+}
+
+.code-string {
+    color: #10B981;
+}
+
+.code-var {
+    color: #38BDF8;
+}
+
+.code-comment {
+    color: #64748B;
+}
+
+.code-number {
+    color: #F59E0B;
+}
+
+/* Glassmorphism & Panel Classes */
+.panel-dark {
+    background: rgba(13, 19, 33, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.panel-light {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
-/* Custom Utility Classes */
-.text-gradient-laravel {
-    background: linear-gradient(135deg, #FF2D20 0%, #F97316 50%, #F59E0B 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+/* Card Subtle Elevation */
+.card-hover {
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Card Hover Elevation */
-.hover-elevate {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-}
-
-.hover-elevate:hover {
-    transform: translateY(-5px);
+.card-hover:hover {
+    transform: translateY(-3px);
 }
 
 /* Print CV Styles */
 @media print {
     body {
         background: white !important;
+        background-image: none !important;
         color: black !important;
     }
     header, footer, #theme-btn, #lang-btn, .no-print {
