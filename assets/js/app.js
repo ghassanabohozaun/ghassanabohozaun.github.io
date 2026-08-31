@@ -13,16 +13,117 @@ function portfolioApp() {
         modalOpen: false,
         cvModalOpen: false,
         activeCategory: 'all',
+        activeTechFilter: 'all',
+        searchQuery: '',
+        techFilters: [
+            'all',
+            'Laravel 11',
+            'MySQL',
+            'Queues & Cron Jobs',
+            'Multi-Tenant SaaS',
+            'RBAC',
+            'Livewire',
+            'RESTful APIs',
+            'Vue.js'
+        ],
         selectedProject: null,
+        activeModalTab: 'architecture',
         activeTerminalTab: 'artisan',
         activeExpIndex: 0,
+        activeWorkflowStep: 0,
         emailCopied: false,
+
+        resetProjectFilters() {
+            this.activeCategory = 'all';
+            this.activeTechFilter = 'all';
+            this.searchQuery = '';
+        },
+
+        openProjectModal(project) {
+            this.selectedProject = project;
+            this.activeModalTab = 'architecture';
+            this.modalOpen = true;
+        },
 
         copyEmail() {
             navigator.clipboard.writeText('ghassanabohozaun@gmail.com');
             this.emailCopied = true;
             setTimeout(() => { this.emailCopied = false; }, 2500);
         },
+
+        // 5-Phase Engineering Architecture Workflow
+        workflowSteps: [
+            {
+                step: '01',
+                icon: 'fa-solid fa-sitemap',
+                color: 'red',
+                title: {
+                    ar: 'تحليل المتطلبات ونمذجة البيانات (ERD)',
+                    en: 'Requirements Analysis & ERD Modeling'
+                },
+                desc: {
+                    ar: 'دراسة منطق الأعمال بدقة، تحديد الكيانات والعلاقات، وبناء مخطط قاعدة البيانات (Schema) وتحديد الفهارس والمفاتيح الأساسية لمنع التكرار.',
+                    en: 'Deconstructing business logic, defining entities and relationships, and designing robust normalized schemas with optimized indexes.'
+                },
+                tags: ['ERD Diagrams', 'Data Normalization', 'Index Planning', 'Relationship Mapping']
+            },
+            {
+                step: '02',
+                icon: 'fa-solid fa-layer-group',
+                color: 'amber',
+                title: {
+                    ar: 'تصميم المعمارية البرمجية النظيفة (Clean Architecture)',
+                    en: 'Clean Architecture & SOLID Patterns'
+                },
+                desc: {
+                    ar: 'تطبيق نمط Service Layer و Repository Pattern لفصل منطق الأعمال عن الـ Controllers، مع كتابة كود نظيف وقابل للتوسع والصيانة على المدى الطويل.',
+                    en: 'Implementing Service Layer and Repository patterns to isolate core business rules from controllers, ensuring maintainability and scalability.'
+                },
+                tags: ['Service Layer', 'Repository Pattern', 'Modular MVC', 'SOLID Principles']
+            },
+            {
+                step: '03',
+                icon: 'fa-solid fa-shield-halved',
+                color: 'emerald',
+                title: {
+                    ar: 'بناء واجهات الـ RESTful وتأمين الصلاحيات (RBAC)',
+                    en: 'RESTful APIs & Multi-Tier RBAC'
+                },
+                desc: {
+                    ar: 'تطوير واجهات برمجية آمنة وسريعة باستخدام Laravel Sanctum، والتحكم الدقيق في أدوار المستخدمين وصلاحيات الوصول لكل شاشة وعملية.',
+                    en: 'Building high-performance APIs using Laravel Sanctum with granular role-based access control (RBAC) across all modules.'
+                },
+                tags: ['Laravel Sanctum', 'Role-Based Access', 'API Resources', 'Rate Limiting']
+            },
+            {
+                step: '04',
+                icon: 'fa-solid fa-bolt',
+                color: 'cyan',
+                title: {
+                    ar: 'الأتمتة والمهام اللاتزامنية (Queues & Cron Jobs)',
+                    en: 'Async Queues & Task Automation'
+                },
+                desc: {
+                    ar: 'ترحيل العمليات الثقيلة (مثل إرسال الإشعارات، معالجة التقارير المالية، وتحديث الحالات) إلى طوابير الخلفية لضمان استجابة لحظية للمستخدم.',
+                    en: 'Offloading heavy computations, financial report generation, and notifications to background queues for zero user latency.'
+                },
+                tags: ['Database/Redis Queues', 'Scheduled Jobs', 'Job Batching', 'Alert Automation']
+            },
+            {
+                step: '05',
+                icon: 'fa-solid fa-gauge-high',
+                color: 'indigo',
+                title: {
+                    ar: 'تحسين أداء الاستعلامات والنشر (Tuning & Deploy)',
+                    en: 'Query Tuning & Production Deployment'
+                },
+                desc: {
+                    ar: 'فحص استعلامات SQL ومعالجة مشكلة N+1 عبر Eager Loading، تفعيل التخزين المؤقت (Caching)، ونشر النظام على بيئة الإنتاج بثقة واستقرار.',
+                    en: 'Auditing SQL queries, eliminating N+1 bottlenecks via Eager Loading, enabling caching layers, and deploying to production.'
+                },
+                tags: ['Query Profiling', 'Eager Loading', 'Cache Optimization', 'Production Tuning']
+            }
+        ],
 
         // Typewriter Animation State
         typewriterWords: {
@@ -57,7 +158,22 @@ function portfolioApp() {
                 document.body.classList.remove('preload');
                 this.startTypewriter();
                 this.animateCounters();
+                this.initSpotlight();
             }, 100);
+        },
+
+        // Interactive Spotlight Card Glow (Vercel & Stripe style)
+        initSpotlight() {
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.spotlight-card');
+                for (let i = 0; i < cards.length; i++) {
+                    const rect = cards[i].getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    cards[i].style.setProperty('--mouse-x', `${x}px`);
+                    cards[i].style.setProperty('--mouse-y', `${y}px`);
+                }
+            });
         },
 
         // Typewriter Logic
@@ -232,6 +348,7 @@ function portfolioApp() {
             {
                 id: 9,
                 featured: true,
+                isLive: true,
                 category: 'erp',
                 categoryLabel: { ar: 'نظام SaaS ونقاط بيع POS', en: 'SaaS & POS Platform' },
                 title: {
@@ -252,14 +369,17 @@ function portfolioApp() {
                 },
                 stack: ['Laravel 11', 'PHP 8.2', 'MySQL', 'Multi-Tenant SaaS', 'POS Engine', 'RESTful APIs', 'Livewire'],
                 image: 'assets/images/projects/dokkanah-pos.png',
-                adminLogin: 'https://dokkanah.store/ar/dashboard/login',
-                portalLogin: 'https://dokkanah.store/ar/casher/notebook',
+                portals: [
+                    { label: { ar: 'لوحة الإدارة', en: 'Admin Portal' }, url: 'https://dokkanah.store/ar/dashboard/login', icon: 'fa-solid fa-gauge-high' },
+                    { label: { ar: 'دفتر الكاشير', en: 'Cashier POS' }, url: 'https://dokkanah.store/ar/casher/notebook', icon: 'fa-solid fa-cash-register' }
+                ],
                 mostaql: '',
                 liveUrl: 'https://dokkanah.store/ar/dashboard/login'
             },
             {
                 id: 8,
                 featured: true,
+                isLive: true,
                 category: 'erp',
                 categoryLabel: { ar: 'نظام إدارة عقارات & ERP', en: 'Real Estate & Property ERP' },
                 title: {
@@ -280,14 +400,17 @@ function portfolioApp() {
                 },
                 stack: ['Laravel 11', 'PHP 8.2', 'MySQL', 'Queues & Cron Jobs', 'RBAC', 'RESTful APIs', 'Tailwind CSS'],
                 image: 'assets/images/projects/amlak-realestate.png',
-                adminLogin: 'https://mjkalthani.com/ar/dashboard/login',
-                portalLogin: '',
+                portals: [
+                    { label: { ar: 'الموقع الرئيسي', en: 'Public Site' }, url: 'https://mjkalthani.com/ar', icon: 'fa-solid fa-globe' },
+                    { label: { ar: 'لوحة التحكم', en: 'Admin Dashboard' }, url: 'https://mjkalthani.com/ar/dashboard/login', icon: 'fa-solid fa-building-user' }
+                ],
                 mostaql: '',
                 liveUrl: 'https://mjkalthani.com/ar'
             },
             {
                 id: 1,
                 featured: true,
+                isLive: true,
                 category: 'erp',
                 categoryLabel: { ar: 'نظام ERP سحابي', en: 'Enterprise ERP' },
                 title: {
@@ -308,14 +431,17 @@ function portfolioApp() {
                 },
                 stack: ['Laravel 11', 'PHP 8.2', 'MySQL', 'RESTful APIs', 'RBAC', 'Livewire'],
                 image: 'assets/images/projects/ptc-erp.png',
-                adminLogin: 'https://ptcsystem.org/en/dashboard/login',
-                portalLogin: 'https://ptcsystem.org/en/employees/login',
+                portals: [
+                    { label: { ar: 'لوحة الإدارة', en: 'Admin Portal' }, url: 'https://ptcsystem.org/en/dashboard/login', icon: 'fa-solid fa-lock' },
+                    { label: { ar: 'بوابة الموظفين', en: 'Staff Portal' }, url: 'https://ptcsystem.org/en/employees/login', icon: 'fa-solid fa-users' }
+                ],
                 mostaql: 'https://mostaql.com/portfolio/3362932',
                 liveUrl: 'https://ptcsystem.org/en/dashboard/login'
             },
             {
                 id: 2,
                 featured: true,
+                isLive: true,
                 category: 'ngo',
                 categoryLabel: { ar: 'نظام إدارة وكفالة', en: 'Sponsorship System' },
                 title: {
@@ -336,14 +462,17 @@ function portfolioApp() {
                 },
                 stack: ['Laravel', 'MySQL', 'Queues & Jobs', 'RESTful APIs', 'Sanctum'],
                 image: 'assets/images/projects/orphan-system.png',
-                adminLogin: 'https://noorelmarifaa.org/ar/dashboard/login',
-                portalLogin: 'https://noorelmarifaa.org/ar/child/welcome',
+                portals: [
+                    { label: { ar: 'لوحة الإدارة', en: 'Admin Portal' }, url: 'https://noorelmarifaa.org/ar/dashboard/login', icon: 'fa-solid fa-shield-halved' },
+                    { label: { ar: 'بوابة الكفلاء', en: 'Sponsor Portal' }, url: 'https://noorelmarifaa.org/ar/child/welcome', icon: 'fa-solid fa-hands-holding-child' }
+                ],
                 mostaql: 'https://mostaql.com/portfolio/3362912',
                 liveUrl: 'https://noorelmarifaa.org/ar/dashboard/login'
             },
             {
                 id: 3,
                 featured: false,
+                isLive: true,
                 category: 'lms',
                 categoryLabel: { ar: 'أكاديمية طبية & LMS', en: 'Medical LMS' },
                 title: {
@@ -364,14 +493,17 @@ function portfolioApp() {
                 },
                 stack: ['Laravel', 'MySQL', 'Vue.js', 'Video Streaming', 'Bootstrap 5'],
                 image: 'assets/images/projects/bakka-academy.png',
-                adminLogin: '',
-                portalLogin: 'https://bakkaacademy.com/en/student',
+                portals: [
+                    { label: { ar: 'الموقع العام', en: 'Public Site' }, url: 'https://bakkaacademy.com/en', icon: 'fa-solid fa-globe' },
+                    { label: { ar: 'بوابة الطلاب', en: 'Student Portal' }, url: 'https://bakkaacademy.com/en/student', icon: 'fa-solid fa-user-graduate' }
+                ],
                 mostaql: 'https://mostaql.com/portfolio/3362888',
                 liveUrl: 'https://bakkaacademy.com/en'
             },
             {
                 id: 4,
                 featured: false,
+                isLive: true,
                 category: 'ngo',
                 categoryLabel: { ar: 'بوابة إلكترونية & CMS', en: 'NGO Portal' },
                 title: {
@@ -392,14 +524,16 @@ function portfolioApp() {
                 },
                 stack: ['Laravel', 'MySQL', 'Bootstrap 5', 'Multi-Language', 'Custom CMS'],
                 image: 'assets/images/projects/noor-ngo.png',
-                adminLogin: '',
-                portalLogin: '',
+                portals: [
+                    { label: { ar: 'الموقع الرسمي', en: 'Official Portal' }, url: 'https://noorelmarifaa.org/en', icon: 'fa-solid fa-globe' }
+                ],
                 mostaql: 'https://mostaql.com/portfolio/841463',
                 liveUrl: 'https://noorelmarifaa.org/en'
             },
             {
                 id: 5,
                 featured: false,
+                isLive: false,
                 category: 'frontend',
                 categoryLabel: { ar: 'تطبيق سياحة وحجوزات', en: 'Travel & Booking UI' },
                 title: {
@@ -420,14 +554,14 @@ function portfolioApp() {
                 },
                 stack: ['Tailwind CSS', 'JavaScript', 'HTML5/CSS3', 'Adobe XD to Web'],
                 image: 'assets/images/projects/neqat-travel.png',
-                adminLogin: '',
-                portalLogin: '',
+                portals: [],
                 mostaql: 'https://mostaql.com/portfolio/3418352',
                 liveUrl: ''
             },
             {
                 id: 6,
                 featured: false,
+                isLive: false,
                 category: 'erp',
                 categoryLabel: { ar: 'منصة استشارات وحجوزات', en: 'Consulting Platform' },
                 title: {
@@ -448,14 +582,14 @@ function portfolioApp() {
                 },
                 stack: ['Laravel', 'PHP', 'MySQL', 'Booking Engine', 'Bootstrap'],
                 image: 'assets/images/projects/hodoa-consulting.png',
-                adminLogin: '',
-                portalLogin: '',
+                portals: [],
                 mostaql: 'https://mostaql.com/portfolio/841461',
                 liveUrl: ''
             },
             {
                 id: 7,
                 featured: false,
+                isLive: false,
                 category: 'lms',
                 categoryLabel: { ar: 'منصة استشارات طبية', en: 'Medical Platform UK' },
                 title: {
@@ -476,18 +610,36 @@ function portfolioApp() {
                 },
                 stack: ['Laravel', 'PHP', 'MySQL', 'Responsive Design'],
                 image: 'assets/images/projects/psychology-center.png',
-                adminLogin: '',
-                portalLogin: '',
+                portals: [],
                 mostaql: 'https://mostaql.com/portfolio/841458',
                 liveUrl: ''
             }
         ],
 
         get filteredProjects() {
-            if (this.activeCategory === 'all') {
-                return this.projects;
-            }
-            return this.projects.filter(p => p.category === this.activeCategory);
+            return this.projects.filter(p => {
+                const matchCategory = this.activeCategory === 'all' || p.category === this.activeCategory;
+                const matchTech = this.activeTechFilter === 'all' || p.stack.some(t => t.toLowerCase().includes(this.activeTechFilter.toLowerCase()));
+                
+                let matchSearch = true;
+                if (this.searchQuery && this.searchQuery.trim() !== '') {
+                    const q = this.searchQuery.toLowerCase().trim();
+                    const titleAr = (p.title.ar || '').toLowerCase();
+                    const titleEn = (p.title.en || '').toLowerCase();
+                    const descAr = (p.description.ar || '').toLowerCase();
+                    const descEn = (p.description.en || '').toLowerCase();
+                    const catAr = (p.categoryLabel.ar || '').toLowerCase();
+                    const catEn = (p.categoryLabel.en || '').toLowerCase();
+                    const inStack = p.stack.some(t => t.toLowerCase().includes(q));
+                    
+                    matchSearch = titleAr.includes(q) || titleEn.includes(q) ||
+                                  descAr.includes(q) || descEn.includes(q) ||
+                                  catAr.includes(q) || catEn.includes(q) ||
+                                  inStack;
+                }
+
+                return matchCategory && matchTech && matchSearch;
+            });
         },
 
         // Bilingual Translations Dictionary
@@ -498,6 +650,7 @@ function portfolioApp() {
                 navAbout: 'عني',
                 navExperience: 'الخبرات',
                 navSkills: 'المهارات',
+                navWorkflow: 'منهجية العمل',
                 navProjects: 'المشاريع',
                 navEducation: 'المؤهلات',
                 navContact: 'تواصل معي',
@@ -523,9 +676,31 @@ function portfolioApp() {
                 skillCatDatabase: 'قواعد البيانات وتحسين الأداء',
                 skillCatFrontend: 'الواجهات الأمامية والتفاعل',
                 skillCatTools: 'أدوات التطوير وبيئة العمل',
+                workflowBadge: 'الهندسة المعمارية',
+                workflowTitle: 'منهجية بناء وتطوير الأنظمة',
+                workflowSubtitle: 'خارطة طريق هندسية واضحة من تحليل المتطلبات وحتى استقرار بيئة الإنتاج',
+                workflowDeliverables: 'المخرجات والمعايير الهندسية:',
+                achievementsBadge: 'مؤشرات الأداء والجودة',
+                achievementsTitle: 'إنجازات وأرقام هندسية محققة',
+                achievementsSubtitle: 'تحديات تقنية تم حلها في بيئات عمل وإنتاجية حقيقية',
+                metric1Title: 'تسريع الاستعلامات',
+                metric1Desc: 'تخفيض زمن الاستجابة عبر الفهرسة المركبة وتطبيق Eager Loading لمنع معضلة N+1.',
+                metric2Title: 'سلامة الحركات المالية',
+                metric2Desc: 'حماية كاملة لقيود الشيكات والديون بحركات الـ Database Transactions لضمان عدم فقدان أي بيان.',
+                metric3Title: 'مهمة مؤتمتة شهرياً',
+                metric3Desc: 'معالجة الإشعارات والتقارير الدورية بالخلفية عبر Laravel Queues & Scheduled Jobs.',
+                metric4Title: 'عزل بيانات الفروع',
+                metric4Desc: 'عزل كامل وآمن لبيانات الشركات والمتاجر المشتركة مع نظام صلاحيات متعدد المستويات (RBAC).',
                 projectsBadge: 'سابقة الأعمال والأنظمة',
                 projectsTitle: 'الأنظمة والمشاريع المنفذة',
                 projectsSubtitle: 'أنظمة إنتاجية حية ولوحات تحكم تم تطويرها لشركات ومؤسسات حقيقية',
+                filterByTech: 'تصفية سريعة بالتقنيات:',
+                filterAllTech: 'الكل',
+                liveBadge: 'نظام إنتاجي حي',
+                portalsTitle: 'بوابات الدخول السريعة:',
+                searchPlaceholder: 'ابحث في المشاريع بالاسم، التقنية، أو الكلمة المفتاحية (مثال: كاشير، عقارات، ERP)...',
+                noProjectsFound: 'لم يتم العثور على أي مشاريع مطابقة لمعايير البحث الحالية.',
+                resetFilters: 'إعادة تعيين الفلاتر والبحث',
                 btnDetails: 'التفاصيل التقنية',
                 btnLive: 'المعاينة الحية',
                 eduBadge: 'المؤهلات والشهادات',
@@ -541,9 +716,22 @@ function portfolioApp() {
                 contactSubtitle: 'يسعدني مناقشة متطلبات مشروعك، تصميم البنية التحتية البرمجية، وتطوير النظام من الصفر حتى مرحلة الإطلاق والاستقرار.',
                 contactViaWhatsApp: 'تواصل فوري عبر الواتساب',
                 contactViaEmail: 'البريد الإلكتروني المباشر',
+                contactWhatsAppOnline: 'متاح للمحادثة الفورية',
+                contactEmailDirect: 'راسلني مباشرة عبر البريد',
+                copyEmailAction: 'نسخ البريد',
+                copiedEmailAction: 'تم النسخ بنجاح ✓',
+                profileLinkedInDesc: 'الملف المهني والتوصيات',
+                profileGitHubDesc: 'المستودعات البرمجية',
+                profileMostaqlDesc: 'سابقة الأعمال والتقييمات',
                 modalChallenge: 'المتطلبات والتحدي التقني:',
                 modalSolution: 'الحل المعماري والتنفيذ:',
                 modalStack: 'التقنيات والمكتبات المستخدمة:',
+                modalTabArchitecture: 'المعمارية والتحدي الهندسي',
+                modalTabPortals: 'بوابات الدخول والصلاحيات',
+                modalTabStack: 'البيئة البرمجية والمكتبات',
+                modalArchitectureBlueprint: 'المخطط المعماري للنظام',
+                modalSpecsTitle: 'المعايير الهندسية المنفذة:',
+                openPortalDirect: 'فتح البوابة مباشرة',
                 btnClose: 'إغلاق',
                 footerDesc: 'تطوير حلول برمجية متكاملة وأنظمة ERP مخصصة بمعايير معمارية متقدمة وأداء عالي.',
                 footerRights: 'جميع الحقوق محفوظة.',
@@ -555,6 +743,7 @@ function portfolioApp() {
                 navAbout: 'About',
                 navExperience: 'Experience',
                 navSkills: 'Skills',
+                navWorkflow: 'Workflow',
                 navProjects: 'Projects',
                 navEducation: 'Credentials',
                 navContact: 'Contact',
@@ -580,9 +769,31 @@ function portfolioApp() {
                 skillCatDatabase: 'Databases & Performance Tuning',
                 skillCatFrontend: 'Frontend & Reactive UI',
                 skillCatTools: 'DevOps & Development Tools',
+                workflowBadge: 'Engineering Architecture',
+                workflowTitle: 'System Engineering & Development Lifecycle',
+                workflowSubtitle: 'A structured 5-phase engineering workflow from requirement modeling to production stability',
+                workflowDeliverables: 'Key Deliverables & Patterns:',
+                achievementsBadge: 'Key Engineering Metrics',
+                achievementsTitle: 'Proven Engineering Metrics & Impact',
+                achievementsSubtitle: 'Real-world technical bottlenecks resolved with measurable impact',
+                metric1Title: 'Query Latency Tuning',
+                metric1Desc: 'Reduced query execution latency via composite indexing and Eager Loading to eliminate N+1 issues.',
+                metric2Title: 'Financial Data Integrity',
+                metric2Desc: 'Guaranteed ACID compliance for cheque lifecycles and debt ledgers via strict database transactions.',
+                metric3Title: 'Automated Monthly Tasks',
+                metric3Desc: 'Seamless background processing for periodic reports and notifications via Laravel Queues.',
+                metric4Title: 'Multi-Tenant Isolation',
+                metric4Desc: 'Robust tenant data scoping and enterprise-grade multi-tier RBAC authorization.',
                 projectsBadge: 'Proven Production Track Record',
                 projectsTitle: 'Featured Projects & Case Studies',
                 projectsSubtitle: 'Live production ERP systems and enterprise platforms engineered for businesses',
+                filterByTech: 'Filter by Technology:',
+                filterAllTech: 'All',
+                liveBadge: 'Live In Production',
+                portalsTitle: 'Quick Portals Access:',
+                searchPlaceholder: 'Search projects by title, tech stack, or keyword (e.g. POS, ERP, Real Estate)...',
+                noProjectsFound: 'No projects matched your search criteria.',
+                resetFilters: 'Reset Filters & Search',
                 btnDetails: 'Technical Details',
                 btnLive: 'Live Preview',
                 eduBadge: 'Education & Affiliations',
@@ -598,9 +809,22 @@ function portfolioApp() {
                 contactSubtitle: 'I am available for technical architecture, database engineering, and full-cycle backend development from design to deployment.',
                 contactViaWhatsApp: 'Instant WhatsApp Chat',
                 contactViaEmail: 'Direct Work Email',
+                contactWhatsAppOnline: 'Available for instant discussion',
+                contactEmailDirect: 'Direct backend engineering inquiries',
+                copyEmailAction: 'Copy Email',
+                copiedEmailAction: 'Copied to clipboard ✓',
+                profileLinkedInDesc: 'Verified Career Profile & Recommendations',
+                profileGitHubDesc: 'Source Code & Technical Repositories',
+                profileMostaqlDesc: 'Verified Case Studies & Client Reviews',
                 modalChallenge: 'Engineering Challenge & Requirements:',
                 modalSolution: 'Architectural Implementation:',
                 modalStack: 'Tech Stack & Packages:',
+                modalTabArchitecture: 'Architecture & Challenge',
+                modalTabPortals: 'Access Portals & RBAC',
+                modalTabStack: 'Tech Stack & Packages',
+                modalArchitectureBlueprint: 'System Architecture Blueprint',
+                modalSpecsTitle: 'Implemented Architectural Standards:',
+                openPortalDirect: 'Launch Portal Directly',
                 btnClose: 'Close',
                 footerDesc: 'Engineering scalable enterprise ERP solutions and clean architecture backend systems.',
                 footerRights: 'All rights reserved.',
